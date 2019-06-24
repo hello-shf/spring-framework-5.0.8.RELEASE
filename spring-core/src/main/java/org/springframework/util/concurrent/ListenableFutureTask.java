@@ -37,6 +37,7 @@ public class ListenableFutureTask<T> extends FutureTask<T> implements Listenable
 	/**
 	 * Create a new {@code ListenableFutureTask} that will, upon running,
 	 * execute the given {@link Callable}.
+	 *
 	 * @param callable the callable task
 	 */
 	public ListenableFutureTask(Callable<T> callable) {
@@ -47,8 +48,9 @@ public class ListenableFutureTask<T> extends FutureTask<T> implements Listenable
 	 * Create a {@code ListenableFutureTask} that will, upon running,
 	 * execute the given {@link Runnable}, and arrange that {@link #get()}
 	 * will return the given result on successful completion.
+	 *
 	 * @param runnable the runnable task
-	 * @param result the result to return on successful completion
+	 * @param result   the result to return on successful completion
 	 */
 	public ListenableFutureTask(Runnable runnable, @Nullable T result) {
 		super(runnable, result);
@@ -82,18 +84,15 @@ public class ListenableFutureTask<T> extends FutureTask<T> implements Listenable
 			T result = get();
 			this.callbacks.success(result);
 			return;
-		}
-		catch (InterruptedException ex) {
+		} catch (InterruptedException ex) {
 			Thread.currentThread().interrupt();
 			return;
-		}
-		catch (ExecutionException ex) {
+		} catch (ExecutionException ex) {
 			cause = ex.getCause();
 			if (cause == null) {
 				cause = ex;
 			}
-		}
-		catch (Throwable ex) {
+		} catch (Throwable ex) {
 			cause = ex;
 		}
 		this.callbacks.failure(cause);

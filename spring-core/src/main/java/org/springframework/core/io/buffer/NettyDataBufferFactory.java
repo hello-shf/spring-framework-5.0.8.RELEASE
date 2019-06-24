@@ -31,9 +31,9 @@ import org.springframework.util.Assert;
  * Netty {@link ByteBufAllocator}.
  *
  * @author Arjen Poutsma
- * @since 5.0
  * @see io.netty.buffer.PooledByteBufAllocator
  * @see io.netty.buffer.UnpooledByteBufAllocator
+ * @since 5.0
  */
 public class NettyDataBufferFactory implements DataBufferFactory {
 
@@ -42,6 +42,7 @@ public class NettyDataBufferFactory implements DataBufferFactory {
 
 	/**
 	 * Creates a new {@code NettyDataBufferFactory} based on the given factory.
+	 *
 	 * @param byteBufAllocator the factory to use
 	 * @see io.netty.buffer.PooledByteBufAllocator
 	 * @see io.netty.buffer.UnpooledByteBufAllocator
@@ -100,6 +101,7 @@ public class NettyDataBufferFactory implements DataBufferFactory {
 
 	/**
 	 * Wrap the given Netty {@link ByteBuf} in a {@code NettyDataBuffer}.
+	 *
 	 * @param byteBuf the Netty byte buffer to wrap
 	 * @return the wrapped buffer
 	 */
@@ -112,14 +114,14 @@ public class NettyDataBufferFactory implements DataBufferFactory {
 	 * {@linkplain NettyDataBuffer#getNativeBuffer() native buffer} if {@code buffer} is
 	 * a {@link NettyDataBuffer}; returns {@link Unpooled#wrappedBuffer(ByteBuffer)}
 	 * otherwise.
+	 *
 	 * @param buffer the {@code DataBuffer} to return a {@code ByteBuf} for.
 	 * @return the netty {@code ByteBuf}
 	 */
 	public static ByteBuf toByteBuf(DataBuffer buffer) {
 		if (buffer instanceof NettyDataBuffer) {
 			return ((NettyDataBuffer) buffer).getNativeBuffer();
-		}
-		else {
+		} else {
 			return Unpooled.wrappedBuffer(buffer.asByteBuffer());
 		}
 	}

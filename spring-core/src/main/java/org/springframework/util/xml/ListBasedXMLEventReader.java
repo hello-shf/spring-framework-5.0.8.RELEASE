@@ -53,8 +53,7 @@ class ListBasedXMLEventReader extends AbstractXMLEventReader {
 	public XMLEvent nextEvent() {
 		if (this.cursor < this.events.size()) {
 			return this.events.get(this.cursor++);
-		}
-		else {
+		} else {
 			throw new NoSuchElementException();
 		}
 	}
@@ -64,8 +63,7 @@ class ListBasedXMLEventReader extends AbstractXMLEventReader {
 	public XMLEvent peek() {
 		if (this.cursor < this.events.size()) {
 			return this.events.get(this.cursor);
-		}
-		else {
+		} else {
 			return null;
 		}
 	}

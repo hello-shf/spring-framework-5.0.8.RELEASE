@@ -50,8 +50,8 @@ import org.springframework.util.MimeTypeUtils;
  * @author Brian Clozel
  * @author Arjen Poutsma
  * @author Mark Paluch
- * @since 5.0
  * @see CharSequenceEncoder
+ * @since 5.0
  */
 public class StringDecoder extends AbstractDataBufferDecoder<String> {
 
@@ -88,7 +88,7 @@ public class StringDecoder extends AbstractDataBufferDecoder<String> {
 
 	@Override
 	public Flux<String> decode(Publisher<DataBuffer> inputStream, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+							   @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		List<byte[]> delimiterBytes = getDelimiterBytes(mimeType);
 
@@ -127,16 +127,14 @@ public class StringDecoder extends AbstractDataBufferDecoder<String> {
 			if (matchingDelimiter != null) {
 				if (this.stripDelimiter) {
 					frame = dataBuffer.slice(readPosition, length);
-				}
-				else {
+				} else {
 					frame = dataBuffer.slice(readPosition, length + matchingDelimiter.length);
 				}
 				dataBuffer.readPosition(readPosition + length + matchingDelimiter.length);
 
 				frames.add(DataBufferUtils.retain(frame));
 				frames.add(END_FRAME);
-			}
-			else {
+			} else {
 				frame = dataBuffer.slice(readPosition, dataBuffer.readableByteCount());
 				dataBuffer.readPosition(readPosition + dataBuffer.readableByteCount());
 				frames.add(DataBufferUtils.retain(frame));
@@ -159,8 +157,7 @@ public class StringDecoder extends AbstractDataBufferDecoder<String> {
 			while (delimiterPos < delimiter.length) {
 				if (dataBuffer.getByte(dataBufferPos) != delimiter[delimiterPos]) {
 					break;
-				}
-				else {
+				} else {
 					dataBufferPos++;
 					if (dataBufferPos == dataBuffer.writePosition() &&
 							delimiterPos != delimiter.length - 1) {
@@ -200,7 +197,7 @@ public class StringDecoder extends AbstractDataBufferDecoder<String> {
 
 	@Override
 	protected String decodeDataBuffer(DataBuffer dataBuffer, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+									  @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		Charset charset = getCharset(mimeType);
 		CharBuffer charBuffer = charset.decode(dataBuffer.asByteBuffer());
@@ -211,8 +208,7 @@ public class StringDecoder extends AbstractDataBufferDecoder<String> {
 	private static Charset getCharset(@Nullable MimeType mimeType) {
 		if (mimeType != null && mimeType.getCharset() != null) {
 			return mimeType.getCharset();
-		}
-		else {
+		} else {
 			return DEFAULT_CHARSET;
 		}
 	}
@@ -220,6 +216,7 @@ public class StringDecoder extends AbstractDataBufferDecoder<String> {
 
 	/**
 	 * Create a {@code StringDecoder} for {@code "text/plain"}.
+	 *
 	 * @param ignored ignored
 	 * @deprecated as of Spring 5.0.4, in favor of {@link #textPlainOnly()} or
 	 * {@link #textPlainOnly(List, boolean)}.
@@ -246,6 +243,7 @@ public class StringDecoder extends AbstractDataBufferDecoder<String> {
 
 	/**
 	 * Create a {@code StringDecoder} that supports all MIME types.
+	 *
 	 * @param ignored ignored
 	 * @deprecated as of Spring 5.0.4, in favor of {@link #allMimeTypes()} or
 	 * {@link #allMimeTypes(List, boolean)}.

@@ -52,8 +52,7 @@ class RecursiveAnnotationArrayVisitor extends AbstractRecursiveAnnotationVisitor
 		Object existingValue = this.attributes.get(this.attributeName);
 		if (existingValue != null) {
 			newValue = ObjectUtils.addObjectToArray((Object[]) existingValue, newValue);
-		}
-		else {
+		} else {
 			Class<?> arrayClass = newValue.getClass();
 			if (Enum.class.isAssignableFrom(arrayClass)) {
 				while (arrayClass.getSuperclass() != null && !arrayClass.isEnum()) {

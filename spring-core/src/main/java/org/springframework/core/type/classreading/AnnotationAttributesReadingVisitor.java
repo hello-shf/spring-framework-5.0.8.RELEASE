@@ -51,8 +51,8 @@ final class AnnotationAttributesReadingVisitor extends RecursiveAnnotationAttrib
 
 
 	public AnnotationAttributesReadingVisitor(String annotationType,
-			MultiValueMap<String, AnnotationAttributes> attributesMap, Map<String, Set<String>> metaAnnotationMap,
-			@Nullable ClassLoader classLoader) {
+											  MultiValueMap<String, AnnotationAttributes> attributesMap, Map<String, Set<String>> metaAnnotationMap,
+											  @Nullable ClassLoader classLoader) {
 
 		super(annotationType, new AnnotationAttributes(annotationType, classLoader), classLoader);
 		this.attributesMap = attributesMap;
@@ -69,8 +69,7 @@ final class AnnotationAttributesReadingVisitor extends RecursiveAnnotationAttrib
 			List<AnnotationAttributes> attributeList = this.attributesMap.get(this.annotationType);
 			if (attributeList == null) {
 				this.attributesMap.add(this.annotationType, this.attributes);
-			}
-			else {
+			} else {
 				attributeList.add(0, this.attributes);
 			}
 			Set<Annotation> visited = new LinkedHashSet<>();
@@ -105,8 +104,7 @@ final class AnnotationAttributesReadingVisitor extends RecursiveAnnotationAttrib
 				for (Annotation metaMetaAnnotation : annotationType.getAnnotations()) {
 					recursivelyCollectMetaAnnotations(visited, metaMetaAnnotation);
 				}
-			}
-			catch (Throwable ex) {
+			} catch (Throwable ex) {
 				if (logger.isDebugEnabled()) {
 					logger.debug("Failed to introspect meta-annotations on [" + annotation + "]: " + ex);
 				}

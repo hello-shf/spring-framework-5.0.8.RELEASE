@@ -49,6 +49,7 @@ public class ListenableFutureCallbackRegistry<T> {
 
 	/**
 	 * Add the given callback to this registry.
+	 *
 	 * @param callback the callback to add
 	 */
 	public void addCallback(ListenableFutureCallback<? super T> callback) {
@@ -73,8 +74,7 @@ public class ListenableFutureCallbackRegistry<T> {
 	private void notifySuccess(SuccessCallback<? super T> callback) {
 		try {
 			callback.onSuccess((T) this.result);
-		}
-		catch (Throwable ex) {
+		} catch (Throwable ex) {
 			// Ignore
 		}
 	}
@@ -83,14 +83,14 @@ public class ListenableFutureCallbackRegistry<T> {
 		Assert.state(this.result instanceof Throwable, "No Throwable result for failure state");
 		try {
 			callback.onFailure((Throwable) this.result);
-		}
-		catch (Throwable ex) {
+		} catch (Throwable ex) {
 			// Ignore
 		}
 	}
 
 	/**
 	 * Add the given success callback to this registry.
+	 *
 	 * @param callback the success callback to add
 	 * @since 4.1
 	 */
@@ -110,6 +110,7 @@ public class ListenableFutureCallbackRegistry<T> {
 
 	/**
 	 * Add the given failure callback to this registry.
+	 *
 	 * @param callback the failure callback to add
 	 * @since 4.1
 	 */
@@ -130,6 +131,7 @@ public class ListenableFutureCallbackRegistry<T> {
 	/**
 	 * Trigger a {@link ListenableFutureCallback#onSuccess(Object)} call on all
 	 * added callbacks with the given result.
+	 *
 	 * @param result the result to trigger the callbacks with
 	 */
 	public void success(@Nullable T result) {
@@ -146,6 +148,7 @@ public class ListenableFutureCallbackRegistry<T> {
 	/**
 	 * Trigger a {@link ListenableFutureCallback#onFailure(Throwable)} call on all
 	 * added callbacks with the given {@code Throwable}.
+	 *
 	 * @param ex the exception to trigger the callbacks with
 	 */
 	public void failure(Throwable ex) {

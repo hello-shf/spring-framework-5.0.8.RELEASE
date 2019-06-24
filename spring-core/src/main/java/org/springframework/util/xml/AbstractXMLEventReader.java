@@ -41,8 +41,7 @@ abstract class AbstractXMLEventReader implements XMLEventReader {
 	public Object next() {
 		try {
 			return nextEvent();
-		}
-		catch (XMLStreamException ex) {
+		} catch (XMLStreamException ex) {
 			throw new NoSuchElementException();
 		}
 	}
@@ -65,8 +64,7 @@ abstract class AbstractXMLEventReader implements XMLEventReader {
 			XMLEvent event = nextEvent();
 			if (event.isEndElement()) {
 				break;
-			}
-			else if (!event.isCharacters()) {
+			} else if (!event.isCharacters()) {
 				throw new XMLStreamException(
 						"Unexpected event [" + event + "] in getElementText()");
 			}
@@ -110,6 +108,7 @@ abstract class AbstractXMLEventReader implements XMLEventReader {
 
 	/**
 	 * Throws an {@code IllegalArgumentException} when called.
+	 *
 	 * @throws IllegalArgumentException when called.
 	 */
 	@Override
@@ -124,6 +123,7 @@ abstract class AbstractXMLEventReader implements XMLEventReader {
 
 	/**
 	 * Returns {@code true} if closed; {@code false} otherwise.
+	 *
 	 * @see #close()
 	 */
 	protected boolean isClosed() {
@@ -132,6 +132,7 @@ abstract class AbstractXMLEventReader implements XMLEventReader {
 
 	/**
 	 * Checks if the reader is closed, and throws a {@code XMLStreamException} if so.
+	 *
 	 * @throws XMLStreamException if the reader is closed
 	 * @see #close()
 	 * @see #isClosed()

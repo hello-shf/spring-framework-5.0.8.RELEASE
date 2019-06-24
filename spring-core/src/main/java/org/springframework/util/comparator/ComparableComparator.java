@@ -24,13 +24,14 @@ import java.util.Comparator;
  * to work on Comparables.
  *
  * @author Keith Donald
- * @since 1.2.2
  * @see Comparable
+ * @since 1.2.2
  */
 public class ComparableComparator<T extends Comparable<T>> implements Comparator<T> {
 
 	/**
 	 * A shared instance of this default comparator
+	 *
 	 * @see Comparators#comparable()
 	 */
 	@SuppressWarnings("rawtypes")

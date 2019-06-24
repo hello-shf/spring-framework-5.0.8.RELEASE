@@ -54,14 +54,14 @@ public abstract class AbstractDataBufferDecoder<T> extends AbstractDecoder<T> {
 
 	@Override
 	public Flux<T> decode(Publisher<DataBuffer> inputStream, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+						  @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		return Flux.from(inputStream).map(buffer -> decodeDataBuffer(buffer, elementType, mimeType, hints));
 	}
 
 	@Override
 	public Mono<T> decodeToMono(Publisher<DataBuffer> inputStream, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+								@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		return DataBufferUtils.join(inputStream)
 				.map(buffer -> decodeDataBuffer(buffer, elementType, mimeType, hints));
@@ -71,6 +71,6 @@ public abstract class AbstractDataBufferDecoder<T> extends AbstractDecoder<T> {
 	 * How to decode a {@code DataBuffer} to the target element type.
 	 */
 	protected abstract T decodeDataBuffer(DataBuffer buffer, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints);
+										  @Nullable MimeType mimeType, @Nullable Map<String, Object> hints);
 
 }

@@ -27,6 +27,7 @@ public interface PooledDataBuffer extends DataBuffer {
 
 	/**
 	 * Increase the reference count for this buffer by one.
+	 *
 	 * @return this buffer
 	 */
 	PooledDataBuffer retain();
@@ -34,6 +35,7 @@ public interface PooledDataBuffer extends DataBuffer {
 	/**
 	 * Decrease the reference count for this buffer by one, and release it
 	 * once the count reaches zero.
+	 *
 	 * @return {@code true} if the buffer was released; {@code false} otherwise.
 	 */
 	boolean release();

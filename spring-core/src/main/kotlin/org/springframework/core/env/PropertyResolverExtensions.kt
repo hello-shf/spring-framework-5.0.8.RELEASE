@@ -26,4 +26,4 @@ package org.springframework.core.env
  * @author Sebastien Deleuze
  * @since 5.0
  */
-operator fun PropertyResolver.get(key: String) : String = getRequiredProperty(key)
+operator fun PropertyResolver.get(key: String): String = getRequiredProperty(key)

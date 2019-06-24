@@ -38,8 +38,7 @@ public abstract class KotlinDetector {
 		Class<?> metadata;
 		try {
 			metadata = ClassUtils.forName("kotlin.Metadata", KotlinDetector.class.getClassLoader());
-		}
-		catch (ClassNotFoundException ex) {
+		} catch (ClassNotFoundException ex) {
 			// Kotlin API not available - no Kotlin support
 			metadata = null;
 		}

@@ -50,7 +50,7 @@ public class ByteBufferDecoder extends AbstractDataBufferDecoder<ByteBuffer> {
 
 	@Override
 	protected ByteBuffer decodeDataBuffer(DataBuffer dataBuffer, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+										  @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		ByteBuffer copy = ByteBuffer.allocate(dataBuffer.readableByteCount());
 		copy.put(dataBuffer.asByteBuffer());

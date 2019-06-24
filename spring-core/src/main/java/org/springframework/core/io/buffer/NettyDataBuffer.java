@@ -44,6 +44,7 @@ public class NettyDataBuffer implements PooledDataBuffer {
 
 	/**
 	 * Creates a new {@code NettyDataBuffer} based on the given {@code ByteBuff}.
+	 *
 	 * @param byteBuf the buffer to base this buffer on
 	 */
 	NettyDataBuffer(ByteBuf byteBuf, NettyDataBufferFactory dataBufferFactory) {
@@ -56,6 +57,7 @@ public class NettyDataBuffer implements PooledDataBuffer {
 
 	/**
 	 * Directly exposes the native {@code ByteBuf} that this buffer is based on.
+	 *
 	 * @return the wrapped byte buffer
 	 */
 	public ByteBuf getNativeBuffer() {
@@ -72,8 +74,7 @@ public class NettyDataBuffer implements PooledDataBuffer {
 		Assert.notNull(predicate, "'predicate' must not be null");
 		if (fromIndex < 0) {
 			fromIndex = 0;
-		}
-		else if (fromIndex >= this.byteBuf.writerIndex()) {
+		} else if (fromIndex >= this.byteBuf.writerIndex()) {
 			return -1;
 		}
 		int length = this.byteBuf.writerIndex() - fromIndex;
@@ -183,8 +184,7 @@ public class NettyDataBuffer implements PooledDataBuffer {
 						.map(b -> ((NettyDataBuffer) b).getNativeBuffer())
 						.toArray(ByteBuf[]::new);
 				write(nativeBuffers);
-			}
-			else {
+			} else {
 				ByteBuffer[] byteBuffers =
 						Arrays.stream(buffers).map(DataBuffer::asByteBuffer)
 								.toArray(ByteBuffer[]::new);
@@ -216,6 +216,7 @@ public class NettyDataBuffer implements PooledDataBuffer {
 	/**
 	 * Writes one or more Netty {@link ByteBuf}s to this buffer, starting at the current
 	 * writing position.
+	 *
 	 * @param byteBufs the buffers to write into this buffer
 	 * @return this buffer
 	 */
@@ -272,7 +273,7 @@ public class NettyDataBuffer implements PooledDataBuffer {
 
 	@Override
 	public boolean equals(Object other) {
-		return  (this == other || (other instanceof NettyDataBuffer &&
+		return (this == other || (other instanceof NettyDataBuffer &&
 				this.byteBuf.equals(((NettyDataBuffer) other).byteBuf)));
 	}
 

@@ -34,9 +34,9 @@ package org.springframework.core;
  * beans which do not require eager initialization for type matching.
  *
  * @author Juergen Hoeller
- * @since 2.5
  * @see org.springframework.beans.factory.config.PropertyOverrideConfigurer
  * @see org.springframework.beans.factory.config.PropertyPlaceholderConfigurer
+ * @since 2.5
  */
 public interface PriorityOrdered extends Ordered {
 

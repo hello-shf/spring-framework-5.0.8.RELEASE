@@ -72,8 +72,8 @@ public class ResourceRegionEncoder extends AbstractEncoder<ResourceRegion> {
 
 	@Override
 	public Flux<DataBuffer> encode(Publisher<? extends ResourceRegion> inputStream,
-			DataBufferFactory bufferFactory, ResolvableType elementType, @Nullable MimeType mimeType,
-			@Nullable Map<String, Object> hints) {
+								   DataBufferFactory bufferFactory, ResolvableType elementType, @Nullable MimeType mimeType,
+								   @Nullable Map<String, Object> hints) {
 
 		Assert.notNull(inputStream, "'inputStream' must not be null");
 		Assert.notNull(bufferFactory, "'bufferFactory' must not be null");
@@ -82,8 +82,7 @@ public class ResourceRegionEncoder extends AbstractEncoder<ResourceRegion> {
 		if (inputStream instanceof Mono) {
 			return ((Mono<? extends ResourceRegion>) inputStream)
 					.flatMapMany(region -> writeResourceRegion(region, bufferFactory));
-		}
-		else {
+		} else {
 			Assert.notNull(hints, "'hints' must not be null");
 			Assert.isTrue(hints.containsKey(BOUNDARY_STRING_HINT), "'hints' must contain boundaryString hint");
 			final String boundaryString = (String) hints.get(BOUNDARY_STRING_HINT);
@@ -103,7 +102,7 @@ public class ResourceRegionEncoder extends AbstractEncoder<ResourceRegion> {
 	}
 
 	private Flux<DataBuffer> getRegionPrefix(DataBufferFactory bufferFactory, byte[] startBoundary,
-			byte[] contentType, ResourceRegion region) {
+											 byte[] contentType, ResourceRegion region) {
 
 		return Flux.just(
 				bufferFactory.allocateBuffer(startBoundary.length).write(startBoundary),
@@ -134,14 +133,14 @@ public class ResourceRegionEncoder extends AbstractEncoder<ResourceRegion> {
 		OptionalLong contentLength = contentLength(region.getResource());
 		if (contentLength.isPresent()) {
 			return getAsciiBytes("Content-Range: bytes " + start + '-' + end + '/' + contentLength.getAsLong() + "\r\n\r\n");
-		}
-		else {
+		} else {
 			return getAsciiBytes("Content-Range: bytes " + start + '-' + end + "\r\n\r\n");
 		}
 	}
 
 	/**
 	 * Determine, if possible, the contentLength of the given resource without reading it.
+	 *
 	 * @param resource the resource instance
 	 * @return the contentLength of the resource
 	 */
@@ -151,8 +150,7 @@ public class ResourceRegionEncoder extends AbstractEncoder<ResourceRegion> {
 		if (InputStreamResource.class != resource.getClass()) {
 			try {
 				return OptionalLong.of(resource.contentLength());
-			}
-			catch (IOException ignored) {
+			} catch (IOException ignored) {
 			}
 		}
 		return OptionalLong.empty();
