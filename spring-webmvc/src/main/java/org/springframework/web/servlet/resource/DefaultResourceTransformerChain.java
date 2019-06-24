@@ -42,7 +42,7 @@ class DefaultResourceTransformerChain implements ResourceTransformerChain {
 
 
 	public DefaultResourceTransformerChain(ResourceResolverChain resolverChain,
-			@Nullable List<ResourceTransformer> transformers) {
+										   @Nullable List<ResourceTransformer> transformers) {
 
 		Assert.notNull(resolverChain, "ResourceResolverChain is required");
 		this.resolverChain = resolverChain;
@@ -66,8 +66,7 @@ class DefaultResourceTransformerChain implements ResourceTransformerChain {
 
 		try {
 			return transformer.transform(request, resource, this);
-		}
-		finally {
+		} finally {
 			this.index--;
 		}
 	}

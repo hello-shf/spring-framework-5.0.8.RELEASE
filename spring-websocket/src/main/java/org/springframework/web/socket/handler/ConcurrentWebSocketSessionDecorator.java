@@ -69,8 +69,9 @@ public class ConcurrentWebSocketSessionDecorator extends WebSocketSessionDecorat
 
 	/**
 	 * Create a new {@code ConcurrentWebSocketSessionDecorator}.
-	 * @param delegate the {@code WebSocketSession} to delegate to
-	 * @param sendTimeLimit the send-time limit (milliseconds)
+	 *
+	 * @param delegate        the {@code WebSocketSession} to delegate to
+	 * @param sendTimeLimit   the send-time limit (milliseconds)
 	 * @param bufferSizeLimit the buffer-size limit (number of bytes)
 	 */
 	public ConcurrentWebSocketSessionDecorator(WebSocketSession delegate, int sendTimeLimit, int bufferSizeLimit) {
@@ -82,6 +83,7 @@ public class ConcurrentWebSocketSessionDecorator extends WebSocketSessionDecorat
 
 	/**
 	 * Return the configured send-time limit (milliseconds).
+	 *
 	 * @since 4.3.13
 	 */
 	public int getSendTimeLimit() {
@@ -90,6 +92,7 @@ public class ConcurrentWebSocketSessionDecorator extends WebSocketSessionDecorat
 
 	/**
 	 * Return the configured buffer-size limit (number of bytes).
+	 *
 	 * @since 4.3.13
 	 */
 	public int getBufferSizeLimit() {
@@ -126,7 +129,7 @@ public class ConcurrentWebSocketSessionDecorator extends WebSocketSessionDecorat
 			if (!tryFlushMessageBuffer()) {
 				if (logger.isTraceEnabled()) {
 					logger.trace(String.format("Another send already in progress: " +
-							"session id '%s':, \"in-progress\" send time %d (ms), buffer size %d bytes",
+									"session id '%s':, \"in-progress\" send time %d (ms), buffer size %d bytes",
 							getId(), getTimeSinceSendStarted(), getBufferSize()));
 				}
 				checkSessionLimits();
@@ -153,8 +156,7 @@ public class ConcurrentWebSocketSessionDecorator extends WebSocketSessionDecorat
 					getDelegate().sendMessage(message);
 					this.sendStartTime = 0;
 				}
-			}
-			finally {
+			} finally {
 				this.sendStartTime = 0;
 				flushLock.unlock();
 			}
@@ -170,14 +172,12 @@ public class ConcurrentWebSocketSessionDecorator extends WebSocketSessionDecorat
 					String format = "Message send time %d (ms) for session '%s' exceeded the allowed limit %d";
 					String reason = String.format(format, getTimeSinceSendStarted(), getId(), getSendTimeLimit());
 					limitExceeded(reason);
-				}
-				else if (getBufferSize() > getBufferSizeLimit()) {
+				} else if (getBufferSize() > getBufferSizeLimit()) {
 					String format = "The send buffer size %d bytes for session '%s' exceeded the allowed limit %d";
 					String reason = String.format(format, getBufferSize(), getId(), getBufferSizeLimit());
 					limitExceeded(reason);
 				}
-			}
-			finally {
+			} finally {
 				this.closeLock.unlock();
 			}
 		}
@@ -198,8 +198,7 @@ public class ConcurrentWebSocketSessionDecorator extends WebSocketSessionDecorat
 			if (!CloseStatus.SESSION_NOT_RELIABLE.equals(status)) {
 				try {
 					checkSessionLimits();
-				}
-				catch (SessionLimitExceededException ex) {
+				} catch (SessionLimitExceededException ex) {
 					// Ignore
 				}
 				if (this.limitExceeded) {
@@ -211,8 +210,7 @@ public class ConcurrentWebSocketSessionDecorator extends WebSocketSessionDecorat
 			}
 			this.closeInProgress = true;
 			super.close(status);
-		}
-		finally {
+		} finally {
 			this.closeLock.unlock();
 		}
 	}

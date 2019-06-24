@@ -73,12 +73,14 @@ import org.springframework.lang.Nullable;
  * to retrieve the native JDBC Connection.
  *
  * @author Juergen Hoeller
- * @since 1.1.4
  * @see DataSourceTransactionManager
+ * @since 1.1.4
  */
 public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 
-	/** Constants instance for TransactionDefinition */
+	/**
+	 * Constants instance for TransactionDefinition
+	 */
 	private static final Constants constants = new Constants(Connection.class);
 
 	private static final Log logger = LogFactory.getLog(LazyConnectionDataSourceProxy.class);
@@ -92,6 +94,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 
 	/**
 	 * Create a new LazyConnectionDataSourceProxy.
+	 *
 	 * @see #setTargetDataSource
 	 */
 	public LazyConnectionDataSourceProxy() {
@@ -99,6 +102,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 
 	/**
 	 * Create a new LazyConnectionDataSourceProxy.
+	 *
 	 * @param targetDataSource the target DataSource
 	 */
 	public LazyConnectionDataSourceProxy(DataSource targetDataSource) {
@@ -113,6 +117,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 	 * <p>If not specified, the default gets determined by checking a target
 	 * Connection on startup. If that check fails, the default will be determined
 	 * lazily on first access of a Connection.
+	 *
 	 * @see java.sql.Connection#setAutoCommit
 	 */
 	public void setDefaultAutoCommit(boolean defaultAutoCommit) {
@@ -129,6 +134,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 	 * <p>If not specified, the default gets determined by checking a target
 	 * Connection on startup. If that check fails, the default will be determined
 	 * lazily on first access of a Connection.
+	 *
 	 * @see #setDefaultTransactionIsolationName
 	 * @see java.sql.Connection#setTransactionIsolation
 	 */
@@ -139,6 +145,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 	/**
 	 * Set the default transaction isolation level by the name of the corresponding
 	 * constant in {@link java.sql.Connection}, e.g. "TRANSACTION_SERIALIZABLE".
+	 *
 	 * @param constantName name of the constant
 	 * @see #setDefaultTransactionIsolation
 	 * @see java.sql.Connection#TRANSACTION_READ_UNCOMMITTED
@@ -162,12 +169,10 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 				Connection con = obtainTargetDataSource().getConnection();
 				try {
 					checkDefaultConnectionProperties(con);
-				}
-				finally {
+				} finally {
 					con.close();
 				}
-			}
-			catch (SQLException ex) {
+			} catch (SQLException ex) {
 				logger.warn("Could not retrieve default auto-commit and transaction isolation settings", ex);
 			}
 		}
@@ -180,6 +185,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 	 * <p>This will be invoked once on startup, but also for each retrieval of a
 	 * target Connection. If the check failed on startup (because the database was
 	 * down), we'll lazily retrieve those settings.
+	 *
 	 * @param con the Connection to use for checking
 	 * @throws SQLException if thrown by Connection methods
 	 */
@@ -214,6 +220,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 	 * when asked for a Statement (or PreparedStatement or CallableStatement).
 	 * <p>The returned Connection handle implements the ConnectionProxy interface,
 	 * allowing to retrieve the underlying target Connection.
+	 *
 	 * @return a lazy Connection handle
 	 * @see ConnectionProxy#getTargetConnection()
 	 */
@@ -221,7 +228,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 	public Connection getConnection() throws SQLException {
 		return (Connection) Proxy.newProxyInstance(
 				ConnectionProxy.class.getClassLoader(),
-				new Class<?>[] {ConnectionProxy.class},
+				new Class<?>[]{ConnectionProxy.class},
 				new LazyConnectionInvocationHandler());
 	}
 
@@ -230,6 +237,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 	 * when asked for a Statement (or PreparedStatement or CallableStatement).
 	 * <p>The returned Connection handle implements the ConnectionProxy interface,
 	 * allowing to retrieve the underlying target Connection.
+	 *
 	 * @param username the per-Connection username
 	 * @param password the per-Connection password
 	 * @return a lazy Connection handle
@@ -239,7 +247,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 	public Connection getConnection(String username, String password) throws SQLException {
 		return (Connection) Proxy.newProxyInstance(
 				ConnectionProxy.class.getClassLoader(),
-				new Class<?>[] {ConnectionProxy.class},
+				new Class<?>[]{ConnectionProxy.class},
 				new LazyConnectionInvocationHandler(username, password));
 	}
 
@@ -289,24 +297,20 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 				// We must avoid fetching a target Connection for "equals".
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
-			}
-			else if (method.getName().equals("hashCode")) {
+			} else if (method.getName().equals("hashCode")) {
 				// We must avoid fetching a target Connection for "hashCode",
 				// and we must return the same hash code even when the target
 				// Connection has been fetched: use hashCode of Connection proxy.
 				return System.identityHashCode(proxy);
-			}
-			else if (method.getName().equals("unwrap")) {
+			} else if (method.getName().equals("unwrap")) {
 				if (((Class<?>) args[0]).isInstance(proxy)) {
 					return proxy;
 				}
-			}
-			else if (method.getName().equals("isWrapperFor")) {
+			} else if (method.getName().equals("isWrapperFor")) {
 				if (((Class<?>) args[0]).isInstance(proxy)) {
 					return true;
 				}
-			}
-			else if (method.getName().equals("getTargetConnection")) {
+			} else if (method.getName().equals("getTargetConnection")) {
 				// Handle getTargetConnection method: return underlying connection.
 				return getTargetConnection(method);
 			}
@@ -318,59 +322,46 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 
 				if (method.getName().equals("toString")) {
 					return "Lazy Connection proxy for target DataSource [" + getTargetDataSource() + "]";
-				}
-				else if (method.getName().equals("isReadOnly")) {
+				} else if (method.getName().equals("isReadOnly")) {
 					return this.readOnly;
-				}
-				else if (method.getName().equals("setReadOnly")) {
+				} else if (method.getName().equals("setReadOnly")) {
 					this.readOnly = (Boolean) args[0];
 					return null;
-				}
-				else if (method.getName().equals("getTransactionIsolation")) {
+				} else if (method.getName().equals("getTransactionIsolation")) {
 					if (this.transactionIsolation != null) {
 						return this.transactionIsolation;
 					}
 					// Else fetch actual Connection and check there,
 					// because we didn't have a default specified.
-				}
-				else if (method.getName().equals("setTransactionIsolation")) {
+				} else if (method.getName().equals("setTransactionIsolation")) {
 					this.transactionIsolation = (Integer) args[0];
 					return null;
-				}
-				else if (method.getName().equals("getAutoCommit")) {
+				} else if (method.getName().equals("getAutoCommit")) {
 					if (this.autoCommit != null) {
 						return this.autoCommit;
 					}
 					// Else fetch actual Connection and check there,
 					// because we didn't have a default specified.
-				}
-				else if (method.getName().equals("setAutoCommit")) {
+				} else if (method.getName().equals("setAutoCommit")) {
 					this.autoCommit = (Boolean) args[0];
 					return null;
-				}
-				else if (method.getName().equals("commit")) {
+				} else if (method.getName().equals("commit")) {
 					// Ignore: no statements created yet.
 					return null;
-				}
-				else if (method.getName().equals("rollback")) {
+				} else if (method.getName().equals("rollback")) {
 					// Ignore: no statements created yet.
 					return null;
-				}
-				else if (method.getName().equals("getWarnings")) {
+				} else if (method.getName().equals("getWarnings")) {
 					return null;
-				}
-				else if (method.getName().equals("clearWarnings")) {
+				} else if (method.getName().equals("clearWarnings")) {
 					return null;
-				}
-				else if (method.getName().equals("close")) {
+				} else if (method.getName().equals("close")) {
 					// Ignore: no target connection yet.
 					this.closed = true;
 					return null;
-				}
-				else if (method.getName().equals("isClosed")) {
+				} else if (method.getName().equals("isClosed")) {
 					return this.closed;
-				}
-				else if (this.closed) {
+				} else if (this.closed) {
 					// Connection proxy closed, without ever having fetched a
 					// physical JDBC Connection: throw corresponding SQLException.
 					throw new SQLException("Illegal operation: connection is closed");
@@ -382,8 +373,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 			// invoke method on target connection.
 			try {
 				return method.invoke(getTargetConnection(method), args);
-			}
-			catch (InvocationTargetException ex) {
+			} catch (InvocationTargetException ex) {
 				throw ex.getTargetException();
 			}
 		}
@@ -417,8 +407,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 				if (this.readOnly) {
 					try {
 						this.target.setReadOnly(true);
-					}
-					catch (Exception ex) {
+					} catch (Exception ex) {
 						// "read-only not supported" -> ignore, it's just a hint anyway
 						logger.debug("Could not set JDBC Connection read-only", ex);
 					}
@@ -430,9 +419,7 @@ public class LazyConnectionDataSourceProxy extends DelegatingDataSource {
 				if (this.autoCommit != null && this.autoCommit != this.target.getAutoCommit()) {
 					this.target.setAutoCommit(this.autoCommit);
 				}
-			}
-
-			else {
+			} else {
 				// Target Connection already held -> return it.
 				if (logger.isDebugEnabled()) {
 					logger.debug("Using existing database connection for operation '" + operation.getName() + "'");

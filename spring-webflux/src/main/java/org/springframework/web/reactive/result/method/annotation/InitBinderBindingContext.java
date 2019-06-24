@@ -53,7 +53,7 @@ class InitBinderBindingContext extends BindingContext {
 
 
 	InitBinderBindingContext(@Nullable WebBindingInitializer initializer,
-			List<SyncInvocableHandlerMethod> binderMethods) {
+							 List<SyncInvocableHandlerMethod> binderMethods) {
 
 		super(initializer);
 		this.binderMethods = binderMethods;
@@ -72,7 +72,7 @@ class InitBinderBindingContext extends BindingContext {
 
 	@Override
 	protected WebExchangeDataBinder initDataBinder(WebExchangeDataBinder dataBinder,
-			ServerWebExchange exchange) {
+												   ServerWebExchange exchange) {
 
 		this.binderMethods.stream()
 				.filter(binderMethod -> {
@@ -87,7 +87,7 @@ class InitBinderBindingContext extends BindingContext {
 	}
 
 	private void invokeBinderMethod(WebExchangeDataBinder dataBinder,
-			ServerWebExchange exchange, SyncInvocableHandlerMethod binderMethod) {
+									ServerWebExchange exchange, SyncInvocableHandlerMethod binderMethod) {
 
 		HandlerResult result = binderMethod.invokeForHandlerResult(
 				exchange, this.binderMethodContext, dataBinder);
@@ -112,8 +112,7 @@ class InitBinderBindingContext extends BindingContext {
 		this.saveModelOperation = () -> {
 			if (getSessionStatus().isComplete()) {
 				attributesHandler.cleanupAttributes(session);
-			}
-			else {
+			} else {
 				attributesHandler.storeAttributes(session, getModel().asMap());
 			}
 		};

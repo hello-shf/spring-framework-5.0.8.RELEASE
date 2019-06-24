@@ -30,8 +30,8 @@ import org.springframework.util.Assert;
  * the {@link WebSocketSession} session.
  *
  * @author Rossen Stoyanchev
- * @since 5.0
  * @see WebSocketSession#getHandshakeInfo()
+ * @since 5.0
  */
 public class HandshakeInfo {
 
@@ -47,10 +47,11 @@ public class HandshakeInfo {
 
 	/**
 	 * Constructor with information about the handshake.
-	 * @param uri the endpoint URL
-	 * @param headers request headers for server or response headers or client
+	 *
+	 * @param uri       the endpoint URL
+	 * @param headers   request headers for server or response headers or client
 	 * @param principal the principal for the session
-	 * @param protocol the negotiated sub-protocol (may be {@code null})
+	 * @param protocol  the negotiated sub-protocol (may be {@code null})
 	 */
 	public HandshakeInfo(URI uri, HttpHeaders headers, Mono<Principal> principal, @Nullable String protocol) {
 		Assert.notNull(uri, "URI is required");
@@ -87,6 +88,7 @@ public class HandshakeInfo {
 
 	/**
 	 * The sub-protocol negotiated at handshake time, or {@code null} if none.
+	 *
 	 * @see <a href="https://tools.ietf.org/html/rfc6455#section-1.9">
 	 * https://tools.ietf.org/html/rfc6455#section-1.9</a>
 	 */

@@ -89,10 +89,12 @@ class DefaultClientResponse implements ClientResponse {
 			public List<HttpMessageReader<?>> messageReaders() {
 				return strategies.messageReaders();
 			}
+
 			@Override
 			public Optional<ServerHttpResponse> serverResponse() {
 				return Optional.empty();
 			}
+
 			@Override
 			public Map<String, Object> hints() {
 				return Collections.emptyMap();
@@ -104,8 +106,7 @@ class DefaultClientResponse implements ClientResponse {
 	public <T> Mono<T> bodyToMono(Class<? extends T> elementClass) {
 		if (Void.class.isAssignableFrom(elementClass)) {
 			return consumeAndCancel();
-		}
-		else {
+		} else {
 			return body(BodyExtractors.toMono(elementClass));
 		}
 	}
@@ -125,8 +126,7 @@ class DefaultClientResponse implements ClientResponse {
 	public <T> Mono<T> bodyToMono(ParameterizedTypeReference<T> typeReference) {
 		if (Void.class.isAssignableFrom(typeReference.getType().getClass())) {
 			return consumeAndCancel();
-		}
-		else {
+		} else {
 			return body(BodyExtractors.toMono(typeReference));
 		}
 	}
@@ -135,8 +135,7 @@ class DefaultClientResponse implements ClientResponse {
 	public <T> Flux<T> bodyToFlux(Class<? extends T> elementClass) {
 		if (Void.class.isAssignableFrom(elementClass)) {
 			return Flux.from(consumeAndCancel());
-		}
-		else {
+		} else {
 			return body(BodyExtractors.toFlux(elementClass));
 		}
 	}
@@ -145,8 +144,7 @@ class DefaultClientResponse implements ClientResponse {
 	public <T> Flux<T> bodyToFlux(ParameterizedTypeReference<T> typeReference) {
 		if (Void.class.isAssignableFrom(typeReference.getType().getClass())) {
 			return Flux.from(consumeAndCancel());
-		}
-		else {
+		} else {
 			return body(BodyExtractors.toFlux(typeReference));
 		}
 	}
@@ -155,8 +153,7 @@ class DefaultClientResponse implements ClientResponse {
 	public <T> Mono<ResponseEntity<T>> toEntity(Class<T> bodyType) {
 		if (Void.class.isAssignableFrom(bodyType)) {
 			return toEntityInternal(consumeAndCancel());
-		}
-		else {
+		} else {
 			return toEntityInternal(bodyToMono(bodyType));
 		}
 	}
@@ -165,8 +162,7 @@ class DefaultClientResponse implements ClientResponse {
 	public <T> Mono<ResponseEntity<T>> toEntity(ParameterizedTypeReference<T> typeReference) {
 		if (Void.class.isAssignableFrom(typeReference.getType().getClass())) {
 			return toEntityInternal(consumeAndCancel());
-		}
-		else {
+		} else {
 			return toEntityInternal(bodyToMono(typeReference));
 		}
 	}

@@ -29,10 +29,9 @@ import org.springframework.lang.Nullable;
  * {@code Flux<T>} but not yet consumed.
  *
  * @param <T> the type of elements in the response body
- *
  * @author Rossen Stoyanchev
- * @since 5.0
  * @see EntityExchangeResult
+ * @since 5.0
  */
 public class FluxExchangeResult<T> extends ExchangeResult {
 
@@ -103,14 +102,15 @@ public class FluxExchangeResult<T> extends ExchangeResult {
 	 * passing {@code "this"} instance to it. This method allows the following,
 	 * without leaving the {@code WebTestClient} chain of calls:
 	 * <pre class="code">
-	 *	client.get()
+	 * 	client.get()
 	 * 		.uri("/persons")
 	 * 		.accept(TEXT_EVENT_STREAM)
 	 * 		.exchange()
 	 * 		.expectStatus().isOk()
-	 *	 	.returnResult()
-	 *	 	.consumeWith(result -> assertThat(...);
+	 * 	 	.returnResult()
+	 * 	 	.consumeWith(result -> assertThat(...);
 	 * </pre>
+	 *
 	 * @param consumer consumer for {@code "this"} instance
 	 */
 	public void consumeWith(Consumer<FluxExchangeResult<T>> consumer) {

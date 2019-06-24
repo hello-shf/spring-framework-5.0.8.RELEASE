@@ -52,10 +52,10 @@ import org.springframework.util.Assert;
  * you can have executable query objects (containing row-mapping logic) there.
  *
  * @author Juergen Hoeller
- * @since 1.0.2
  * @see RowMapper
  * @see JdbcTemplate
  * @see org.springframework.jdbc.object.MappingSqlQuery
+ * @since 1.0.2
  */
 public class RowMapperResultSetExtractor<T> implements ResultSetExtractor<List<T>> {
 
@@ -66,6 +66,7 @@ public class RowMapperResultSetExtractor<T> implements ResultSetExtractor<List<T
 
 	/**
 	 * Create a new RowMapperResultSetExtractor.
+	 *
 	 * @param rowMapper the RowMapper which creates an object for each row
 	 */
 	public RowMapperResultSetExtractor(RowMapper<T> rowMapper) {
@@ -74,9 +75,10 @@ public class RowMapperResultSetExtractor<T> implements ResultSetExtractor<List<T
 
 	/**
 	 * Create a new RowMapperResultSetExtractor.
-	 * @param rowMapper the RowMapper which creates an object for each row
+	 *
+	 * @param rowMapper    the RowMapper which creates an object for each row
 	 * @param rowsExpected the number of expected rows
-	 * (just used for optimized collection handling)
+	 *                     (just used for optimized collection handling)
 	 */
 	public RowMapperResultSetExtractor(RowMapper<T> rowMapper, int rowsExpected) {
 		Assert.notNull(rowMapper, "RowMapper is required");

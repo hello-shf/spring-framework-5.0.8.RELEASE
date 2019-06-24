@@ -59,8 +59,8 @@ import org.springframework.web.util.UrlPathHelper;
  * @author Rossen Stoyanchev
  * @author Eddú Meléndez
  * @author Rob Winch
- * @since 4.3
  * @see <a href="https://tools.ietf.org/html/rfc7239">https://tools.ietf.org/html/rfc7239</a>
+ * @since 4.3
  */
 public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
@@ -93,6 +93,7 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 	/**
 	 * Enables mode in which any "Forwarded" or "X-Forwarded-*" headers are
 	 * removed only and the information in them ignored.
+	 *
 	 * @param removeOnly whether to discard and ignore forwarded headers
 	 * @since 4.3.9
 	 */
@@ -108,6 +109,7 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 	 * {@link HttpServletResponse#sendRedirect(String)} are overridden in order
 	 * to turn relative into absolute URLs, also taking into account forwarded
 	 * headers.
+	 *
 	 * @param relativeRedirects whether to use relative redirects
 	 * @since 4.3.10
 	 */
@@ -138,13 +140,12 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-			FilterChain filterChain) throws ServletException, IOException {
+									FilterChain filterChain) throws ServletException, IOException {
 
 		if (this.removeOnly) {
 			ForwardedHeaderRemovingRequest theRequest = new ForwardedHeaderRemovingRequest(request);
 			filterChain.doFilter(theRequest, response);
-		}
-		else {
+		} else {
 			HttpServletRequest theRequest = new ForwardedHeaderExtractingRequest(request, this.pathHelper);
 			HttpServletResponse theResponse = (this.relativeRedirects ?
 					RelativeRedirectResponseWrapper.wrapIfNecessary(response, HttpStatus.SEE_OTHER) :

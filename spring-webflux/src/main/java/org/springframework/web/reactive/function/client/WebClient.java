@@ -68,48 +68,56 @@ public interface WebClient {
 
 	/**
 	 * Prepare an HTTP GET request.
+	 *
 	 * @return a spec for specifying the target URL
 	 */
 	RequestHeadersUriSpec<?> get();
 
 	/**
 	 * Prepare an HTTP HEAD request.
+	 *
 	 * @return a spec for specifying the target URL
 	 */
 	RequestHeadersUriSpec<?> head();
 
 	/**
 	 * Prepare an HTTP POST request.
+	 *
 	 * @return a spec for specifying the target URL
 	 */
 	RequestBodyUriSpec post();
 
 	/**
 	 * Prepare an HTTP PUT request.
+	 *
 	 * @return a spec for specifying the target URL
 	 */
 	RequestBodyUriSpec put();
 
 	/**
 	 * Prepare an HTTP PATCH request.
+	 *
 	 * @return a spec for specifying the target URL
 	 */
 	RequestBodyUriSpec patch();
 
 	/**
 	 * Prepare an HTTP DELETE request.
+	 *
 	 * @return a spec for specifying the target URL
 	 */
 	RequestHeadersUriSpec<?> delete();
 
 	/**
 	 * Prepare an HTTP OPTIONS request.
+	 *
 	 * @return a spec for specifying the target URL
 	 */
 	RequestHeadersUriSpec<?> options();
 
 	/**
 	 * Prepare a request for the specified {@code HttpMethod}.
+	 *
 	 * @return a spec for specifying the target URL
 	 */
 	RequestBodyUriSpec method(HttpMethod method);
@@ -126,6 +134,7 @@ public interface WebClient {
 
 	/**
 	 * Create a new {@code WebClient} with a Reactor Netty connector.
+	 *
 	 * @see #create(String)
 	 * @see #builder()
 	 */
@@ -136,6 +145,7 @@ public interface WebClient {
 	/**
 	 * A variant of {@link #create()} that accepts a default base URL. For more
 	 * details see {@link Builder#baseUrl(String) Builder.baseUrl(String)}.
+	 *
 	 * @param baseUrl the base URI for all requests
 	 * @see #builder()
 	 */
@@ -204,6 +214,7 @@ public interface WebClient {
 		/**
 		 * Configure default URI variable values that will be used when expanding
 		 * URI templates using a {@link Map}.
+		 *
 		 * @param defaultUriVariables the default values to use
 		 * @see #baseUrl(String)
 		 * @see #uriBuilderFactory(UriBuilderFactory)
@@ -217,6 +228,7 @@ public interface WebClient {
 		 * <li>{@link #baseUrl(String)}
 		 * <li>{@link #defaultUriVariables(Map)}.
 		 * </ul>
+		 *
 		 * @param uriBuilderFactory the URI builder factory to use
 		 * @see #baseUrl(String)
 		 * @see #defaultUriVariables(Map)
@@ -225,7 +237,8 @@ public interface WebClient {
 
 		/**
 		 * Add the given header to all requests that have not added it.
-		 * @param headerName the header name
+		 *
+		 * @param headerName   the header name
 		 * @param headerValues the header values
 		 */
 		Builder defaultHeader(String headerName, String... headerValues);
@@ -236,6 +249,7 @@ public interface WebClient {
 		 * {@linkplain HttpHeaders#set(String, String) overwrite} existing header values,
 		 * {@linkplain HttpHeaders#remove(Object) remove} values, or use any of the other
 		 * {@link HttpHeaders} methods.
+		 *
 		 * @param headersConsumer a function that consumes the {@code HttpHeaders}
 		 * @return this builder
 		 */
@@ -243,7 +257,8 @@ public interface WebClient {
 
 		/**
 		 * Add the given header to all requests that haven't added it.
-		 * @param cookieName the cookie name
+		 *
+		 * @param cookieName   the cookie name
 		 * @param cookieValues the cookie values
 		 */
 		Builder defaultCookie(String cookieName, String... cookieValues);
@@ -254,6 +269,7 @@ public interface WebClient {
 		 * {@linkplain MultiValueMap#set(Object, Object) overwrite} existing header values,
 		 * {@linkplain MultiValueMap#remove(Object) remove} values, or use any of the other
 		 * {@link MultiValueMap} methods.
+		 *
 		 * @param cookiesConsumer a function that consumes the cookies map
 		 * @return this builder
 		 */
@@ -266,6 +282,7 @@ public interface WebClient {
 		 * ReactorClientHttpConnector} is created if this is not set. However a
 		 * shared instance may be passed instead, e.g. for use with multiple
 		 * {@code WebClient}'s targeting different base URIs.
+		 *
 		 * @param connector the connector to use
 		 * @see #exchangeStrategies(ExchangeStrategies)
 		 * @see #exchangeFunction(ExchangeFunction)
@@ -274,6 +291,7 @@ public interface WebClient {
 
 		/**
 		 * Add the given filter to the filter chain.
+		 *
 		 * @param filter the filter to be added to the chain
 		 */
 		Builder filter(ExchangeFilterFunction filter);
@@ -282,6 +300,7 @@ public interface WebClient {
 		 * Manipulate the filters with the given consumer. The
 		 * list provided to the consumer is "live", so that the consumer can be used to remove
 		 * filters, change ordering, etc.
+		 *
 		 * @param filtersConsumer a function that consumes the filter list
 		 * @return this builder
 		 */
@@ -294,6 +313,7 @@ public interface WebClient {
 		 * <li>{@link #clientConnector(ClientHttpConnector)}
 		 * <li>{@link #exchangeStrategies(ExchangeStrategies)}.
 		 * </ul>
+		 *
 		 * @param exchangeFunction the exchange function to use
 		 * @see #clientConnector(ClientHttpConnector)
 		 * @see #exchangeStrategies(ExchangeStrategies)
@@ -303,6 +323,7 @@ public interface WebClient {
 		/**
 		 * Configure the {@link ExchangeStrategies} to use.
 		 * <p>By default {@link ExchangeStrategies#withDefaults()} is used.
+		 *
 		 * @param strategies the strategies to use
 		 * @see #clientConnector(ClientHttpConnector)
 		 * @see #exchangeFunction(ExchangeFunction)
@@ -316,6 +337,7 @@ public interface WebClient {
 
 		/**
 		 * Shortcut for pre-packaged customizations to WebTest builder.
+		 *
 		 * @param builderConsumer the consumer to apply
 		 */
 		Builder apply(Consumer<Builder> builderConsumer);
@@ -368,6 +390,7 @@ public interface WebClient {
 		/**
 		 * Set the list of acceptable {@linkplain MediaType media types}, as
 		 * specified by the {@code Accept} header.
+		 *
 		 * @param acceptableMediaTypes the acceptable media types
 		 * @return this builder
 		 */
@@ -376,6 +399,7 @@ public interface WebClient {
 		/**
 		 * Set the list of acceptable {@linkplain Charset charsets}, as specified
 		 * by the {@code Accept-Charset} header.
+		 *
 		 * @param acceptableCharsets the acceptable charsets
 		 * @return this builder
 		 */
@@ -383,7 +407,8 @@ public interface WebClient {
 
 		/**
 		 * Add a cookie with the given name and value.
-		 * @param name the cookie name
+		 *
+		 * @param name  the cookie name
 		 * @param value the cookie value
 		 * @return this builder
 		 */
@@ -395,6 +420,7 @@ public interface WebClient {
 		 * {@linkplain MultiValueMap#set(Object, Object) overwrite} existing header values,
 		 * {@linkplain MultiValueMap#remove(Object) remove} values, or use any of the other
 		 * {@link MultiValueMap} methods.
+		 *
 		 * @param cookiesConsumer a function that consumes the cookies map
 		 * @return this builder
 		 */
@@ -404,6 +430,7 @@ public interface WebClient {
 		 * Set the value of the {@code If-Modified-Since} header.
 		 * <p>The date should be specified as the number of milliseconds since
 		 * January 1, 1970 GMT.
+		 *
 		 * @param ifModifiedSince the new value of the header
 		 * @return this builder
 		 */
@@ -411,6 +438,7 @@ public interface WebClient {
 
 		/**
 		 * Set the values of the {@code If-None-Match} header.
+		 *
 		 * @param ifNoneMatches the new value of the header
 		 * @return this builder
 		 */
@@ -418,7 +446,8 @@ public interface WebClient {
 
 		/**
 		 * Add the given, single header value under the given name.
-		 * @param headerName  the header name
+		 *
+		 * @param headerName   the header name
 		 * @param headerValues the header value(s)
 		 * @return this builder
 		 */
@@ -430,6 +459,7 @@ public interface WebClient {
 		 * {@linkplain HttpHeaders#set(String, String) overwrite} existing header values,
 		 * {@linkplain HttpHeaders#remove(Object) remove} values, or use any of the other
 		 * {@link HttpHeaders} methods.
+		 *
 		 * @param headersConsumer a function that consumes the {@code HttpHeaders}
 		 * @return this builder
 		 */
@@ -437,7 +467,8 @@ public interface WebClient {
 
 		/**
 		 * Set the attribute with the given name to the given value.
-		 * @param name the name of the attribute to add
+		 *
+		 * @param name  the name of the attribute to add
 		 * @param value the value of the attribute to add
 		 * @return this builder
 		 */
@@ -447,6 +478,7 @@ public interface WebClient {
 		 * Manipulate the request attributes with the given consumer. The attributes provided to
 		 * the consumer are "live", so that the consumer can be used to inspect attributes,
 		 * remove attributes, or use any of the other map-provided methods.
+		 *
 		 * @param attributesConsumer a function that consumes the attributes
 		 * @return this builder
 		 */
@@ -463,6 +495,7 @@ public interface WebClient {
 		 * </pre>
 		 * <p>This method is a shortcut to using {@link #exchange()} and
 		 * decoding the response body through {@link ClientResponse}.
+		 *
 		 * @return {@code ResponseSpec} to specify how to decode the body
 		 * @see #exchange()
 		 */
@@ -488,6 +521,7 @@ public interface WebClient {
 		 * <p><strong>NOTE:</strong> You must always use one of the body or
 		 * entity methods of the response to ensure resources are released.
 		 * See {@link ClientResponse} for more details.
+		 *
 		 * @return a {@code Mono} for the response
 		 * @see #retrieve()
 		 */
@@ -500,6 +534,7 @@ public interface WebClient {
 		/**
 		 * Set the length of the body in bytes, as specified by the
 		 * {@code Content-Length} header.
+		 *
 		 * @param contentLength the content length
 		 * @return this builder
 		 * @see HttpHeaders#setContentLength(long)
@@ -509,6 +544,7 @@ public interface WebClient {
 		/**
 		 * Set the {@linkplain MediaType media type} of the body, as specified
 		 * by the {@code Content-Type} header.
+		 *
 		 * @param contentType the content type
 		 * @return this builder
 		 * @see HttpHeaders#setContentType(MediaType)
@@ -519,6 +555,7 @@ public interface WebClient {
 		 * Set the body of the request using the given body inserter.
 		 * {@link BodyInserters} provides access to built-in implementations of
 		 * {@link BodyInserter}.
+		 *
 		 * @param inserter the body inserter to use for the request body
 		 * @return this builder
 		 * @see org.springframework.web.reactive.function.BodyInserters
@@ -539,10 +576,11 @@ public interface WebClient {
 		 *     .retrieve()
 		 *     .bodyToMono(Void.class);
 		 * </pre>
-		 * @param publisher the {@code Publisher} to write to the request
+		 *
+		 * @param publisher    the {@code Publisher} to write to the request
 		 * @param elementClass the class of elements contained in the publisher
-		 * @param <T> the type of the elements contained in the publisher
-		 * @param <P> the type of the {@code Publisher}
+		 * @param <T>          the type of the elements contained in the publisher
+		 * @param <P>          the type of the {@code Publisher}
 		 * @return this builder
 		 */
 		<T, P extends Publisher<T>> RequestHeadersSpec<?> body(P publisher, Class<T> elementClass);
@@ -551,14 +589,15 @@ public interface WebClient {
 		 * A variant of {@link #body(Publisher, Class)} that allows providing
 		 * element type information that includes generics via a
 		 * {@link ParameterizedTypeReference}.
-		 * @param publisher the {@code Publisher} to write to the request
+		 *
+		 * @param publisher     the {@code Publisher} to write to the request
 		 * @param typeReference the type reference of elements contained in the publisher
-		 * @param <T> the type of the elements contained in the publisher
-		 * @param <P> the type of the {@code Publisher}
+		 * @param <T>           the type of the elements contained in the publisher
+		 * @param <P>           the type of the {@code Publisher}
 		 * @return this builder
 		 */
 		<T, P extends Publisher<T>> RequestHeadersSpec<?> body(P publisher,
-				ParameterizedTypeReference<T> typeReference);
+															   ParameterizedTypeReference<T> typeReference);
 
 		/**
 		 * A shortcut for {@link #body(BodyInserter)} with an
@@ -582,6 +621,7 @@ public interface WebClient {
 		 * a part with body and headers. The {@code MultiValueMap} can be built
 		 * with {@link org.springframework.http.client.MultipartBodyBuilder
 		 * MultipartBodyBuilder}.
+		 *
 		 * @param body the {@code Object} to write to the request
 		 * @return this builder
 		 */
@@ -597,20 +637,22 @@ public interface WebClient {
 		 * {@link #bodyToMono(Class)} and {@link #bodyToFlux(Class)}.
 		 * <p>By default, an error handler is register that throws a
 		 * {@link WebClientResponseException} when the response status code is 4xx or 5xx.
-		 * @param statusPredicate a predicate that indicates whether {@code exceptionFunction}
-		 * applies
+		 *
+		 * @param statusPredicate   a predicate that indicates whether {@code exceptionFunction}
+		 *                          applies
 		 * @param exceptionFunction the function that returns the exception
 		 * @return this builder
 		 */
 		ResponseSpec onStatus(Predicate<HttpStatus> statusPredicate,
-				Function<ClientResponse, Mono<? extends Throwable>> exceptionFunction);
+							  Function<ClientResponse, Mono<? extends Throwable>> exceptionFunction);
 
 		/**
 		 * Extract the body to a {@code Mono}. By default, if the response has status code 4xx or
 		 * 5xx, the {@code Mono} will contain a {@link WebClientException}. This can be overridden
 		 * with {@link #onStatus(Predicate, Function)}.
+		 *
 		 * @param bodyType the expected response body type
-		 * @param <T> response body type
+		 * @param <T>      response body type
 		 * @return a mono containing the body, or a {@link WebClientResponseException} if the
 		 * status code is 4xx or 5xx
 		 */
@@ -620,8 +662,9 @@ public interface WebClient {
 		 * Extract the body to a {@code Mono}. By default, if the response has status code 4xx or
 		 * 5xx, the {@code Mono} will contain a {@link WebClientException}. This can be overridden
 		 * with {@link #onStatus(Predicate, Function)}.
+		 *
 		 * @param typeReference a type reference describing the expected response body type
-		 * @param <T> response body type
+		 * @param <T>           response body type
 		 * @return a mono containing the body, or a {@link WebClientResponseException} if the
 		 * status code is 4xx or 5xx
 		 */
@@ -630,9 +673,10 @@ public interface WebClient {
 		/**
 		 * Extract the body to a {@code Flux}. By default, if the response has status code 4xx or
 		 * 5xx, the {@code Flux} will contain a {@link WebClientException}. This can be overridden
-         * with {@link #onStatus(Predicate, Function)}.
+		 * with {@link #onStatus(Predicate, Function)}.
+		 *
 		 * @param elementType the type of element in the response
-		 * @param <T> the type of elements in the response
+		 * @param <T>         the type of elements in the response
 		 * @return a flux containing the body, or a {@link WebClientResponseException} if the
 		 * status code is 4xx or 5xx
 		 */
@@ -641,9 +685,10 @@ public interface WebClient {
 		/**
 		 * Extract the body to a {@code Flux}. By default, if the response has status code 4xx or
 		 * 5xx, the {@code Flux} will contain a {@link WebClientException}. This can be overridden
-         * with {@link #onStatus(Predicate, Function)}.
+		 * with {@link #onStatus(Predicate, Function)}.
+		 *
 		 * @param typeReference a type reference describing the expected response body type
-		 * @param <T> the type of elements in the response
+		 * @param <T>           the type of elements in the response
 		 * @return a flux containing the body, or a {@link WebClientResponseException} if the
 		 * status code is 4xx or 5xx
 		 */

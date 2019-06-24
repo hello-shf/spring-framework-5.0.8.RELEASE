@@ -31,9 +31,9 @@ import java.lang.annotation.Target;
  * custom <em>composed annotations</em>.
  *
  * @author Sam Brannen
- * @since 4.1
  * @see BootstrapContext
  * @see TestContextBootstrapper
+ * @since 4.1
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

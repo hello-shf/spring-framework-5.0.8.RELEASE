@@ -55,6 +55,7 @@ public abstract class HtmlUtils {
 	 * <a href="http://www.w3.org/TR/html4/sgml/entities.html">
 	 * http://www.w3.org/TR/html4/sgml/entities.html
 	 * </a>
+	 *
 	 * @param input the (unescaped) input string
 	 * @return the escaped string
 	 */
@@ -73,7 +74,8 @@ public abstract class HtmlUtils {
 	 * <a href="http://www.w3.org/TR/html4/sgml/entities.html">
 	 * http://www.w3.org/TR/html4/sgml/entities.html
 	 * </a>
-	 * @param input the (unescaped) input string
+	 *
+	 * @param input    the (unescaped) input string
 	 * @param encoding the name of a supported {@link java.nio.charset.Charset charset}
 	 * @return the escaped string
 	 * @since 4.1.2
@@ -87,8 +89,7 @@ public abstract class HtmlUtils {
 			String reference = characterEntityReferences.convertToReference(character, encoding);
 			if (reference != null) {
 				escaped.append(reference);
-			}
-			else {
+			} else {
 				escaped.append(character);
 			}
 		}
@@ -104,6 +105,7 @@ public abstract class HtmlUtils {
 	 * <a href="http://www.w3.org/TR/html4/sgml/entities.html">
 	 * http://www.w3.org/TR/html4/sgml/entities.html
 	 * </a>
+	 *
 	 * @param input the (unescaped) input string
 	 * @return the escaped string
 	 */
@@ -122,7 +124,8 @@ public abstract class HtmlUtils {
 	 * <a href="http://www.w3.org/TR/html4/sgml/entities.html">
 	 * http://www.w3.org/TR/html4/sgml/entities.html
 	 * </a>
-	 * @param input the (unescaped) input string
+	 *
+	 * @param input    the (unescaped) input string
 	 * @param encoding the name of a supported {@link java.nio.charset.Charset charset}
 	 * @return the escaped string
 	 * @since 4.1.2
@@ -137,8 +140,7 @@ public abstract class HtmlUtils {
 				escaped.append(HtmlCharacterEntityReferences.DECIMAL_REFERENCE_START);
 				escaped.append((int) character);
 				escaped.append(HtmlCharacterEntityReferences.REFERENCE_END);
-			}
-			else {
+			} else {
 				escaped.append(character);
 			}
 		}
@@ -154,6 +156,7 @@ public abstract class HtmlUtils {
 	 * <a href="http://www.w3.org/TR/html4/sgml/entities.html">
 	 * http://www.w3.org/TR/html4/sgml/entities.html
 	 * </a>
+	 *
 	 * @param input the (unescaped) input string
 	 * @return the escaped string
 	 */
@@ -172,7 +175,8 @@ public abstract class HtmlUtils {
 	 * <a href="http://www.w3.org/TR/html4/sgml/entities.html">
 	 * http://www.w3.org/TR/html4/sgml/entities.html
 	 * </a>
-	 * @param input the (unescaped) input string
+	 *
+	 * @param input    the (unescaped) input string
 	 * @param encoding the name of a supported {@link java.nio.charset.Charset charset}
 	 * @return the escaped string
 	 * @since 4.1.2
@@ -187,8 +191,7 @@ public abstract class HtmlUtils {
 				escaped.append(HtmlCharacterEntityReferences.HEX_REFERENCE_START);
 				escaped.append(Integer.toString(character, 16));
 				escaped.append(HtmlCharacterEntityReferences.REFERENCE_END);
-			}
-			else {
+			} else {
 				escaped.append(character);
 			}
 		}
@@ -211,6 +214,7 @@ public abstract class HtmlUtils {
 	 * <a href="http://www.w3.org/TR/html4/sgml/entities.html">
 	 * http://www.w3.org/TR/html4/sgml/entities.html
 	 * </a>
+	 *
 	 * @param input the (escaped) input string
 	 * @return the unescaped string
 	 */

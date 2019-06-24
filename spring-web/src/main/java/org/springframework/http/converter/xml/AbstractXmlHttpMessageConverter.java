@@ -73,6 +73,7 @@ public abstract class AbstractXmlHttpMessageConverter<T> extends AbstractHttpMes
 
 	/**
 	 * Transforms the given {@code Source} to the {@code Result}.
+	 *
 	 * @param source the source to transform from
 	 * @param result the result to transform to
 	 * @throws TransformerException in case of transformation errors
@@ -84,11 +85,12 @@ public abstract class AbstractXmlHttpMessageConverter<T> extends AbstractHttpMes
 
 	/**
 	 * Abstract template method called from {@link #read(Class, HttpInputMessage)}.
-	 * @param clazz the type of object to return
+	 *
+	 * @param clazz   the type of object to return
 	 * @param headers the HTTP input headers
-	 * @param source the HTTP input body
+	 * @param source  the HTTP input body
 	 * @return the converted object
-	 * @throws IOException in case of I/O errors
+	 * @throws IOException                     in case of I/O errors
 	 * @throws HttpMessageNotReadableException in case of conversion errors
 	 */
 	protected abstract T readFromSource(Class<? extends T> clazz, HttpHeaders headers, Source source)
@@ -96,10 +98,11 @@ public abstract class AbstractXmlHttpMessageConverter<T> extends AbstractHttpMes
 
 	/**
 	 * Abstract template method called from {@link #writeInternal(Object, HttpOutputMessage)}.
-	 * @param t the object to write to the output message
+	 *
+	 * @param t       the object to write to the output message
 	 * @param headers the HTTP output headers
-	 * @param result the HTTP output body
-	 * @throws IOException in case of I/O errors
+	 * @param result  the HTTP output body
+	 * @throws IOException                     in case of I/O errors
 	 * @throws HttpMessageNotWritableException in case of conversion errors
 	 */
 	protected abstract void writeToResult(T t, HttpHeaders headers, Result result)

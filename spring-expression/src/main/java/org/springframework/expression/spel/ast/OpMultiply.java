@@ -80,29 +80,23 @@ public class OpMultiply extends Operator {
 				BigDecimal leftBigDecimal = NumberUtils.convertNumberToTargetClass(leftNumber, BigDecimal.class);
 				BigDecimal rightBigDecimal = NumberUtils.convertNumberToTargetClass(rightNumber, BigDecimal.class);
 				return new TypedValue(leftBigDecimal.multiply(rightBigDecimal));
-			}
-			else if (leftNumber instanceof Double || rightNumber instanceof Double) {
+			} else if (leftNumber instanceof Double || rightNumber instanceof Double) {
 				this.exitTypeDescriptor = "D";
 				return new TypedValue(leftNumber.doubleValue() * rightNumber.doubleValue());
-			}
-			else if (leftNumber instanceof Float || rightNumber instanceof Float) {
+			} else if (leftNumber instanceof Float || rightNumber instanceof Float) {
 				this.exitTypeDescriptor = "F";
 				return new TypedValue(leftNumber.floatValue() * rightNumber.floatValue());
-			}
-			else if (leftNumber instanceof BigInteger || rightNumber instanceof BigInteger) {
+			} else if (leftNumber instanceof BigInteger || rightNumber instanceof BigInteger) {
 				BigInteger leftBigInteger = NumberUtils.convertNumberToTargetClass(leftNumber, BigInteger.class);
 				BigInteger rightBigInteger = NumberUtils.convertNumberToTargetClass(rightNumber, BigInteger.class);
 				return new TypedValue(leftBigInteger.multiply(rightBigInteger));
-			}
-			else if (leftNumber instanceof Long || rightNumber instanceof Long) {
+			} else if (leftNumber instanceof Long || rightNumber instanceof Long) {
 				this.exitTypeDescriptor = "J";
 				return new TypedValue(leftNumber.longValue() * rightNumber.longValue());
-			}
-			else if (CodeFlow.isIntegerForNumericOp(leftNumber) || CodeFlow.isIntegerForNumericOp(rightNumber)) {
+			} else if (CodeFlow.isIntegerForNumericOp(leftNumber) || CodeFlow.isIntegerForNumericOp(rightNumber)) {
 				this.exitTypeDescriptor = "I";
 				return new TypedValue(leftNumber.intValue() * rightNumber.intValue());
-			}
-			else {
+			} else {
 				// Unknown Number subtypes -> best guess is double multiplication
 				return new TypedValue(leftNumber.doubleValue() * rightNumber.doubleValue());
 			}
@@ -126,13 +120,13 @@ public class OpMultiply extends Operator {
 			return false;
 		}
 		if (this.children.length > 1) {
-			 if (!getRightOperand().isCompilable()) {
-				 return false;
-			 }
+			if (!getRightOperand().isCompilable()) {
+				return false;
+			}
 		}
 		return (this.exitTypeDescriptor != null);
 	}
-	
+
 	@Override
 	public void generateCode(MethodVisitor mv, CodeFlow cf) {
 		getLeftOperand().generateCode(mv, cf);
@@ -154,12 +148,12 @@ public class OpMultiply extends Operator {
 				case 'J':
 					mv.visitInsn(LMUL);
 					break;
-				case 'F': 
+				case 'F':
 					mv.visitInsn(FMUL);
 					break;
 				case 'D':
 					mv.visitInsn(DMUL);
-					break;				
+					break;
 				default:
 					throw new IllegalStateException(
 							"Unrecognized exit type descriptor: '" + this.exitTypeDescriptor + "'");

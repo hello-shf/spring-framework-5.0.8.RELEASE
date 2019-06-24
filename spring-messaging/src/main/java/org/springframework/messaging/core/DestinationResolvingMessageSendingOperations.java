@@ -28,15 +28,16 @@ import org.springframework.messaging.MessagingException;
  *
  * @author Mark Fisher
  * @author Rossen Stoyanchev
- * @since 4.0
  * @see DestinationResolver
+ * @since 4.0
  */
 public interface DestinationResolvingMessageSendingOperations<D> extends MessageSendingOperations<D> {
 
 	/**
 	 * Resolve the given destination name to a destination and send a message to it.
+	 *
 	 * @param destinationName the destination name to resolve
-	 * @param message the message to send
+	 * @param message         the message to send
 	 */
 	void send(String destinationName, Message<?> message) throws MessagingException;
 
@@ -45,8 +46,9 @@ public interface DestinationResolvingMessageSendingOperations<D> extends Message
 	 * to serialized form, possibly using a
 	 * {@link org.springframework.messaging.converter.MessageConverter},
 	 * wrap it as a message and send it to the resolved destination.
+	 *
 	 * @param destinationName the destination name to resolve
-   	 * @param payload the Object to use as payload
+	 * @param payload         the Object to use as payload
 	 */
 	<T> void convertAndSend(String destinationName, T payload) throws MessagingException;
 
@@ -56,9 +58,10 @@ public interface DestinationResolvingMessageSendingOperations<D> extends Message
 	 * {@link org.springframework.messaging.converter.MessageConverter},
 	 * wrap it as a message with the given headers and send it to the resolved
 	 * destination.
+	 *
 	 * @param destinationName the destination name to resolve
-	 * @param payload the Object to use as payload
- 	 * @param headers headers for the message to send
+	 * @param payload         the Object to use as payload
+	 * @param headers         headers for the message to send
 	 */
 	<T> void convertAndSend(String destinationName, T payload, @Nullable Map<String, Object> headers)
 			throws MessagingException;
@@ -69,9 +72,10 @@ public interface DestinationResolvingMessageSendingOperations<D> extends Message
 	 * {@link org.springframework.messaging.converter.MessageConverter},
 	 * wrap it as a message, apply the given post processor, and send the resulting
 	 * message to the resolved destination.
+	 *
 	 * @param destinationName the destination name to resolve
-	 * @param payload the Object to use as payload
-	 * @param postProcessor the post processor to apply to the message
+	 * @param payload         the Object to use as payload
+	 * @param postProcessor   the post processor to apply to the message
 	 */
 	<T> void convertAndSend(String destinationName, T payload, @Nullable MessagePostProcessor postProcessor)
 			throws MessagingException;
@@ -82,12 +86,13 @@ public interface DestinationResolvingMessageSendingOperations<D> extends Message
 	 * {@link org.springframework.messaging.converter.MessageConverter},
 	 * wrap it as a message with the given headers, apply the given post processor,
 	 * and send the resulting message to the resolved destination.
+	 *
 	 * @param destinationName the destination name to resolve
-	 * @param payload the Object to use as payload
-	 * @param headers headers for the message to send
-	 * @param postProcessor the post processor to apply to the message
+	 * @param payload         the Object to use as payload
+	 * @param headers         headers for the message to send
+	 * @param postProcessor   the post processor to apply to the message
 	 */
 	<T> void convertAndSend(String destinationName, T payload, @Nullable Map<String, Object> headers,
-			@Nullable MessagePostProcessor postProcessor) throws MessagingException;
+							@Nullable MessagePostProcessor postProcessor) throws MessagingException;
 
 }

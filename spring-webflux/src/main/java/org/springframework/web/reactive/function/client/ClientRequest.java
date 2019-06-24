@@ -72,6 +72,7 @@ public interface ClientRequest {
 
 	/**
 	 * Return the request attribute value if present.
+	 *
 	 * @param name the attribute name
 	 * @return the attribute value
 	 */
@@ -79,8 +80,7 @@ public interface ClientRequest {
 		Map<String, Object> attributes = attributes();
 		if (attributes.containsKey(name)) {
 			return Optional.of(attributes.get(name));
-		}
-		else {
+		} else {
 			return Optional.empty();
 		}
 	}
@@ -93,7 +93,7 @@ public interface ClientRequest {
 	/**
 	 * Writes this request to the given {@link ClientHttpRequest}.
 	 *
-	 * @param request the client http request to write to
+	 * @param request    the client http request to write to
 	 * @param strategies the strategies to use when writing
 	 * @return {@code Mono<Void>} to indicate when writing is complete
 	 */
@@ -104,6 +104,7 @@ public interface ClientRequest {
 
 	/**
 	 * Create a builder with the method, URI, headers, and cookies of the given request.
+	 *
 	 * @param other the request to copy the method, URI, headers, and cookies from
 	 * @return the created builder
 	 */
@@ -113,8 +114,9 @@ public interface ClientRequest {
 
 	/**
 	 * Create a builder with the given method and url.
+	 *
 	 * @param method the HTTP method (GET, POST, etc)
-	 * @param url the url (as a URI instance)
+	 * @param url    the url (as a URI instance)
 	 * @return the created builder
 	 * @deprecated in favor of {@link #create(HttpMethod, URI)}
 	 */
@@ -125,8 +127,9 @@ public interface ClientRequest {
 
 	/**
 	 * Create a request builder with the given method and url.
+	 *
 	 * @param method the HTTP method (GET, POST, etc)
-	 * @param url the url (as a URI instance)
+	 * @param url    the url (as a URI instance)
 	 * @return the created builder
 	 */
 	static Builder create(HttpMethod method, URI url) {
@@ -141,6 +144,7 @@ public interface ClientRequest {
 
 		/**
 		 * Set the method of the request.
+		 *
 		 * @param method the new method
 		 * @return this builder
 		 * @since 5.0.1
@@ -149,6 +153,7 @@ public interface ClientRequest {
 
 		/**
 		 * Set the url of the request.
+		 *
 		 * @param url the new url
 		 * @return this builder
 		 * @since 5.0.1
@@ -157,7 +162,8 @@ public interface ClientRequest {
 
 		/**
 		 * Add the given header value(s) under the given name.
-		 * @param headerName  the header name
+		 *
+		 * @param headerName   the header name
 		 * @param headerValues the header value(s)
 		 * @return this builder
 		 * @see HttpHeaders#add(String, String)
@@ -170,6 +176,7 @@ public interface ClientRequest {
 		 * {@linkplain HttpHeaders#set(String, String) overwrite} existing header values,
 		 * {@linkplain HttpHeaders#remove(Object) remove} values, or use any of the other
 		 * {@link HttpHeaders} methods.
+		 *
 		 * @param headersConsumer a function that consumes the {@code HttpHeaders}
 		 * @return this builder
 		 */
@@ -177,7 +184,8 @@ public interface ClientRequest {
 
 		/**
 		 * Add a cookie with the given name and value(s).
-		 * @param name the cookie name
+		 *
+		 * @param name   the cookie name
 		 * @param values the cookie value(s)
 		 * @return this builder
 		 */
@@ -189,6 +197,7 @@ public interface ClientRequest {
 		 * {@linkplain MultiValueMap#set(Object, Object) overwrite} existing header values,
 		 * {@linkplain MultiValueMap#remove(Object) remove} values, or use any of the other
 		 * {@link MultiValueMap} methods.
+		 *
 		 * @param cookiesConsumer a function that consumes the cookies map
 		 * @return this builder
 		 */
@@ -196,6 +205,7 @@ public interface ClientRequest {
 
 		/**
 		 * Set the body of the request to the given {@code BodyInserter}.
+		 *
 		 * @param inserter the {@code BodyInserter} that writes to the request
 		 * @return this builder
 		 */
@@ -203,27 +213,30 @@ public interface ClientRequest {
 
 		/**
 		 * Set the body of the request to the given {@code Publisher} and return it.
-		 * @param publisher the {@code Publisher} to write to the request
+		 *
+		 * @param publisher    the {@code Publisher} to write to the request
 		 * @param elementClass the class of elements contained in the publisher
-		 * @param <S> the type of the elements contained in the publisher
-		 * @param <P> the type of the {@code Publisher}
+		 * @param <S>          the type of the elements contained in the publisher
+		 * @param <P>          the type of the {@code Publisher}
 		 * @return the built request
 		 */
 		<S, P extends Publisher<S>> Builder body(P publisher, Class<S> elementClass);
 
 		/**
 		 * Set the body of the request to the given {@code Publisher} and return it.
-		 * @param publisher the {@code Publisher} to write to the request
+		 *
+		 * @param publisher     the {@code Publisher} to write to the request
 		 * @param typeReference a type reference describing the elements contained in the publisher
-		 * @param <S> the type of the elements contained in the publisher
-		 * @param <P> the type of the {@code Publisher}
+		 * @param <S>           the type of the elements contained in the publisher
+		 * @param <P>           the type of the {@code Publisher}
 		 * @return the built request
 		 */
 		<S, P extends Publisher<S>> Builder body(P publisher, ParameterizedTypeReference<S> typeReference);
 
 		/**
 		 * Set the attribute with the given name to the given value.
-		 * @param name the name of the attribute to add
+		 *
+		 * @param name  the name of the attribute to add
 		 * @param value the value of the attribute to add
 		 * @return this builder
 		 */
@@ -233,6 +246,7 @@ public interface ClientRequest {
 		 * Manipulate the request attributes with the given consumer. The attributes provided to
 		 * the consumer are "live", so that the consumer can be used to inspect attributes,
 		 * remove attributes, or use any of the other map-provided methods.
+		 *
 		 * @param attributesConsumer a function that consumes the attributes
 		 * @return this builder
 		 */

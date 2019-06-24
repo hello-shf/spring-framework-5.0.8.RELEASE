@@ -30,6 +30,7 @@ public class HttpMessageNotReadableException extends HttpMessageConversionExcept
 
 	/**
 	 * Create a new HttpMessageNotReadableException.
+	 *
 	 * @param msg the detail message
 	 */
 	public HttpMessageNotReadableException(String msg) {
@@ -38,7 +39,8 @@ public class HttpMessageNotReadableException extends HttpMessageConversionExcept
 
 	/**
 	 * Create a new HttpMessageNotReadableException.
-	 * @param msg the detail message
+	 *
+	 * @param msg   the detail message
 	 * @param cause the root cause (if any)
 	 */
 	public HttpMessageNotReadableException(String msg, @Nullable Throwable cause) {

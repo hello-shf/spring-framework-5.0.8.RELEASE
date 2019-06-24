@@ -49,9 +49,9 @@ import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
  * @author Arjen Poutsma
  * @author Rossen Stoyanchev
  * @author Sam Brannen
- * @since 3.0
  * @see ResponseStatus
  * @see ResponseStatusException
+ * @since 3.0
  */
 public class ResponseStatusExceptionResolver extends AbstractHandlerExceptionResolver implements MessageSourceAware {
 
@@ -84,8 +84,7 @@ public class ResponseStatusExceptionResolver extends AbstractHandlerExceptionRes
 				ex = (Exception) ex.getCause();
 				return doResolveException(request, response, handler, ex);
 			}
-		}
-		catch (Exception resolveEx) {
+		} catch (Exception resolveEx) {
 			logger.warn("ResponseStatus handling resulted in exception", resolveEx);
 		}
 		return null;
@@ -95,16 +94,17 @@ public class ResponseStatusExceptionResolver extends AbstractHandlerExceptionRes
 	 * Template method that handles the {@link ResponseStatus @ResponseStatus} annotation.
 	 * <p>The default implementation delegates to {@link #applyStatusAndReason}
 	 * with the status code and reason from the annotation.
+	 *
 	 * @param responseStatus the {@code @ResponseStatus} annotation
-	 * @param request current HTTP request
-	 * @param response current HTTP response
-	 * @param handler the executed handler, or {@code null} if none chosen at the
-	 * time of the exception, e.g. if multipart resolution failed
-	 * @param ex the exception
+	 * @param request        current HTTP request
+	 * @param response       current HTTP response
+	 * @param handler        the executed handler, or {@code null} if none chosen at the
+	 *                       time of the exception, e.g. if multipart resolution failed
+	 * @param ex             the exception
 	 * @return an empty ModelAndView, i.e. exception resolved
 	 */
 	protected ModelAndView resolveResponseStatus(ResponseStatus responseStatus, HttpServletRequest request,
-			HttpServletResponse response, @Nullable Object handler, Exception ex) throws Exception {
+												 HttpServletResponse response, @Nullable Object handler, Exception ex) throws Exception {
 
 		int statusCode = responseStatus.code().value();
 		String reason = responseStatus.reason();
@@ -115,16 +115,17 @@ public class ResponseStatusExceptionResolver extends AbstractHandlerExceptionRes
 	 * Template method that handles an {@link ResponseStatusException}.
 	 * <p>The default implementation delegates to {@link #applyStatusAndReason}
 	 * with the status code and reason from the exception.
-	 * @param ex the exception
-	 * @param request current HTTP request
+	 *
+	 * @param ex       the exception
+	 * @param request  current HTTP request
 	 * @param response current HTTP response
-	 * @param handler the executed handler, or {@code null} if none chosen at the
-	 * time of the exception, e.g. if multipart resolution failed
+	 * @param handler  the executed handler, or {@code null} if none chosen at the
+	 *                 time of the exception, e.g. if multipart resolution failed
 	 * @return an empty ModelAndView, i.e. exception resolved
 	 * @since 5.0
 	 */
 	protected ModelAndView resolveResponseStatusException(ResponseStatusException ex,
-			HttpServletRequest request, HttpServletResponse response, @Nullable Object handler) throws Exception {
+														  HttpServletRequest request, HttpServletResponse response, @Nullable Object handler) throws Exception {
 
 		int statusCode = ex.getStatus().value();
 		String reason = ex.getReason();
@@ -137,9 +138,10 @@ public class ResponseStatusExceptionResolver extends AbstractHandlerExceptionRes
 	 * {@link HttpServletResponse#sendError(int)} or
 	 * {@link HttpServletResponse#sendError(int, String)} if there is a reason
 	 * and then returns an empty ModelAndView.
+	 *
 	 * @param statusCode the HTTP status code
-	 * @param reason the associated reason (may be {@code null} or empty)
-	 * @param response current HTTP response
+	 * @param reason     the associated reason (may be {@code null} or empty)
+	 * @param response   current HTTP response
 	 * @since 5.0
 	 */
 	protected ModelAndView applyStatusAndReason(int statusCode, @Nullable String reason, HttpServletResponse response)
@@ -147,8 +149,7 @@ public class ResponseStatusExceptionResolver extends AbstractHandlerExceptionRes
 
 		if (!StringUtils.hasLength(reason)) {
 			response.sendError(statusCode);
-		}
-		else {
+		} else {
 			String resolvedReason = (this.messageSource != null ?
 					this.messageSource.getMessage(reason, null, reason, LocaleContextHolder.getLocale()) :
 					reason);

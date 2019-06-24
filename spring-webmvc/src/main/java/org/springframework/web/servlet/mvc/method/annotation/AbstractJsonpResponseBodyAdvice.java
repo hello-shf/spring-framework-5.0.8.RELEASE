@@ -70,7 +70,7 @@ public abstract class AbstractJsonpResponseBodyAdvice extends AbstractMappingJac
 
 	@Override
 	protected void beforeBodyWriteInternal(MappingJacksonValue bodyContainer, MediaType contentType,
-			MethodParameter returnType, ServerHttpRequest request, ServerHttpResponse response) {
+										   MethodParameter returnType, ServerHttpRequest request, ServerHttpResponse response) {
 
 		HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
 
@@ -95,6 +95,7 @@ public abstract class AbstractJsonpResponseBodyAdvice extends AbstractMappingJac
 	 * Validate the jsonp query parameter value. The default implementation
 	 * returns true if it consists of digits, letters, or "_" and ".".
 	 * Invalid parameter values are ignored.
+	 *
 	 * @param value the query param value, never {@code null}
 	 * @since 4.1.8
 	 */
@@ -105,9 +106,10 @@ public abstract class AbstractJsonpResponseBodyAdvice extends AbstractMappingJac
 	/**
 	 * Return the content type to set the response to.
 	 * This implementation always returns "application/javascript".
+	 *
 	 * @param contentType the content type selected through content negotiation
-	 * @param request the current request
-	 * @param response the current response
+	 * @param request     the current request
+	 * @param response    the current response
 	 * @return the content type to set the response to
 	 */
 	protected MediaType getContentType(MediaType contentType, ServerHttpRequest request, ServerHttpResponse response) {

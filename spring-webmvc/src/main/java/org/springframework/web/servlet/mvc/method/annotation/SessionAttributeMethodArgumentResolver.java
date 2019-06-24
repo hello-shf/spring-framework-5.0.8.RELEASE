@@ -50,14 +50,14 @@ public class SessionAttributeMethodArgumentResolver extends AbstractNamedValueMe
 
 	@Override
 	@Nullable
-	protected Object resolveName(String name, MethodParameter parameter, NativeWebRequest request){
+	protected Object resolveName(String name, MethodParameter parameter, NativeWebRequest request) {
 		return request.getAttribute(name, RequestAttributes.SCOPE_SESSION);
 	}
 
 	@Override
 	protected void handleMissingValue(String name, MethodParameter parameter) throws ServletException {
 		throw new ServletRequestBindingException("Missing session attribute '" + name +
-				"' of type " +  parameter.getNestedParameterType().getSimpleName());
+				"' of type " + parameter.getNestedParameterType().getSimpleName());
 	}
 
 }

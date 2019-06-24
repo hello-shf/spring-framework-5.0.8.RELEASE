@@ -41,6 +41,7 @@ public class AnnotationExceptionHandlerMethodResolver extends AbstractExceptionH
 
 	/**
 	 * A constructor that finds {@link MessageExceptionHandler} methods in the given type.
+	 *
 	 * @param handlerType the type to introspect
 	 */
 	public AnnotationExceptionHandlerMethodResolver(Class<?> handlerType) {

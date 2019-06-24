@@ -86,6 +86,7 @@ public class DeferredResult<T> {
 	 * <p>By default not set in which case the default configured in the MVC
 	 * Java Config or the MVC namespace is used, or if that's not set, then the
 	 * timeout depends on the default of the underlying server.
+	 *
 	 * @param timeout timeout value in milliseconds
 	 */
 	public DeferredResult(Long timeout) {
@@ -95,7 +96,8 @@ public class DeferredResult<T> {
 	/**
 	 * Create a DeferredResult with a timeout value and a default result to use
 	 * in case of timeout.
-	 * @param timeout timeout value in milliseconds (ignored if {@code null})
+	 *
+	 * @param timeout       timeout value in milliseconds (ignored if {@code null})
 	 * @param timeoutResult the result to use
 	 */
 	public DeferredResult(@Nullable Long timeout, Object timeoutResult) {
@@ -118,6 +120,7 @@ public class DeferredResult<T> {
 
 	/**
 	 * Return {@code true} if the DeferredResult has been set.
+	 *
 	 * @since 4.0
 	 */
 	public boolean hasResult() {
@@ -128,6 +131,7 @@ public class DeferredResult<T> {
 	 * Return the result, or {@code null} if the result wasn't set. Since the result
 	 * can also be {@code null}, it is recommended to use {@link #hasResult()} first
 	 * to check if there is a result prior to calling this method.
+	 *
 	 * @since 4.0
 	 */
 	@Nullable
@@ -162,6 +166,7 @@ public class DeferredResult<T> {
 	 * been populated. It may invoke {@link DeferredResult#setResult setResult}
 	 * or {@link DeferredResult#setErrorResult setErrorResult} to resume
 	 * processing.
+	 *
 	 * @since 5.0
 	 */
 	public void onError(Consumer<Throwable> callback) {
@@ -180,6 +185,7 @@ public class DeferredResult<T> {
 
 	/**
 	 * Provide a handler to use to handle the result value.
+	 *
 	 * @param resultHandler the handler
 	 * @see DeferredResultProcessingInterceptor
 	 */
@@ -207,14 +213,14 @@ public class DeferredResult<T> {
 		// of it, avoiding any deadlock potential with Servlet container locks.
 		try {
 			resultHandler.handleResult(resultToHandle);
-		}
-		catch (Throwable ex) {
+		} catch (Throwable ex) {
 			logger.debug("Failed to handle existing result", ex);
 		}
 	}
 
 	/**
 	 * Set the value for the DeferredResult and handle it.
+	 *
 	 * @param result the value to set
 	 * @return {@code true} if the result was set and passed on for handling;
 	 * {@code false} if the result was already set or the async request expired
@@ -258,6 +264,7 @@ public class DeferredResult<T> {
 	 * Set an error value for the {@link DeferredResult} and handle it.
 	 * The value may be an {@link Exception} or {@link Throwable} in which case
 	 * it will be processed as if a handler raised the exception.
+	 *
 	 * @param result the error result value
 	 * @return {@code true} if the result was set to the error value and passed on
 	 * for handling; {@code false} if the result was already set or the async
@@ -278,37 +285,35 @@ public class DeferredResult<T> {
 					if (timeoutCallback != null) {
 						timeoutCallback.run();
 					}
-				}
-				finally {
+				} finally {
 					if (timeoutResult != RESULT_NONE) {
 						continueProcessing = false;
 						try {
 							setResultInternal(timeoutResult);
-						}
-						catch (Throwable ex) {
+						} catch (Throwable ex) {
 							logger.debug("Failed to handle timeout result", ex);
 						}
 					}
 				}
 				return continueProcessing;
 			}
+
 			@Override
 			public <S> boolean handleError(NativeWebRequest request, DeferredResult<S> deferredResult, Throwable t) {
 				try {
 					if (errorCallback != null) {
 						errorCallback.accept(t);
 					}
-				}
-				finally {
+				} finally {
 					try {
 						setResultInternal(t);
-					}
-					catch (Throwable ex) {
+					} catch (Throwable ex) {
 						logger.debug("Failed to handle error result", ex);
 					}
 				}
 				return false;
 			}
+
 			@Override
 			public <S> void afterCompletion(NativeWebRequest request, DeferredResult<S> deferredResult) {
 				expired = true;

@@ -328,6 +328,7 @@ public abstract class AbstractHtmlElementTag extends AbstractDataBoundFormElemen
 	public void setOnmouseout(String onmouseout) {
 		this.onmouseout = onmouseout;
 	}
+
 	/**
 	 * Get the value of the '{@code onmouseout}' attribute.
 	 * May be a runtime expression.
@@ -395,7 +396,7 @@ public abstract class AbstractHtmlElementTag extends AbstractDataBoundFormElemen
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setDynamicAttribute(String uri, String localName, Object value ) throws JspException {
+	public void setDynamicAttribute(String uri, String localName, Object value) throws JspException {
 		if (this.dynamicAttributes == null) {
 			this.dynamicAttributes = new HashMap<>();
 		}
@@ -461,8 +462,7 @@ public abstract class AbstractHtmlElementTag extends AbstractDataBoundFormElemen
 	protected String resolveCssClass() throws JspException {
 		if (getBindStatus().isError() && StringUtils.hasText(getCssErrorClass())) {
 			return ObjectUtils.getDisplayString(evaluate("cssErrorClass", getCssErrorClass()));
-		}
-		else {
+		} else {
 			return ObjectUtils.getDisplayString(evaluate("cssClass", getCssClass()));
 		}
 	}

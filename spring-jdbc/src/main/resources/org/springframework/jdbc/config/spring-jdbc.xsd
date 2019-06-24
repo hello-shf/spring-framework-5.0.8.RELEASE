@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <xsd:schema xmlns="http://www.springframework.org/schema/jdbc"
-		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-		xmlns:beans="http://www.springframework.org/schema/beans"
-		xmlns:tool="http://www.springframework.org/schema/tool"
-		targetNamespace="http://www.springframework.org/schema/jdbc"
-		elementFormDefault="qualified"
-		attributeFormDefault="unqualified">
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:beans="http://www.springframework.org/schema/beans"
+			xmlns:tool="http://www.springframework.org/schema/tool"
+			targetNamespace="http://www.springframework.org/schema/jdbc"
+			elementFormDefault="qualified"
+			attributeFormDefault="unqualified">
 
-	<xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
-	<xsd:import namespace="http://www.springframework.org/schema/tool" schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/beans"
+				schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/tool"
+				schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
 
 	<xsd:element name="embedded-database">
 		<xsd:annotation>
-			<xsd:documentation source="java:org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactoryBean"><![CDATA[
+			<xsd:documentation source="java:org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactoryBean">
+				<![CDATA[
 	Creates an embedded database instance and makes it available to other beans as a javax.sql.DataSource.
 			]]></xsd:documentation>
 			<xsd:appinfo>
@@ -47,11 +50,11 @@
 					<xsd:attribute name="generate-name" type="xsd:string" use="optional" default="false">
 						<xsd:annotation>
 							<xsd:documentation>
-			If set to "true", a pseudo-random unique name will be generated for the embedded
-			database, overriding any implicit name provided via the 'id' attribute or any
-			explicit name provided via the 'database-name' attribute.
-			Note that this is not the bean name but rather the name of the embedded database
-			as used in the JDBC connection URL for the database.
+								If set to "true", a pseudo-random unique name will be generated for the embedded
+								database, overriding any implicit name provided via the 'id' attribute or any
+								explicit name provided via the 'database-name' attribute.
+								Note that this is not the bean name but rather the name of the embedded database
+								as used in the JDBC connection URL for the database.
 							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:attribute>
@@ -105,9 +108,9 @@
 			<xsd:attribute name="enabled" type="xsd:string" use="optional" default="true">
 				<xsd:annotation>
 					<xsd:documentation>
-			Is this bean "enabled", meaning the scripts will be executed?
-			Defaults to true but can be used to switch on and off script execution
-			depending on the environment.
+						Is this bean "enabled", meaning the scripts will be executed?
+						Defaults to true but can be used to switch on and off script execution
+						depending on the environment.
 					</xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>

@@ -32,8 +32,8 @@ import org.springframework.util.ErrorHandler;
  * Base {@link JmsListenerContainerFactory} for Spring's base container implementation.
  *
  * @author Stephane Nicoll
- * @since 4.1
  * @see AbstractMessageListenerContainer
+ * @since 4.1
  */
 public abstract class AbstractJmsListenerContainerFactory<C extends AbstractMessageListenerContainer>
 		implements JmsListenerContainerFactory<C> {

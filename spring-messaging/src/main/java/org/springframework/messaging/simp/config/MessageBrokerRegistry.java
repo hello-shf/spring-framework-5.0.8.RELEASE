@@ -174,8 +174,9 @@ public class MessageBrokerRegistry {
 	 * as its type and method-level mappings respectively.
 	 * <p>When the simple broker is enabled, the PathMatcher configured here is
 	 * also used to match message destinations when brokering messages.
-	 * @since 4.1
+	 *
 	 * @see org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry#setPathMatcher
+	 * @since 4.1
 	 */
 	public MessageBrokerRegistry setPathMatcher(PathMatcher pathMatcher) {
 		this.pathMatcher = pathMatcher;
@@ -191,8 +192,9 @@ public class MessageBrokerRegistry {
 	 * Configure the cache limit to apply for registrations with the broker.
 	 * <p>This is currently only applied for the destination cache in the
 	 * subscription registry. The default cache limit there is 1024.
-	 * @since 4.3.2
+	 *
 	 * @see org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry#setCacheLimit
+	 * @since 4.3.2
 	 */
 	public MessageBrokerRegistry setCacheLimit(int cacheLimit) {
 		this.cacheLimit = cacheLimit;

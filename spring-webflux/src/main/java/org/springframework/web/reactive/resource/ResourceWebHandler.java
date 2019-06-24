@@ -83,7 +83,9 @@ import org.springframework.web.server.WebHandler;
  */
 public class ResourceWebHandler implements WebHandler, InitializingBean {
 
-	/** Set of supported HTTP methods */
+	/**
+	 * Set of supported HTTP methods
+	 */
 	private static final Set<HttpMethod> SUPPORTED_METHODS = EnumSet.of(HttpMethod.GET, HttpMethod.HEAD);
 
 	private static final ResponseStatusException NOT_FOUND_EXCEPTION =
@@ -296,8 +298,7 @@ public class ResourceWebHandler implements WebHandler, InitializingBean {
 							if (logger.isTraceEnabled()) {
 								logger.trace("Determined media type '" + mediaType + "' for " + resource);
 							}
-						}
-						else {
+						} else {
 							if (logger.isTraceEnabled()) {
 								logger.trace("No media type found " +
 										"for " + resource + " - not sending a content-type header");
@@ -318,8 +319,7 @@ public class ResourceWebHandler implements WebHandler, InitializingBean {
 						return writer.write(Mono.just(resource),
 								null, ResolvableType.forClass(Resource.class), mediaType,
 								exchange.getRequest(), exchange.getResponse(), Collections.emptyMap());
-					}
-					catch (IOException ex) {
+					} catch (IOException ex) {
 						return Mono.error(ex);
 					}
 				});
@@ -360,6 +360,7 @@ public class ResourceWebHandler implements WebHandler, InitializingBean {
 	 * with a single "/" or "". For example {@code "  / // foo/bar"}
 	 * becomes {@code "/foo/bar"}.
 	 * </ul>
+	 *
 	 * @since 3.2.12
 	 */
 	protected String processPath(String path) {
@@ -383,8 +384,7 @@ public class ResourceWebHandler implements WebHandler, InitializingBean {
 				if (sb != null) {
 					sb.append(path.charAt(i));
 				}
-			}
-			finally {
+			} finally {
 				prev = curr;
 			}
 		}
@@ -396,8 +396,7 @@ public class ResourceWebHandler implements WebHandler, InitializingBean {
 		for (int i = 0; i < path.length(); i++) {
 			if (path.charAt(i) == '/') {
 				slash = true;
-			}
-			else if (path.charAt(i) > ' ' && path.charAt(i) != 127) {
+			} else if (path.charAt(i) > ' ' && path.charAt(i) != 127) {
 				if (i == 0 || (i == 1 && slash)) {
 					return path;
 				}
@@ -413,6 +412,7 @@ public class ResourceWebHandler implements WebHandler, InitializingBean {
 
 	/**
 	 * Check whether the given path contains invalid escape sequences.
+	 *
 	 * @param path the path to validate
 	 * @return {@code true} if the path is invalid, {@code false} otherwise
 	 */
@@ -428,8 +428,7 @@ public class ResourceWebHandler implements WebHandler, InitializingBean {
 				if (isInvalidPath(decodedPath)) {
 					return true;
 				}
-			}
-			catch (IllegalArgumentException | UnsupportedEncodingException ex) {
+			} catch (IllegalArgumentException | UnsupportedEncodingException ex) {
 				// Should never happen...
 			}
 		}
@@ -448,6 +447,7 @@ public class ResourceWebHandler implements WebHandler, InitializingBean {
 	 * <p><strong>Note:</strong> this method assumes that leading, duplicate '/'
 	 * or control characters (e.g. white space) have been trimmed so that the
 	 * path starts predictably with a single '/' or does not have one.
+	 *
 	 * @param path the path to validate
 	 * @return {@code true} if the path is invalid, {@code false} otherwise
 	 */
@@ -484,8 +484,9 @@ public class ResourceWebHandler implements WebHandler, InitializingBean {
 
 	/**
 	 * Set headers on the response. Called for both GET and HEAD requests.
-	 * @param exchange current exchange
-	 * @param resource the identified resource (never {@code null})
+	 *
+	 * @param exchange  current exchange
+	 * @param resource  the identified resource (never {@code null})
 	 * @param mediaType the resource's media type (never {@code null})
 	 */
 	protected void setHeaders(ServerWebExchange exchange, Resource resource, @Nullable MediaType mediaType)

@@ -112,6 +112,7 @@ public class ContentNegotiationConfigurer {
 	 * <p><strong>Note:</strong> use of this method is mutually exclusive with
 	 * use of all other setters in this class which customize a default, fixed
 	 * set of strategies. See class level doc for more details.
+	 *
 	 * @param strategies the strategies to use
 	 * @since 5.0
 	 */
@@ -141,6 +142,7 @@ public class ContentNegotiationConfigurer {
 	 * <p>The path extension strategy will also try to use
 	 * {@link ServletContext#getMimeType} and {@link MediaTypeFactory} to resolve path
 	 * extensions. To change this behavior see the {@link #useRegisteredExtensionsOnly} property.
+	 *
 	 * @param extension the key to look up
 	 * @param mediaType the media type
 	 * @see #mediaTypes(Map)
@@ -153,6 +155,7 @@ public class ContentNegotiationConfigurer {
 
 	/**
 	 * An alternative to {@link #mediaType}.
+	 *
 	 * @see #mediaType(String, MediaType)
 	 * @see #replaceMediaTypes(Map)
 	 */
@@ -165,6 +168,7 @@ public class ContentNegotiationConfigurer {
 
 	/**
 	 * Similar to {@link #mediaType} but for replacing existing mappings.
+	 *
 	 * @see #mediaType(String, MediaType)
 	 * @see #mediaTypes(Map)
 	 */
@@ -211,6 +215,7 @@ public class ContentNegotiationConfigurer {
 	 * determine the requested media type. For this option to work you must
 	 * register {@link #mediaType(String, MediaType) media type mappings}.
 	 * <p>By default this is set to {@code false}.
+	 *
 	 * @see #parameterName(String)
 	 */
 	public ContentNegotiationConfigurer favorParameter(boolean favorParameter) {
@@ -242,6 +247,7 @@ public class ContentNegotiationConfigurer {
 	 * <p>If destinations are present that do not support any of the given media
 	 * types, consider appending {@link MediaType#ALL} at the end.
 	 * <p>By default this is not set.
+	 *
 	 * @see #defaultContentTypeStrategy
 	 */
 	public ContentNegotiationConfigurer defaultContentType(MediaType... defaultContentTypes) {
@@ -253,6 +259,7 @@ public class ContentNegotiationConfigurer {
 	 * Set a custom {@link ContentNegotiationStrategy} to use to determine
 	 * the content type to use when no content type is requested.
 	 * <p>By default this is not set.
+	 *
 	 * @see #defaultContentType
 	 * @since 4.1.2
 	 */
@@ -264,8 +271,9 @@ public class ContentNegotiationConfigurer {
 
 	/**
 	 * Build a {@link ContentNegotiationManager} based on this configurer's settings.
-	 * @since 4.3.12
+	 *
 	 * @see ContentNegotiationManagerFactoryBean#getObject()
+	 * @since 4.3.12
 	 */
 	protected ContentNegotiationManager buildContentNegotiationManager() {
 		this.factory.addMediaTypes(this.mediaTypes);

@@ -81,17 +81,17 @@ public class ModelResultMatchers {
 		};
 	}
 
-    /**
-     * Assert the given model attributes do not exist
-     */
-    public ResultMatcher attributeDoesNotExist(final String... names) {
-        return result -> {
+	/**
+	 * Assert the given model attributes do not exist
+	 */
+	public ResultMatcher attributeDoesNotExist(final String... names) {
+		return result -> {
 			ModelAndView mav = getModelAndView(result);
 			for (String name : names) {
 				assertTrue("Model attribute '" + name + "' exists", mav.getModel().get(name) == null);
 			}
 		};
-    }
+	}
 
 	/**
 	 * Assert the given model attribute(s) have errors.
@@ -149,6 +149,7 @@ public class ModelResultMatchers {
 
 	/**
 	 * Assert a field error code for a model attribute using exact String match.
+	 *
 	 * @since 4.1
 	 */
 	public ResultMatcher attributeHasFieldErrorCode(final String name, final String fieldName, final String error) {
@@ -167,10 +168,11 @@ public class ModelResultMatchers {
 
 	/**
 	 * Assert a field error code for a model attribute using a {@link org.hamcrest.Matcher}.
+	 *
 	 * @since 4.1
 	 */
 	public <T> ResultMatcher attributeHasFieldErrorCode(final String name, final String fieldName,
-			final Matcher<? super String> matcher) {
+														final Matcher<? super String> matcher) {
 
 		return mvcResult -> {
 			ModelAndView mav = getModelAndView(mvcResult);

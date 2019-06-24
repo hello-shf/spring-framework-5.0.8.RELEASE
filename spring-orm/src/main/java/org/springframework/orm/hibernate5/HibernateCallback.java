@@ -28,9 +28,9 @@ import org.springframework.lang.Nullable;
  * some operations on persistent objects.
  *
  * @author Juergen Hoeller
- * @since 4.2
  * @see HibernateTemplate
  * @see HibernateTransactionManager
+ * @since 4.2
  */
 @FunctionalInterface
 public interface HibernateCallback<T> {
@@ -43,6 +43,7 @@ public interface HibernateCallback<T> {
 	 * i.e. a domain object or a collection of domain objects.
 	 * A thrown custom RuntimeException is treated as an application exception:
 	 * It gets propagated to the caller of the template.
+	 *
 	 * @param session active Hibernate session
 	 * @return a result object, or {@code null} if none
 	 * @throws HibernateException if thrown by the Hibernate API

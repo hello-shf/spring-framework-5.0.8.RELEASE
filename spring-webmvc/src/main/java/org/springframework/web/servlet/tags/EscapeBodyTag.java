@@ -65,9 +65,9 @@ import org.springframework.web.util.JavaScriptUtils;
  * </table>
  *
  * @author Juergen Hoeller
- * @since 1.1.1
  * @see org.springframework.web.util.HtmlUtils
  * @see org.springframework.web.util.JavaScriptUtils
+ * @since 1.1.1
  */
 @SuppressWarnings("serial")
 public class EscapeBodyTag extends HtmlEscapingAwareTag implements BodyTag {
@@ -111,8 +111,7 @@ public class EscapeBodyTag extends HtmlEscapingAwareTag implements BodyTag {
 			content = htmlEscape(content);
 			content = (this.javaScriptEscape ? JavaScriptUtils.javaScriptEscape(content) : content);
 			writeBodyContent(content);
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			throw new JspException("Could not write escaped body", ex);
 		}
 		return (SKIP_BODY);
@@ -120,6 +119,7 @@ public class EscapeBodyTag extends HtmlEscapingAwareTag implements BodyTag {
 
 	/**
 	 * Read the unescaped body content from the page.
+	 *
 	 * @return the original content
 	 * @throws IOException if reading failed
 	 */
@@ -131,6 +131,7 @@ public class EscapeBodyTag extends HtmlEscapingAwareTag implements BodyTag {
 	/**
 	 * Write the escaped body content to the page.
 	 * <p>Can be overridden in subclasses, e.g. for testing purposes.
+	 *
 	 * @param content the content to write
 	 * @throws IOException if writing failed
 	 */

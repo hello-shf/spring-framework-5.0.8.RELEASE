@@ -32,9 +32,9 @@ import org.springframework.util.Assert;
  * <p>Note: This is an SPI class, not intended to be used by applications.
  *
  * @author Juergen Hoeller
- * @since 4.2
  * @see HibernateTransactionManager
  * @see SessionFactoryUtils
+ * @since 4.2
  */
 public class SessionHolder extends ResourceHolderSupport {
 

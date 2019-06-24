@@ -54,8 +54,8 @@ import org.springframework.util.MultiValueMap;
  *
  * @author Sebastien Deleuze
  * @author Rossen Stoyanchev
- * @since 5.0
  * @see org.springframework.http.codec.multipart.MultipartHttpMessageWriter
+ * @since 5.0
  */
 public class FormHttpMessageWriter implements HttpMessageWriter<MultiValueMap<String, String>> {
 
@@ -117,8 +117,8 @@ public class FormHttpMessageWriter implements HttpMessageWriter<MultiValueMap<St
 
 	@Override
 	public Mono<Void> write(Publisher<? extends MultiValueMap<String, String>> inputStream,
-			ResolvableType elementType, @Nullable MediaType mediaType, ReactiveHttpOutputMessage message,
-			Map<String, Object> hints) {
+							ResolvableType elementType, @Nullable MediaType mediaType, ReactiveHttpOutputMessage message,
+							Map<String, Object> hints) {
 
 		mediaType = getMediaType(mediaType);
 		message.getHeaders().setContentType(mediaType);
@@ -127,22 +127,20 @@ public class FormHttpMessageWriter implements HttpMessageWriter<MultiValueMap<St
 		Assert.notNull(charset, "No charset"); // should never occur
 
 		return Mono.from(inputStream).flatMap(form -> {
-					String value = serializeForm(form, charset);
-					ByteBuffer byteBuffer = charset.encode(value);
-					DataBuffer buffer = message.bufferFactory().wrap(byteBuffer);
-					message.getHeaders().setContentLength(byteBuffer.remaining());
-					return message.writeWith(Mono.just(buffer));
-				});
+			String value = serializeForm(form, charset);
+			ByteBuffer byteBuffer = charset.encode(value);
+			DataBuffer buffer = message.bufferFactory().wrap(byteBuffer);
+			message.getHeaders().setContentLength(byteBuffer.remaining());
+			return message.writeWith(Mono.just(buffer));
+		});
 	}
 
 	private MediaType getMediaType(@Nullable MediaType mediaType) {
 		if (mediaType == null) {
 			return DEFAULT_FORM_DATA_MEDIA_TYPE;
-		}
-		else if (mediaType.getCharset() == null) {
+		} else if (mediaType.getCharset() == null) {
 			return new MediaType(mediaType, getDefaultCharset());
-		}
-		else {
+		} else {
 			return mediaType;
 		}
 	}
@@ -160,8 +158,7 @@ public class FormHttpMessageWriter implements HttpMessageWriter<MultiValueMap<St
 							builder.append('=');
 							builder.append(URLEncoder.encode(value, charset.name()));
 						}
-					}
-					catch (UnsupportedEncodingException ex) {
+					} catch (UnsupportedEncodingException ex) {
 						throw new IllegalStateException(ex);
 					}
 				}));

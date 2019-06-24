@@ -146,7 +146,7 @@ final class DefaultClientResponseBuilder implements ClientResponse.Builder {
 		private final Flux<DataBuffer> body;
 
 		public BuiltClientHttpResponse(HttpStatus statusCode, HttpHeaders headers,
-				MultiValueMap<String, ResponseCookie> cookies, Flux<DataBuffer> body) {
+									   MultiValueMap<String, ResponseCookie> cookies, Flux<DataBuffer> body) {
 
 			this.statusCode = statusCode;
 			this.headers = HttpHeaders.readOnlyHttpHeaders(headers);

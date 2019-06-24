@@ -32,8 +32,9 @@ public class CannotGetCciConnectionException extends DataAccessResourceFailureEx
 
 	/**
 	 * Constructor for CannotGetCciConnectionException.
+	 *
 	 * @param msg message
-	 * @param ex ResourceException root cause
+	 * @param ex  ResourceException root cause
 	 */
 	public CannotGetCciConnectionException(String msg, ResourceException ex) {
 		super(msg, ex);

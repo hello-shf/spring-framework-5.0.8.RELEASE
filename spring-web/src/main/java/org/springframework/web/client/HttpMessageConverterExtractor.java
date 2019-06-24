@@ -36,8 +36,8 @@ import org.springframework.util.Assert;
  * to convert the response into a type {@code T}.
  *
  * @author Arjen Poutsma
- * @since 3.0
  * @see RestTemplate
+ * @since 3.0
  */
 public class HttpMessageConverterExtractor<T> implements ResponseExtractor<T> {
 
@@ -110,8 +110,7 @@ public class HttpMessageConverterExtractor<T> implements ResponseExtractor<T> {
 					}
 				}
 			}
-		}
-		catch (IOException | HttpMessageNotReadableException ex) {
+		} catch (IOException | HttpMessageNotReadableException ex) {
 			throw new RestClientException("Error while extracting response for type [" +
 					this.responseType + "] and content type [" + contentType + "]", ex);
 		}

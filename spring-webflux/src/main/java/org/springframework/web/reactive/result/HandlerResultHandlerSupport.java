@@ -55,7 +55,7 @@ public abstract class HandlerResultHandlerSupport implements Ordered {
 
 
 	protected HandlerResultHandlerSupport(RequestedContentTypeResolver contentTypeResolver,
-			ReactiveAdapterRegistry adapterRegistry) {
+										  ReactiveAdapterRegistry adapterRegistry) {
 
 		Assert.notNull(contentTypeResolver, "RequestedContentTypeResolver is required");
 		Assert.notNull(adapterRegistry, "ReactiveAdapterRegistry is required");
@@ -82,6 +82,7 @@ public abstract class HandlerResultHandlerSupport implements Ordered {
 	 * Set the order for this result handler relative to others.
 	 * <p>By default set to {@link Ordered#LOWEST_PRECEDENCE}, however see
 	 * Javadoc of sub-classes which may change this default.
+	 *
 	 * @param order the order
 	 */
 	public void setOrder(int order) {
@@ -96,6 +97,7 @@ public abstract class HandlerResultHandlerSupport implements Ordered {
 
 	/**
 	 * Get a {@code ReactiveAdapter} for the top-level return value type.
+	 *
 	 * @return the matching adapter or {@code null}
 	 */
 	@Nullable
@@ -107,13 +109,14 @@ public abstract class HandlerResultHandlerSupport implements Ordered {
 	/**
 	 * Select the best media type for the current request through a content
 	 * negotiation algorithm.
-	 * @param exchange the current request
+	 *
+	 * @param exchange                the current request
 	 * @param producibleTypesSupplier the media types that can be produced for the current request
 	 * @return the selected media type or {@code null}
 	 */
 	@Nullable
 	protected MediaType selectMediaType(ServerWebExchange exchange,
-			Supplier<List<MediaType>> producibleTypesSupplier) {
+										Supplier<List<MediaType>> producibleTypesSupplier) {
 
 		MediaType contentType = exchange.getResponse().getHeaders().getContentType();
 		if (contentType != null && contentType.isConcrete()) {
@@ -138,8 +141,7 @@ public abstract class HandlerResultHandlerSupport implements Ordered {
 		for (MediaType mediaType : result) {
 			if (mediaType.isConcrete()) {
 				return mediaType;
-			}
-			else if (mediaType.equals(MediaType.ALL) || mediaType.equals(MEDIA_TYPE_APPLICATION_ALL)) {
+			} else if (mediaType.equals(MediaType.ALL) || mediaType.equals(MEDIA_TYPE_APPLICATION_ALL)) {
 				return MediaType.APPLICATION_OCTET_STREAM;
 			}
 		}
@@ -153,7 +155,7 @@ public abstract class HandlerResultHandlerSupport implements Ordered {
 
 	@SuppressWarnings("unchecked")
 	private List<MediaType> getProducibleTypes(ServerWebExchange exchange,
-			Supplier<List<MediaType>> producibleTypesSupplier) {
+											   Supplier<List<MediaType>> producibleTypesSupplier) {
 
 		Set<MediaType> mediaTypes = exchange.getAttribute(HandlerMapping.PRODUCIBLE_MEDIA_TYPES_ATTRIBUTE);
 		return (mediaTypes != null ? new ArrayList<>(mediaTypes) : producibleTypesSupplier.get());

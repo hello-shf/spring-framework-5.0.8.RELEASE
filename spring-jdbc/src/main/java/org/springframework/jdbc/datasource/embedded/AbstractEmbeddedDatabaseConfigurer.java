@@ -44,16 +44,13 @@ abstract class AbstractEmbeddedDatabaseConfigurer implements EmbeddedDatabaseCon
 			if (con != null) {
 				con.createStatement().execute("SHUTDOWN");
 			}
-		}
-		catch (SQLException ex) {
+		} catch (SQLException ex) {
 			logger.warn("Could not shut down embedded database", ex);
-		}
-		finally {
+		} finally {
 			if (con != null) {
 				try {
 					con.close();
-				}
-				catch (Throwable ex) {
+				} catch (Throwable ex) {
 					logger.debug("Could not close JDBC Connection on shutdown", ex);
 				}
 			}

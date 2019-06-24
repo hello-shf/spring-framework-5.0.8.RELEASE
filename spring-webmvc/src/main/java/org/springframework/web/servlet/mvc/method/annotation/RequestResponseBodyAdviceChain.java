@@ -59,8 +59,7 @@ class RequestResponseBodyAdviceChain implements RequestBodyAdvice, ResponseBodyA
 				if (beanType != null) {
 					if (RequestBodyAdvice.class.isAssignableFrom(beanType)) {
 						this.requestBodyAdvice.add(advice);
-					}
-					else if (ResponseBodyAdvice.class.isAssignableFrom(beanType)) {
+					} else if (ResponseBodyAdvice.class.isAssignableFrom(beanType)) {
 						this.responseBodyAdvice.add(advice);
 					}
 				}
@@ -81,7 +80,7 @@ class RequestResponseBodyAdviceChain implements RequestBodyAdvice, ResponseBodyA
 
 	@Override
 	public HttpInputMessage beforeBodyRead(HttpInputMessage request, MethodParameter parameter,
-			Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
+										   Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
 
 		for (RequestBodyAdvice advice : getMatchingAdvice(parameter, RequestBodyAdvice.class)) {
 			if (advice.supports(parameter, targetType, converterType)) {
@@ -93,7 +92,7 @@ class RequestResponseBodyAdviceChain implements RequestBodyAdvice, ResponseBodyA
 
 	@Override
 	public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter,
-			Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
+								Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
 
 		for (RequestBodyAdvice advice : getMatchingAdvice(parameter, RequestBodyAdvice.class)) {
 			if (advice.supports(parameter, targetType, converterType)) {
@@ -106,8 +105,8 @@ class RequestResponseBodyAdviceChain implements RequestBodyAdvice, ResponseBodyA
 	@Override
 	@Nullable
 	public Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType contentType,
-			Class<? extends HttpMessageConverter<?>> converterType,
-			ServerHttpRequest request, ServerHttpResponse response) {
+								  Class<? extends HttpMessageConverter<?>> converterType,
+								  ServerHttpRequest request, ServerHttpResponse response) {
 
 		return processBody(body, returnType, contentType, converterType, request, response);
 	}
@@ -115,7 +114,7 @@ class RequestResponseBodyAdviceChain implements RequestBodyAdvice, ResponseBodyA
 	@Override
 	@Nullable
 	public Object handleEmptyBody(@Nullable Object body, HttpInputMessage inputMessage, MethodParameter parameter,
-			Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
+								  Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
 
 		for (RequestBodyAdvice advice : getMatchingAdvice(parameter, RequestBodyAdvice.class)) {
 			if (advice.supports(parameter, targetType, converterType)) {
@@ -129,8 +128,8 @@ class RequestResponseBodyAdviceChain implements RequestBodyAdvice, ResponseBodyA
 	@SuppressWarnings("unchecked")
 	@Nullable
 	private <T> Object processBody(@Nullable Object body, MethodParameter returnType, MediaType contentType,
-			Class<? extends HttpMessageConverter<?>> converterType,
-			ServerHttpRequest request, ServerHttpResponse response) {
+								   Class<? extends HttpMessageConverter<?>> converterType,
+								   ServerHttpRequest request, ServerHttpResponse response) {
 
 		for (ResponseBodyAdvice<?> advice : getMatchingAdvice(returnType, ResponseBodyAdvice.class)) {
 			if (advice.supports(returnType, converterType)) {
@@ -166,11 +165,9 @@ class RequestResponseBodyAdviceChain implements RequestBodyAdvice, ResponseBodyA
 	private List<Object> getAdvice(Class<?> adviceType) {
 		if (RequestBodyAdvice.class == adviceType) {
 			return this.requestBodyAdvice;
-		}
-		else if (ResponseBodyAdvice.class == adviceType) {
+		} else if (ResponseBodyAdvice.class == adviceType) {
 			return this.responseBodyAdvice;
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException("Unexpected adviceType: " + adviceType);
 		}
 	}

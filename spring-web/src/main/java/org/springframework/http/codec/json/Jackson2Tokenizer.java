@@ -69,22 +69,22 @@ class Jackson2Tokenizer {
 
 	/**
 	 * Tokenize the given {@code Flux<DataBuffer>} into {@code Flux<TokenBuffer>}.
-	 * @param dataBuffers the source data buffers
-	 * @param jsonFactory the factory to use
+	 *
+	 * @param dataBuffers           the source data buffers
+	 * @param jsonFactory           the factory to use
 	 * @param tokenizeArrayElements if {@code true} and the "top level" JSON
-	 * object is an array, each element is returned individually, immediately
-	 * after it is received.
+	 *                              object is an array, each element is returned individually, immediately
+	 *                              after it is received.
 	 * @return the result token buffers
 	 */
 	public static Flux<TokenBuffer> tokenize(Flux<DataBuffer> dataBuffers, JsonFactory jsonFactory,
-			boolean tokenizeArrayElements) {
+											 boolean tokenizeArrayElements) {
 
 		try {
 			JsonParser parser = jsonFactory.createNonBlockingByteArrayParser();
 			Jackson2Tokenizer tokenizer = new Jackson2Tokenizer(parser, tokenizeArrayElements);
 			return dataBuffers.flatMap(tokenizer::tokenize, Flux::error, tokenizer::endOfInput);
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			return Flux.error(ex);
 		}
 	}
@@ -97,12 +97,10 @@ class Jackson2Tokenizer {
 		try {
 			this.inputFeeder.feedInput(bytes, 0, bytes.length);
 			return parseTokenBufferFlux();
-		}
-		catch (JsonProcessingException ex) {
+		} catch (JsonProcessingException ex) {
 			return Flux.error(new DecodingException(
 					"JSON decoding error: " + ex.getOriginalMessage(), ex));
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			return Flux.error(ex);
 		}
 	}
@@ -111,12 +109,10 @@ class Jackson2Tokenizer {
 		this.inputFeeder.endOfInput();
 		try {
 			return parseTokenBufferFlux();
-		}
-		catch (JsonProcessingException ex) {
+		} catch (JsonProcessingException ex) {
 			return Flux.error(new DecodingException(
 					"JSON decoding error: " + ex.getOriginalMessage(), ex));
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			return Flux.error(ex);
 		}
 	}
@@ -135,8 +131,7 @@ class Jackson2Tokenizer {
 
 			if (!this.tokenizeArrayElements) {
 				processTokenNormal(token, result);
-			}
-			else {
+			} else {
 				processTokenArray(token, result);
 			}
 		}

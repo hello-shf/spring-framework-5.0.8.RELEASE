@@ -83,8 +83,7 @@ final class DefaultWebClientBuilder implements WebClient.Builder {
 		if (other.defaultHeaders != null) {
 			this.defaultHeaders = new HttpHeaders();
 			this.defaultHeaders.putAll(other.defaultHeaders);
-		}
-		else {
+		} else {
 			this.defaultHeaders = null;
 		}
 		this.defaultCookies = (other.defaultCookies != null ?
@@ -206,20 +205,20 @@ final class DefaultWebClientBuilder implements WebClient.Builder {
 				new DefaultWebClientBuilder(this));
 	}
 
-	private static @Nullable HttpHeaders unmodifiableCopy(@Nullable HttpHeaders original) {
+	private static @Nullable
+	HttpHeaders unmodifiableCopy(@Nullable HttpHeaders original) {
 		if (original != null) {
 			return HttpHeaders.readOnlyHttpHeaders(original);
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
 
-	private static @Nullable <K, V> MultiValueMap<K, V> unmodifiableCopy(@Nullable MultiValueMap<K, V> original) {
+	private static @Nullable
+	<K, V> MultiValueMap<K, V> unmodifiableCopy(@Nullable MultiValueMap<K, V> original) {
 		if (original != null) {
 			return CollectionUtils.unmodifiableMultiValueMap(new LinkedMultiValueMap<>(original));
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -237,11 +236,9 @@ final class DefaultWebClientBuilder implements WebClient.Builder {
 	private ExchangeFunction initExchangeFunction() {
 		if (this.exchangeFunction != null) {
 			return this.exchangeFunction;
-		}
-		else if (this.connector != null) {
+		} else if (this.connector != null) {
 			return ExchangeFunctions.create(this.connector, this.exchangeStrategies);
-		}
-		else {
+		} else {
 			return ExchangeFunctions.create(new ReactorClientHttpConnector(), this.exchangeStrategies);
 		}
 	}

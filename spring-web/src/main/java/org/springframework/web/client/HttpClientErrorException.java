@@ -26,8 +26,8 @@ import org.springframework.lang.Nullable;
  * Exception thrown when an HTTP 4xx is received.
  *
  * @author Arjen Poutsma
- * @since 3.0
  * @see DefaultResponseErrorHandler
+ * @since 3.0
  */
 public class HttpClientErrorException extends HttpStatusCodeException {
 
@@ -37,6 +37,7 @@ public class HttpClientErrorException extends HttpStatusCodeException {
 	/**
 	 * Construct a new instance of {@code HttpClientErrorException} based on
 	 * an {@link HttpStatus}.
+	 *
 	 * @param statusCode the status code
 	 */
 	public HttpClientErrorException(HttpStatus statusCode) {
@@ -46,6 +47,7 @@ public class HttpClientErrorException extends HttpStatusCodeException {
 	/**
 	 * Construct a new instance of {@code HttpClientErrorException} based on
 	 * an {@link HttpStatus} and status text.
+	 *
 	 * @param statusCode the status code
 	 * @param statusText the status text
 	 */
@@ -56,13 +58,14 @@ public class HttpClientErrorException extends HttpStatusCodeException {
 	/**
 	 * Construct a new instance of {@code HttpClientErrorException} based on
 	 * an {@link HttpStatus}, status text, and response body content.
-	 * @param statusCode the status code
-	 * @param statusText the status text
-	 * @param responseBody the response body content (may be {@code null})
+	 *
+	 * @param statusCode      the status code
+	 * @param statusText      the status text
+	 * @param responseBody    the response body content (may be {@code null})
 	 * @param responseCharset the response body charset (may be {@code null})
 	 */
 	public HttpClientErrorException(HttpStatus statusCode, String statusText,
-			@Nullable byte[] responseBody, @Nullable Charset responseCharset) {
+									@Nullable byte[] responseBody, @Nullable Charset responseCharset) {
 
 		super(statusCode, statusText, responseBody, responseCharset);
 	}
@@ -70,15 +73,16 @@ public class HttpClientErrorException extends HttpStatusCodeException {
 	/**
 	 * Construct a new instance of {@code HttpClientErrorException} based on
 	 * an {@link HttpStatus}, status text, and response body content.
-	 * @param statusCode the status code
-	 * @param statusText the status text
+	 *
+	 * @param statusCode      the status code
+	 * @param statusText      the status text
 	 * @param responseHeaders the response headers (may be {@code null})
-	 * @param responseBody the response body content (may be {@code null})
+	 * @param responseBody    the response body content (may be {@code null})
 	 * @param responseCharset the response body charset (may be {@code null})
 	 * @since 3.1.2
 	 */
 	public HttpClientErrorException(HttpStatus statusCode, String statusText,
-			@Nullable HttpHeaders responseHeaders, @Nullable byte[] responseBody, @Nullable Charset responseCharset) {
+									@Nullable HttpHeaders responseHeaders, @Nullable byte[] responseBody, @Nullable Charset responseCharset) {
 
 		super(statusCode, statusText, responseHeaders, responseBody, responseCharset);
 	}

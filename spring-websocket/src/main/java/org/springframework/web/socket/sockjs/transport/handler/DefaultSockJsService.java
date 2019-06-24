@@ -45,10 +45,11 @@ public class DefaultSockJsService extends TransportHandlingSockJsService impleme
 
 	/**
 	 * Create a DefaultSockJsService with default {@link TransportHandler handler} types.
+	 *
 	 * @param scheduler a task scheduler for heart-beat messages and removing
-	 * timed-out sessions; the provided TaskScheduler should be declared as a
-	 * Spring bean to ensure it is initialized at start up and shut down when the
-	 * application stops.
+	 *                  timed-out sessions; the provided TaskScheduler should be declared as a
+	 *                  Spring bean to ensure it is initialized at start up and shut down when the
+	 *                  application stops.
 	 */
 	public DefaultSockJsService(TaskScheduler scheduler) {
 		this(scheduler, getDefaultTransportHandlers(null));
@@ -57,9 +58,10 @@ public class DefaultSockJsService extends TransportHandlingSockJsService impleme
 	/**
 	 * Create a DefaultSockJsService with overridden {@link TransportHandler handler} types
 	 * replacing the corresponding default handler implementation.
-	 * @param scheduler a task scheduler for heart-beat messages and removing timed-out sessions;
-	 * the provided TaskScheduler should be declared as a Spring bean to ensure it gets
-	 * initialized at start-up and shuts down when the application stops
+	 *
+	 * @param scheduler        a task scheduler for heart-beat messages and removing timed-out sessions;
+	 *                         the provided TaskScheduler should be declared as a Spring bean to ensure it gets
+	 *                         initialized at start-up and shuts down when the application stops
 	 * @param handlerOverrides zero or more overrides to the default transport handler types
 	 */
 	public DefaultSockJsService(TaskScheduler scheduler, TransportHandler... handlerOverrides) {
@@ -69,9 +71,10 @@ public class DefaultSockJsService extends TransportHandlingSockJsService impleme
 	/**
 	 * Create a DefaultSockJsService with overridden {@link TransportHandler handler} types
 	 * replacing the corresponding default handler implementation.
-	 * @param scheduler a task scheduler for heart-beat messages and removing timed-out sessions;
-	 * the provided TaskScheduler should be declared as a Spring bean to ensure it gets
-	 * initialized at start-up and shuts down when the application stops
+	 *
+	 * @param scheduler        a task scheduler for heart-beat messages and removing timed-out sessions;
+	 *                         the provided TaskScheduler should be declared as a Spring bean to ensure it gets
+	 *                         initialized at start-up and shuts down when the application stops
 	 * @param handlerOverrides zero or more overrides to the default transport handler types
 	 */
 	public DefaultSockJsService(TaskScheduler scheduler, Collection<TransportHandler> handlerOverrides) {
@@ -91,8 +94,7 @@ public class DefaultSockJsService extends TransportHandlingSockJsService impleme
 		result.add(new HtmlFileTransportHandler());
 		try {
 			result.add(new WebSocketTransportHandler(new DefaultHandshakeHandler()));
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			Log logger = LogFactory.getLog(DefaultSockJsService.class);
 			if (logger.isWarnEnabled()) {
 				logger.warn("Failed to create a default WebSocketTransportHandler", ex);

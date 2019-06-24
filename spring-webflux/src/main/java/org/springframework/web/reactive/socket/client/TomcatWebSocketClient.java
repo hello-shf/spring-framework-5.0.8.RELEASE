@@ -28,7 +28,7 @@ import reactor.core.publisher.MonoProcessor;
 
 /**
  * {@link WebSocketClient} implementation for use with the Java WebSocket API.
- * 
+ *
  * @author Violeta Georgieva
  * @since 5.0
  */
@@ -46,9 +46,9 @@ public class TomcatWebSocketClient extends StandardWebSocketClient {
 
 	@Override
 	protected StandardWebSocketSession createWebSocketSession(Session session,
-			HandshakeInfo info, MonoProcessor<Void> completion) {
+															  HandshakeInfo info, MonoProcessor<Void> completion) {
 
-			return new TomcatWebSocketSession(session, info, bufferFactory(), completion);
+		return new TomcatWebSocketSession(session, info, bufferFactory(), completion);
 	}
 
 }

@@ -36,10 +36,10 @@ import org.springframework.util.concurrent.SuccessCallback;
  * Adapts {@link Mono} to {@link ListenableFuture} optionally converting the
  * result Object type {@code <S>} to the expected target type {@code <T>}.
  *
- * @author Rossen Stoyanchev
- * @since 5.0
  * @param <S> the type of object expected from the {@link Mono}
  * @param <T> the type of object expected from the {@link ListenableFuture}
+ * @author Rossen Stoyanchev
+ * @since 5.0
  */
 abstract class AbstractMonoToListenableFutureAdapter<S, T> implements ListenableFuture<T> {
 
@@ -55,8 +55,7 @@ abstract class AbstractMonoToListenableFutureAdapter<S, T> implements Listenable
 					T adapted;
 					try {
 						adapted = adapt(result);
-					}
-					catch (Throwable ex) {
+					} catch (Throwable ex) {
 						registry.failure(ex);
 						return;
 					}

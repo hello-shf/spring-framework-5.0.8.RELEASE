@@ -90,6 +90,7 @@ public class HandshakeWebSocketService implements WebSocketService, Lifecycle {
 
 	/**
 	 * Alternative constructor with the {@link RequestUpgradeStrategy} to use.
+	 *
 	 * @param upgradeStrategy the strategy to use
 	 */
 	public HandshakeWebSocketService(RequestUpgradeStrategy upgradeStrategy) {
@@ -101,18 +102,14 @@ public class HandshakeWebSocketService implements WebSocketService, Lifecycle {
 		String className;
 		if (tomcatPresent) {
 			className = "TomcatRequestUpgradeStrategy";
-		}
-		else if (jettyPresent) {
+		} else if (jettyPresent) {
 			className = "JettyRequestUpgradeStrategy";
-		}
-		else if (undertowPresent) {
+		} else if (undertowPresent) {
 			className = "UndertowRequestUpgradeStrategy";
-		}
-		else if (reactorNettyPresent) {
+		} else if (reactorNettyPresent) {
 			// As late as possible (Reactor Netty commonly used for WebClient)
 			className = "ReactorNettyRequestUpgradeStrategy";
-		}
-		else {
+		} else {
 			throw new IllegalStateException("No suitable default RequestUpgradeStrategy found");
 		}
 
@@ -120,8 +117,7 @@ public class HandshakeWebSocketService implements WebSocketService, Lifecycle {
 			className = "org.springframework.web.reactive.socket.server.upgrade." + className;
 			Class<?> clazz = ClassUtils.forName(className, HandshakeWebSocketService.class.getClassLoader());
 			return (RequestUpgradeStrategy) ReflectionUtils.accessibleConstructor(clazz).newInstance();
-		}
-		catch (Throwable ex) {
+		} catch (Throwable ex) {
 			throw new IllegalStateException(
 					"Failed to instantiate RequestUpgradeStrategy: " + className, ex);
 		}

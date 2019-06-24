@@ -71,7 +71,7 @@ public class CssLinkResourceTransformer extends ResourceTransformerSupport {
 
 	@Override
 	public Mono<Resource> transform(ServerWebExchange exchange, Resource inputResource,
-			ResourceTransformerChain transformerChain) {
+									ResourceTransformerChain transformerChain) {
 
 		return transformerChain.transform(exchange, inputResource)
 				.flatMap(ouptputResource -> {
@@ -99,7 +99,7 @@ public class CssLinkResourceTransformer extends ResourceTransformerSupport {
 	}
 
 	private Mono<? extends Resource> transformContent(String cssContent, Resource resource,
-			ResourceTransformerChain chain, ServerWebExchange exchange) {
+													  ResourceTransformerChain chain, ServerWebExchange exchange) {
 
 		List<ContentChunkInfo> contentChunkInfos = parseContent(cssContent);
 		if (contentChunkInfos.isEmpty()) {
@@ -115,8 +115,7 @@ public class CssLinkResourceTransformer extends ResourceTransformerSupport {
 					if (contentChunkInfo.isLink() && !hasScheme(contentChunk)) {
 						String link = toAbsolutePath(contentChunk, exchange);
 						return resolveUrlPath(link, exchange, resource, chain).defaultIfEmpty(contentChunk);
-					}
-					else {
+					} else {
 						return Mono.just(contentChunk);
 					}
 				})
@@ -168,7 +167,9 @@ public class CssLinkResourceTransformer extends ResourceTransformerSupport {
 
 	protected abstract static class AbstractLinkParser implements LinkParser {
 
-		/** Return the keyword to use to search for links, e.g. "@import", "url(" */
+		/**
+		 * Return the keyword to use to search for links, e.g. "@import", "url("
+		 */
 		protected abstract String getKeyword();
 
 		@Override
@@ -185,11 +186,9 @@ public class CssLinkResourceTransformer extends ResourceTransformerSupport {
 				}
 				if (content.charAt(position) == '\'') {
 					position = extractLink(position, '\'', content, result);
-				}
-				else if (content.charAt(position) == '"') {
+				} else if (content.charAt(position) == '"') {
 					position = extractLink(position, '"', content, result);
-				}
-				else {
+				} else {
 					position = extractUnquotedLink(position, content, result);
 
 				}
@@ -208,7 +207,7 @@ public class CssLinkResourceTransformer extends ResourceTransformerSupport {
 		 * the next char is neither a single nor double quote.
 		 */
 		protected abstract int extractUnquotedLink(int position, String content,
-				Set<ContentChunkInfo> linksToAdd);
+												   Set<ContentChunkInfo> linksToAdd);
 
 	}
 
@@ -224,8 +223,7 @@ public class CssLinkResourceTransformer extends ResourceTransformerSupport {
 		protected int extractUnquotedLink(int position, String content, Set<ContentChunkInfo> result) {
 			if (content.substring(position, position + 4).equals("url(")) {
 				// Ignore, UrlFunctionContentParser will take care
-			}
-			else if (logger.isErrorEnabled()) {
+			} else if (logger.isErrorEnabled()) {
 				logger.error("Unexpected syntax for @import link at index " + position);
 			}
 			return position;

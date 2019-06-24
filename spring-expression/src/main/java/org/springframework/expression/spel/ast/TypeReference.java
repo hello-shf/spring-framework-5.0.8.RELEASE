@@ -92,12 +92,12 @@ public class TypeReference extends SpelNodeImpl {
 		sb.append(")");
 		return sb.toString();
 	}
-	
+
 	@Override
 	public boolean isCompilable() {
 		return (this.exitTypeDescriptor != null);
 	}
-	
+
 	@Override
 	public void generateCode(MethodVisitor mv, CodeFlow cf) {
 		// TODO Future optimization - if followed by a static method call, skip generating code here
@@ -105,30 +105,22 @@ public class TypeReference extends SpelNodeImpl {
 		if (this.type.isPrimitive()) {
 			if (this.type == Boolean.TYPE) {
 				mv.visitFieldInsn(GETSTATIC, "java/lang/Boolean", "TYPE", "Ljava/lang/Class;");
-			}
-			else if (this.type == Byte.TYPE) {
+			} else if (this.type == Byte.TYPE) {
 				mv.visitFieldInsn(GETSTATIC, "java/lang/Byte", "TYPE", "Ljava/lang/Class;");
-			}
-			else if (this.type == Character.TYPE) {
+			} else if (this.type == Character.TYPE) {
 				mv.visitFieldInsn(GETSTATIC, "java/lang/Character", "TYPE", "Ljava/lang/Class;");
-			}
-			else if (this.type == Double.TYPE) {
+			} else if (this.type == Double.TYPE) {
 				mv.visitFieldInsn(GETSTATIC, "java/lang/Double", "TYPE", "Ljava/lang/Class;");
-			}
-			else if (this.type == Float.TYPE) {
+			} else if (this.type == Float.TYPE) {
 				mv.visitFieldInsn(GETSTATIC, "java/lang/Float", "TYPE", "Ljava/lang/Class;");
-			}
-			else if (this.type == Integer.TYPE) {
+			} else if (this.type == Integer.TYPE) {
 				mv.visitFieldInsn(GETSTATIC, "java/lang/Integer", "TYPE", "Ljava/lang/Class;");
-			}
-			else if (this.type == Long.TYPE) {
+			} else if (this.type == Long.TYPE) {
 				mv.visitFieldInsn(GETSTATIC, "java/lang/Long", "TYPE", "Ljava/lang/Class;");
-			}
-			else if (this.type == Short.TYPE) {
+			} else if (this.type == Short.TYPE) {
 				mv.visitFieldInsn(GETSTATIC, "java/lang/Short", "TYPE", "Ljava/lang/Class;");
 			}
-		}
-		else {
+		} else {
 			mv.visitLdcInsn(Type.getType(this.type));
 		}
 		cf.pushDescriptor(this.exitTypeDescriptor);

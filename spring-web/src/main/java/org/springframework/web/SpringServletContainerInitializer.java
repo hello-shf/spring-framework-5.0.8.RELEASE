@@ -109,6 +109,19 @@ import org.springframework.util.ReflectionUtils;
  * @see #onStartup(Set, ServletContext)
  * @see WebApplicationInitializer
  */
+
+/**
+ * {@HandlesTypes}注解指定了ServletContainerInitializer启动时要处理的感兴趣的类，
+ * 然后服务器会把找到的这些类传到onStartup的第一个参数里
+ *
+ * 注意这里的类包括所配置类的子类，比如这里配置WebApplicationInitializer，
+ * 启动之后，就会把这个WebApplicationInitializer的子类都传进去
+ *
+ * 作者：端吉
+ * 链接：https://www.jianshu.com/p/3c94d7e76998
+ * 来源：简书
+ * 简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+ */
 @HandlesTypes(WebApplicationInitializer.class)
 public class SpringServletContainerInitializer implements ServletContainerInitializer {
 

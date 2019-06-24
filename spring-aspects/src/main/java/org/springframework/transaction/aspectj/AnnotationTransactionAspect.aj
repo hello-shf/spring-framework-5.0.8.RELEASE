@@ -45,28 +45,28 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public aspect AnnotationTransactionAspect extends AbstractTransactionAspect {
 
-	public AnnotationTransactionAspect() {
-		super(new AnnotationTransactionAttributeSource(false));
-	}
+    public AnnotationTransactionAspect() {
+        super(new AnnotationTransactionAttributeSource(false));
+    }
 
-	/**
-	 * Matches the execution of any public method in a type with the Transactional
-	 * annotation, or any subtype of a type with the Transactional annotation.
-	 */
-	private pointcut executionOfAnyPublicMethodInAtTransactionalType() :
-		execution(public * ((@Transactional *)+).*(..)) && within(@Transactional *);
+    /**
+     * Matches the execution of any public method in a type with the Transactional
+     * annotation, or any subtype of a type with the Transactional annotation.
+     */
+    private pointcut executionOfAnyPublicMethodInAtTransactionalType():
+            execution(public * ((@Transactional *)+).*(..)) && within(@Transactional *);
 
-	/**
-	 * Matches the execution of any method with the Transactional annotation.
-	 */
-	private pointcut executionOfTransactionalMethod() :
-		execution(@Transactional * *(..));
+    /**
+     * Matches the execution of any method with the Transactional annotation.
+     */
+    private pointcut executionOfTransactionalMethod():
+            execution(@Transactional * *(..));
 
-	/**
-	 * Definition of pointcut from super aspect - matched join points
-	 * will have Spring transaction management applied.
-	 */
-	protected pointcut transactionalMethodExecution(Object txObject) :
-		(executionOfAnyPublicMethodInAtTransactionalType() || executionOfTransactionalMethod() ) && this(txObject);
+    /**
+     * Definition of pointcut from super aspect - matched join points
+     * will have Spring transaction management applied.
+     */
+    protected pointcut transactionalMethodExecution(Object txObject):
+            (executionOfAnyPublicMethodInAtTransactionalType() || executionOfTransactionalMethod() ) && this(txObject);
 
 }

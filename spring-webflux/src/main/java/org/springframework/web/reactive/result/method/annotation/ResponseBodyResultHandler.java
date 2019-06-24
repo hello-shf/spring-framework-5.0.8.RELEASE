@@ -50,23 +50,25 @@ public class ResponseBodyResultHandler extends AbstractMessageWriterResultHandle
 
 	/**
 	 * Basic constructor with a default {@link ReactiveAdapterRegistry}.
-	 * @param writers writers for serializing to the response body
+	 *
+	 * @param writers  writers for serializing to the response body
 	 * @param resolver to determine the requested content type
 	 */
 	public ResponseBodyResultHandler(List<HttpMessageWriter<?>> writers,
-			RequestedContentTypeResolver resolver) {
+									 RequestedContentTypeResolver resolver) {
 
 		this(writers, resolver, ReactiveAdapterRegistry.getSharedInstance());
 	}
 
 	/**
 	 * Constructor with an {@link ReactiveAdapterRegistry} instance.
-	 * @param writers writers for serializing to the response body
+	 *
+	 * @param writers  writers for serializing to the response body
 	 * @param resolver to determine the requested content type
 	 * @param registry for adaptation to reactive types
 	 */
 	public ResponseBodyResultHandler(List<HttpMessageWriter<?>> writers,
-			RequestedContentTypeResolver resolver, ReactiveAdapterRegistry registry) {
+									 RequestedContentTypeResolver resolver, ReactiveAdapterRegistry registry) {
 
 		super(writers, resolver, registry);
 		setOrder(100);

@@ -45,8 +45,8 @@ import org.springframework.web.reactive.socket.server.RequestUpgradeStrategy;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
-* A {@link RequestUpgradeStrategy} for use with Undertow.
-  * 
+ * A {@link RequestUpgradeStrategy} for use with Undertow.
+ *
  * @author Violeta Georgieva
  * @since 5.0
  */
@@ -71,8 +71,7 @@ public class UndertowRequestUpgradeStrategy implements RequestUpgradeStrategy {
 		try {
 			DefaultCallback callback = new DefaultCallback(info, handler, bufferFactory);
 			new WebSocketProtocolHandshakeHandler(handshakes, callback).handleRequest(httpExchange);
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			return Mono.error(ex);
 		}
 

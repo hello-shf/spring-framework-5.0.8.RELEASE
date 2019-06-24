@@ -48,7 +48,7 @@ public class NullLiteral extends Literal {
 	public boolean isCompilable() {
 		return true;
 	}
-	
+
 	@Override
 	public void generateCode(MethodVisitor mv, CodeFlow cf) {
 		mv.visitInsn(ACONST_NULL);

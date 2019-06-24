@@ -41,6 +41,7 @@ public abstract class AbstractJaxb2HttpMessageConverter<T> extends AbstractXmlHt
 
 	/**
 	 * Create a new {@link Marshaller} for the given class.
+	 *
 	 * @param clazz the class to create the marshaller for
 	 * @return the {@code Marshaller}
 	 * @throws HttpMessageConversionException in case of JAXB errors
@@ -51,8 +52,7 @@ public abstract class AbstractJaxb2HttpMessageConverter<T> extends AbstractXmlHt
 			Marshaller marshaller = jaxbContext.createMarshaller();
 			customizeMarshaller(marshaller);
 			return marshaller;
-		}
-		catch (JAXBException ex) {
+		} catch (JAXBException ex) {
 			throw new HttpMessageConversionException(
 					"Could not create Marshaller for class [" + clazz + "]: " + ex.getMessage(), ex);
 		}
@@ -61,15 +61,17 @@ public abstract class AbstractJaxb2HttpMessageConverter<T> extends AbstractXmlHt
 	/**
 	 * Customize the {@link Marshaller} created by this
 	 * message converter before using it to write the object to the output.
+	 *
 	 * @param marshaller the marshaller to customize
-	 * @since 4.0.3
 	 * @see #createMarshaller(Class)
+	 * @since 4.0.3
 	 */
 	protected void customizeMarshaller(Marshaller marshaller) {
 	}
 
 	/**
 	 * Create a new {@link Unmarshaller} for the given class.
+	 *
 	 * @param clazz the class to create the unmarshaller for
 	 * @return the {@code Unmarshaller}
 	 * @throws HttpMessageConversionException in case of JAXB errors
@@ -80,8 +82,7 @@ public abstract class AbstractJaxb2HttpMessageConverter<T> extends AbstractXmlHt
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			customizeUnmarshaller(unmarshaller);
 			return unmarshaller;
-		}
-		catch (JAXBException ex) {
+		} catch (JAXBException ex) {
 			throw new HttpMessageConversionException(
 					"Could not create Unmarshaller for class [" + clazz + "]: " + ex.getMessage(), ex);
 		}
@@ -90,15 +91,17 @@ public abstract class AbstractJaxb2HttpMessageConverter<T> extends AbstractXmlHt
 	/**
 	 * Customize the {@link Unmarshaller} created by this
 	 * message converter before using it to read the object from the input.
+	 *
 	 * @param unmarshaller the unmarshaller to customize
-	 * @since 4.0.3
 	 * @see #createUnmarshaller(Class)
+	 * @since 4.0.3
 	 */
 	protected void customizeUnmarshaller(Unmarshaller unmarshaller) {
 	}
 
 	/**
 	 * Return a {@link JAXBContext} for the given class.
+	 *
 	 * @param clazz the class to return the context for
 	 * @return the {@code JAXBContext}
 	 * @throws HttpMessageConversionException in case of JAXB errors
@@ -110,8 +113,7 @@ public abstract class AbstractJaxb2HttpMessageConverter<T> extends AbstractXmlHt
 			try {
 				jaxbContext = JAXBContext.newInstance(clazz);
 				this.jaxbContexts.putIfAbsent(clazz, jaxbContext);
-			}
-			catch (JAXBException ex) {
+			} catch (JAXBException ex) {
 				throw new HttpMessageConversionException(
 						"Could not instantiate JAXBContext for class [" + clazz + "]: " + ex.getMessage(), ex);
 			}

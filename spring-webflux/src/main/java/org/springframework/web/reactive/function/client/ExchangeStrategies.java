@@ -37,12 +37,14 @@ public interface ExchangeStrategies {
 
 	/**
 	 * Return the {@link HttpMessageReader}s to be used for request body conversion.
+	 *
 	 * @return the stream of message readers
 	 */
 	List<HttpMessageReader<?>> messageReaders();
 
 	/**
 	 * Return the {@link HttpMessageWriter}s to be used for response body conversion.
+	 *
 	 * @return the stream of message writers
 	 */
 	List<HttpMessageWriter<?>> messageWriters();
@@ -52,6 +54,7 @@ public interface ExchangeStrategies {
 
 	/**
 	 * Return a new {@code ExchangeStrategies} with default initialization.
+	 *
 	 * @return the new {@code ExchangeStrategies}
 	 */
 	static ExchangeStrategies withDefaults() {
@@ -60,6 +63,7 @@ public interface ExchangeStrategies {
 
 	/**
 	 * Return a mutable builder for a {@code ExchangeStrategies} with default initialization.
+	 *
 	 * @return the builder
 	 */
 	static Builder builder() {
@@ -70,6 +74,7 @@ public interface ExchangeStrategies {
 
 	/**
 	 * Return a mutable, empty builder for a {@code ExchangeStrategies}.
+	 *
 	 * @return the builder
 	 */
 	static Builder empty() {
@@ -84,6 +89,7 @@ public interface ExchangeStrategies {
 
 		/**
 		 * Customize the list of client-side HTTP message readers and writers.
+		 *
 		 * @param consumer the consumer to customize the codecs
 		 * @return this builder
 		 */
@@ -91,6 +97,7 @@ public interface ExchangeStrategies {
 
 		/**
 		 * Builds the {@link ExchangeStrategies}.
+		 *
 		 * @return the built strategies
 		 */
 		ExchangeStrategies build();

@@ -71,7 +71,7 @@ public class HandlerExceptionResolverComposite implements HandlerExceptionResolv
 	@Override
 	@Nullable
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
-			@Nullable Object handler,Exception ex) {
+										 @Nullable Object handler, Exception ex) {
 
 		if (this.resolvers != null) {
 			for (HandlerExceptionResolver handlerExceptionResolver : this.resolvers) {

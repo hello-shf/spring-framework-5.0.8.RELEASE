@@ -19,18 +19,28 @@
 		The transaction advisor's order value is 10.
 	-->
 	<bean id="orderedBeforeTransaction" class="org.springframework.aop.framework.autoproxy.OrderedTxCheckAdvisor">
-		<property name="order"><value>9</value></property>
-		<property name="requireTransactionContext"><value>false</value></property>
+		<property name="order">
+			<value>9</value>
+		</property>
+		<property name="requireTransactionContext">
+			<value>false</value>
+		</property>
 	</bean>
 
 	<bean id="orderedAfterTransaction" class="org.springframework.aop.framework.autoproxy.OrderedTxCheckAdvisor">
-		<property name="order"><value>11</value></property>
-		<property name="requireTransactionContext"><value>true</value></property>
+		<property name="order">
+			<value>11</value>
+		</property>
+		<property name="requireTransactionContext">
+			<value>true</value>
+		</property>
 	</bean>
 
 	<bean id="orderedAfterTransaction2" class="org.springframework.aop.framework.autoproxy.OrderedTxCheckAdvisor">
 		<!-- Don't set order value: should remain Integer.MAX_VALUE, so it's non-ordered -->
-		<property name="requireTransactionContext"><value>true</value></property>
+		<property name="requireTransactionContext">
+			<value>true</value>
+		</property>
 	</bean>
 
 	<!-- Often we can leave the definition of such infrastructural beans to child factories -->
@@ -41,19 +51,28 @@
 			<props>
 				<prop key="setA*">PROPAGATION_REQUIRED</prop>
 				<prop key="rollbackOnly">PROPAGATION_REQUIRED</prop>
-				<prop key="echoException">PROPAGATION_REQUIRED,+javax.servlet.ServletException,-java.lang.Exception</prop>
+				<prop key="echoException">PROPAGATION_REQUIRED,+javax.servlet.ServletException,-java.lang.Exception
+				</prop>
 			</props>
 		</property>
 	</bean>
 
 	<bean id="txInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
-		<property name="transactionManager"><ref bean="txManager"/></property>
-		<property name="transactionAttributeSource"><ref bean="tas"/></property>
+		<property name="transactionManager">
+			<ref bean="txManager"/>
+		</property>
+		<property name="transactionAttributeSource">
+			<ref bean="tas"/>
+		</property>
 	</bean>
 
 	<bean id="txAdvisor" class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
-		<property name="transactionInterceptor"><ref bean="txInterceptor"/></property>
-		<property name="order"><value>10</value></property>
+		<property name="transactionInterceptor">
+			<ref bean="txInterceptor"/>
+		</property>
+		<property name="order">
+			<value>10</value>
+		</property>
 	</bean>
 
 	<!-- ====== Test for prototype definitions to try to provoke circular references ========================= -->
@@ -63,7 +82,7 @@
 		singleton, so it may pose circular reference problems, or an infinite loop.
 	-->
 	<bean id="neverMatchAdvisor" class="org.springframework.aop.framework.autoproxy.NeverMatchAdvisor"
-			scope="prototype">
+		  scope="prototype">
 		<property name="dependencies">
 			<list>
 				<ref bean="singletonDependency"/>
@@ -81,14 +100,20 @@
 	<!-- ====== End test for prototype definitions to try to provoke circular references ========================= -->
 
 	<bean class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
-		<property name="advice"><ref bean="countingAdvice"/></property>
-		<property name="pattern"><value>org.springframework.tests.sample.beans.ITestBean.getName</value></property>
+		<property name="advice">
+			<ref bean="countingAdvice"/>
+		</property>
+		<property name="pattern">
+			<value>org.springframework.tests.sample.beans.ITestBean.getName</value>
+		</property>
 	</bean>
 
 	<bean id="countingAdvice" class="org.springframework.tests.aop.advice.CountingAfterReturningAdvice"/>
 
 	<bean id="test" class="org.springframework.tests.sample.beans.TestBean">
-		<property name="age"><value>4</value></property>
+		<property name="age">
+			<value>4</value>
+		</property>
 	</bean>
 
 	<bean id="noSetters" class="org.springframework.aop.framework.autoproxy.NoSetters"/>

@@ -77,7 +77,7 @@ class ToStringVisitor implements RouterFunctions.Visitor {
 	}
 
 	private void indent() {
-		for (int i=0; i < this.indent; i++) {
+		for (int i = 0; i < this.indent; i++) {
 			this.builder.append(' ');
 		}
 	}

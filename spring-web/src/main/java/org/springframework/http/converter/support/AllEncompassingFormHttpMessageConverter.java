@@ -43,8 +43,8 @@ public class AllEncompassingFormHttpMessageConverter extends FormHttpMessageConv
 	private static final boolean jackson2Present =
 			ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper",
 					AllEncompassingFormHttpMessageConverter.class.getClassLoader()) &&
-			ClassUtils.isPresent("com.fasterxml.jackson.core.JsonGenerator",
-					AllEncompassingFormHttpMessageConverter.class.getClassLoader());
+					ClassUtils.isPresent("com.fasterxml.jackson.core.JsonGenerator",
+							AllEncompassingFormHttpMessageConverter.class.getClassLoader());
 
 	private static final boolean jackson2XmlPresent =
 			ClassUtils.isPresent("com.fasterxml.jackson.dataformat.xml.XmlMapper",
@@ -72,11 +72,9 @@ public class AllEncompassingFormHttpMessageConverter extends FormHttpMessageConv
 
 		if (jackson2Present) {
 			addPartConverter(new MappingJackson2HttpMessageConverter());
-		}
-		else if (gsonPresent) {
+		} else if (gsonPresent) {
 			addPartConverter(new GsonHttpMessageConverter());
-		}
-		else if (jsonbPresent) {
+		} else if (jsonbPresent) {
 			addPartConverter(new JsonbHttpMessageConverter());
 		}
 

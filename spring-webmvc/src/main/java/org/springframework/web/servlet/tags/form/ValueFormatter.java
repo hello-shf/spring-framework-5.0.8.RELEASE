@@ -41,6 +41,7 @@ abstract class ValueFormatter {
 	/**
 	 * Build the display value of the supplied {@code Object}, HTML escaped
 	 * as required. This version is <strong>not</strong> {@link PropertyEditor}-aware.
+	 *
 	 * @see #getDisplayString(Object, java.beans.PropertyEditor, boolean)
 	 */
 	public static String getDisplayString(Object value, boolean htmlEscape) {
@@ -53,6 +54,7 @@ abstract class ValueFormatter {
 	 * as required. If the supplied value is not a {@link String} and the supplied
 	 * {@link PropertyEditor} is not null then the {@link PropertyEditor} is used
 	 * to obtain the display value.
+	 *
 	 * @see #getDisplayString(Object, boolean)
 	 */
 	public static String getDisplayString(Object value, PropertyEditor propertyEditor, boolean htmlEscape) {
@@ -63,8 +65,7 @@ abstract class ValueFormatter {
 				if (text != null) {
 					return getDisplayString(text, htmlEscape);
 				}
-			}
-			catch (Throwable ex) {
+			} catch (Throwable ex) {
 				// The PropertyEditor might not support this value... pass through.
 			}
 		}

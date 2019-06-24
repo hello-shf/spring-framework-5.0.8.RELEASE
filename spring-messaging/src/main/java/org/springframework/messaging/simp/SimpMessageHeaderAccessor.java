@@ -89,7 +89,7 @@ public class SimpMessageHeaderAccessor extends NativeMessageHeaderAccessor {
 	 * This constructor is protected. See factory methods in this and sub-classes.
 	 */
 	protected SimpMessageHeaderAccessor(SimpMessageType messageType,
-			@Nullable Map<String, List<String>> externalSourceHeaders) {
+										@Nullable Map<String, List<String>> externalSourceHeaders) {
 
 		super(externalSourceHeaders);
 		Assert.notNull(messageType, "MessageType must not be null");

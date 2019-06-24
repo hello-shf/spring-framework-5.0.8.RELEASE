@@ -25,13 +25,19 @@ package org.springframework.jdbc.datasource.embedded;
  */
 public enum EmbeddedDatabaseType {
 
-	/** The Hypersonic Embedded Java SQL Database (http://hsqldb.org) */
+	/**
+	 * The Hypersonic Embedded Java SQL Database (http://hsqldb.org)
+	 */
 	HSQL,
 
-	/** The H2 Embedded Java SQL Database Engine (http://h2database.com) */
+	/**
+	 * The H2 Embedded Java SQL Database Engine (http://h2database.com)
+	 */
 	H2,
 
-	/** The Apache Derby Embedded SQL Database (http://db.apache.org/derby) */
+	/**
+	 * The Apache Derby Embedded SQL Database (http://db.apache.org/derby)
+	 */
 	DERBY
 
 }

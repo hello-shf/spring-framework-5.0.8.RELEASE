@@ -39,7 +39,7 @@ public class OperatorInstanceof extends Operator {
 
 	@Nullable
 	private Class<?> type;
-	
+
 
 	public OperatorInstanceof(int pos, SpelNodeImpl... operands) {
 		super("instanceof", pos, operands);
@@ -49,6 +49,7 @@ public class OperatorInstanceof extends Operator {
 	/**
 	 * Compare the left operand to see it is an instance of the type specified as the
 	 * right operand. The right operand must be a class.
+	 *
 	 * @param state the expression state
 	 * @return {@code true} if the left operand is an instanceof of the right operand,
 	 * otherwise {@code false}
@@ -70,8 +71,7 @@ public class OperatorInstanceof extends Operator {
 		Class<?> rightClass = (Class<?>) rightValue;
 		if (leftValue == null) {
 			result = BooleanTypedValue.FALSE;  // null is not an instanceof anything
-		}
-		else {
+		} else {
 			result = BooleanTypedValue.forValue(rightClass.isAssignableFrom(leftValue.getClass()));
 		}
 		this.type = rightClass;
@@ -87,7 +87,7 @@ public class OperatorInstanceof extends Operator {
 	public boolean isCompilable() {
 		return (this.exitTypeDescriptor != null && getLeftOperand().isCompilable());
 	}
-	
+
 	@Override
 	public void generateCode(MethodVisitor mv, CodeFlow cf) {
 		getLeftOperand().generateCode(mv, cf);
@@ -98,8 +98,7 @@ public class OperatorInstanceof extends Operator {
 			// in case it had side effects
 			mv.visitInsn(POP);
 			mv.visitInsn(ICONST_0); // value of false
-		} 
-		else {
+		} else {
 			mv.visitTypeInsn(INSTANCEOF, Type.getInternalName(this.type));
 		}
 		cf.pushDescriptor(this.exitTypeDescriptor);

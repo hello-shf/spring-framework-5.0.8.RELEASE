@@ -25,16 +25,17 @@ import com.google.protobuf.ExtensionRegistry;
  * <p>This interface provides a facility to populate the {@code ExtensionRegistry}.
  *
  * @author Alex Antonov
- * @since 4.1
  * @see <a href="https://developers.google.com/protocol-buffers/docs/reference/java/com/google/protobuf/ExtensionRegistry">
  * com.google.protobuf.ExtensionRegistry</a>
+ * @since 4.1
  */
 public interface ExtensionRegistryInitializer {
 
 	/**
 	 * Initializes the {@code ExtensionRegistry} with Protocol Message extensions
+	 *
 	 * @param registry the registry to populate
 	 */
-    void initializeExtensionRegistry(ExtensionRegistry registry);
+	void initializeExtensionRegistry(ExtensionRegistry registry);
 
 }

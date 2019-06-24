@@ -93,6 +93,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 
 	/**
 	 * Create a new CachingConnectionFactory for bean-style usage.
+	 *
 	 * @see #setTargetConnectionFactory
 	 */
 	public CachingConnectionFactory() {
@@ -103,6 +104,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 	/**
 	 * Create a new CachingConnectionFactory for the given target
 	 * ConnectionFactory.
+	 *
 	 * @param targetConnectionFactory the target ConnectionFactory
 	 */
 	public CachingConnectionFactory(ConnectionFactory targetConnectionFactory) {
@@ -121,6 +123,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 	 * <p>Default is 1: caching a single Session, (re-)creating further ones on
 	 * demand. Specify a number like 10 if you'd like to raise the number of cached
 	 * Sessions; that said, 1 may be sufficient for low-concurrency scenarios.
+	 *
 	 * @see #setCacheProducers
 	 */
 	public void setSessionCacheSize(int sessionCacheSize) {
@@ -185,8 +188,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 					for (Session session : sessionList) {
 						try {
 							session.close();
-						}
-						catch (Throwable ex) {
+						} catch (Throwable ex) {
 							logger.trace("Could not close cached JMS Session", ex);
 						}
 					}
@@ -222,8 +224,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 				logger.trace("Found cached JMS Session for mode " + mode + ": " +
 						(session instanceof SessionProxy ? ((SessionProxy) session).getTargetSession() : session));
 			}
-		}
-		else {
+		} else {
 			Session targetSession = createSession(con, mode);
 			if (logger.isDebugEnabled()) {
 				logger.debug("Registering cached JMS Session for mode " + mode + ": " + targetSession);
@@ -237,7 +238,8 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 	 * Wrap the given Session with a proxy that delegates every method call to it
 	 * but adapts close calls. This is useful for allowing application code to
 	 * handle a special framework Session just like an ordinary Session.
-	 * @param target the original Session to wrap
+	 *
+	 * @param target      the original Session to wrap
 	 * @param sessionList the List of cached Sessions that the given Session belongs to
 	 * @return the wrapped Session
 	 */
@@ -282,15 +284,12 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 			if (methodName.equals("equals")) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0]);
-			}
-			else if (methodName.equals("hashCode")) {
+			} else if (methodName.equals("hashCode")) {
 				// Use hashCode of Session proxy.
 				return System.identityHashCode(proxy);
-			}
-			else if (methodName.equals("toString")) {
+			} else if (methodName.equals("toString")) {
 				return "Cached JMS Session: " + this.target;
-			}
-			else if (methodName.equals("close")) {
+			} else if (methodName.equals("close")) {
 				// Handle close method: don't pass the call on.
 				if (active) {
 					synchronized (this.sessionList) {
@@ -299,8 +298,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 								logicalClose((Session) proxy);
 								// Remain open in the session list.
 								return null;
-							}
-							catch (JMSException ex) {
+							} catch (JMSException ex) {
 								logger.trace("Logical close of cached JMS Session failed - discarding it", ex);
 								// Proceed to physical close from here...
 							}
@@ -310,15 +308,12 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 				// If we get here, we're supposed to shut down.
 				physicalClose();
 				return null;
-			}
-			else if (methodName.equals("getTargetSession")) {
+			} else if (methodName.equals("getTargetSession")) {
 				// Handle getTargetSession method: return underlying Session.
 				return this.target;
-			}
-			else if (methodName.equals("commit") || methodName.equals("rollback")) {
+			} else if (methodName.equals("commit") || methodName.equals("rollback")) {
 				this.transactionOpen = false;
-			}
-			else if (methodName.startsWith("create")) {
+			} else if (methodName.startsWith("create")) {
 				this.transactionOpen = true;
 				if (isCacheProducers() && (methodName.equals("createProducer") ||
 						methodName.equals("createSender") || methodName.equals("createPublisher"))) {
@@ -327,8 +322,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 					if (!(dest instanceof TemporaryQueue || dest instanceof TemporaryTopic)) {
 						return getCachedProducer(dest);
 					}
-				}
-				else if (isCacheConsumers()) {
+				} else if (isCacheConsumers()) {
 					// let raw JMS invocation throw an exception if Destination (i.e. args[0]) is null
 					if ((methodName.equals("createConsumer") || methodName.equals("createReceiver") ||
 							methodName.equals("createSubscriber"))) {
@@ -340,8 +334,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 									null,
 									false);
 						}
-					}
-					else if (methodName.equals("createDurableConsumer") || methodName.equals("createDurableSubscriber")) {
+					} else if (methodName.equals("createDurableConsumer") || methodName.equals("createDurableSubscriber")) {
 						Destination dest = (Destination) args[0];
 						if (dest != null) {
 							return getCachedConsumer(dest,
@@ -350,8 +343,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 									(String) args[1],
 									true);
 						}
-					}
-					else if (methodName.equals("createSharedConsumer")) {
+					} else if (methodName.equals("createSharedConsumer")) {
 						Destination dest = (Destination) args[0];
 						if (dest != null) {
 							return getCachedConsumer(dest,
@@ -360,8 +352,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 									(String) args[1],
 									false);
 						}
-					}
-					else if (methodName.equals("createSharedDurableConsumer")) {
+					} else if (methodName.equals("createSharedDurableConsumer")) {
 						Destination dest = (Destination) args[0];
 						if (dest != null) {
 							return getCachedConsumer(dest,
@@ -375,8 +366,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 			}
 			try {
 				return method.invoke(this.target, args);
-			}
-			catch (InvocationTargetException ex) {
+			} catch (InvocationTargetException ex) {
 				throw ex.getTargetException();
 			}
 		}
@@ -388,8 +378,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 				if (logger.isTraceEnabled()) {
 					logger.trace("Found cached JMS MessageProducer for destination [" + dest + "]: " + producer);
 				}
-			}
-			else {
+			} else {
 				producer = this.target.createProducer(dest);
 				if (logger.isDebugEnabled()) {
 					logger.debug("Registering cached JMS MessageProducer for destination [" + dest + "]: " + producer);
@@ -400,7 +389,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 		}
 
 		private MessageConsumer getCachedConsumer(Destination dest, @Nullable String selector,
-				@Nullable Boolean noLocal, @Nullable String subscription, boolean durable) throws JMSException {
+												  @Nullable Boolean noLocal, @Nullable String subscription, boolean durable) throws JMSException {
 
 			ConsumerCacheKey cacheKey = new ConsumerCacheKey(dest, selector, noLocal, subscription, durable);
 			MessageConsumer consumer = this.cachedConsumers.get(cacheKey);
@@ -408,21 +397,18 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 				if (logger.isTraceEnabled()) {
 					logger.trace("Found cached JMS MessageConsumer for destination [" + dest + "]: " + consumer);
 				}
-			}
-			else {
+			} else {
 				if (dest instanceof Topic) {
 					if (noLocal == null) {
 						consumer = (durable ?
 								this.target.createSharedDurableConsumer((Topic) dest, subscription, selector) :
 								this.target.createSharedConsumer((Topic) dest, subscription, selector));
-					}
-					else {
+					} else {
 						consumer = (durable ?
 								this.target.createDurableSubscriber((Topic) dest, subscription, selector, noLocal) :
 								this.target.createConsumer(dest, selector, noLocal));
 					}
-				}
-				else {
+				} else {
 					consumer = this.target.createConsumer(dest, selector);
 				}
 				if (logger.isDebugEnabled()) {
@@ -440,7 +426,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 				this.target.rollback();
 			}
 			// Physically close durable subscribers at time of Session close call.
-			for (Iterator<Map.Entry<ConsumerCacheKey, MessageConsumer>> it = this.cachedConsumers.entrySet().iterator(); it.hasNext();) {
+			for (Iterator<Map.Entry<ConsumerCacheKey, MessageConsumer>> it = this.cachedConsumers.entrySet().iterator(); it.hasNext(); ) {
 				Map.Entry<ConsumerCacheKey, MessageConsumer> entry = it.next();
 				if (entry.getKey().subscription != null) {
 					entry.getValue().close();
@@ -473,8 +459,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 				for (MessageConsumer consumer : this.cachedConsumers.values()) {
 					consumer.close();
 				}
-			}
-			finally {
+			} finally {
 				this.cachedProducers.clear();
 				this.cachedConsumers.clear();
 				// Now actually close the Session.
@@ -558,7 +543,7 @@ public class CachingConnectionFactory extends SingleConnectionFactory {
 		private final boolean durable;
 
 		public ConsumerCacheKey(Destination destination, @Nullable String selector, @Nullable Boolean noLocal,
-				@Nullable String subscription, boolean durable) {
+								@Nullable String subscription, boolean durable) {
 
 			super(destination);
 			this.selector = selector;

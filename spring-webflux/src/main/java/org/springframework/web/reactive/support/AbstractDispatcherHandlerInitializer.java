@@ -66,11 +66,12 @@ public abstract class AbstractDispatcherHandlerInitializer implements WebApplica
 	 * <p>This method will create a {@link DispatcherHandler}, initializing it with the application
 	 * context returned from {@link #createApplicationContext()}. The created handler will be
 	 * wrapped in a {@link ServletHttpHandlerAdapter} servlet with the name
-     * returned by {@link #getServletName()}, mapping it to the pattern
+	 * returned by {@link #getServletName()}, mapping it to the pattern
 	 * returned from {@link #getServletMapping()}.
 	 * <p>Further customization can be achieved by overriding {@link
 	 * #customizeRegistration(ServletRegistration.Dynamic)} or
 	 * {@link #createDispatcherHandler(ApplicationContext)}.
+	 *
 	 * @param servletContext the context to register the servlet against
 	 */
 	protected void registerDispatcherHandler(ServletContext servletContext) {
@@ -105,6 +106,7 @@ public abstract class AbstractDispatcherHandlerInitializer implements WebApplica
 	/**
 	 * Return the name under which the {@link ServletHttpHandlerAdapter} will be registered.
 	 * Defaults to {@link #DEFAULT_SERVLET_NAME}.
+	 *
 	 * @see #registerDispatcherHandler(ServletContext)
 	 */
 	protected String getServletName() {
@@ -116,6 +118,7 @@ public abstract class AbstractDispatcherHandlerInitializer implements WebApplica
 	 * <p>The returned context is delegated to Spring's
 	 * {@link DispatcherHandler#DispatcherHandler(ApplicationContext)}. As such,
 	 * it typically contains controllers, view resolvers, and other web-related beans.
+	 *
 	 * @see #registerDispatcherHandler(ServletContext)
 	 */
 	protected abstract ApplicationContext createApplicationContext();
@@ -153,6 +156,7 @@ public abstract class AbstractDispatcherHandlerInitializer implements WebApplica
 	/**
 	 * Specify the servlet mapping for the {@code ServletHttpHandlerAdapter}.
 	 * <p>Default implementation returns {@code /}.
+	 *
 	 * @see #registerDispatcherHandler(ServletContext)
 	 */
 	protected String getServletMapping() {
@@ -162,6 +166,7 @@ public abstract class AbstractDispatcherHandlerInitializer implements WebApplica
 	/**
 	 * Optionally perform further registration customization once
 	 * {@link #registerDispatcherHandler(ServletContext)} has completed.
+	 *
 	 * @param registration the {@code ServletHttpHandlerAdapter} registration to be customized
 	 * @see #registerDispatcherHandler(ServletContext)
 	 */
@@ -171,9 +176,10 @@ public abstract class AbstractDispatcherHandlerInitializer implements WebApplica
 	/**
 	 * Register a {@link ServletContextListener} that closes the given application context
 	 * when the servlet context is destroyed.
-	 * @param servletContext the servlet context to listen to
+	 *
+	 * @param servletContext     the servlet context to listen to
 	 * @param applicationContext the application context that is to be closed when
-	 * {@code servletContext} is destroyed
+	 *                           {@code servletContext} is destroyed
 	 */
 	protected void registerCloseListener(ServletContext servletContext, ApplicationContext applicationContext) {
 		if (applicationContext instanceof ConfigurableApplicationContext) {

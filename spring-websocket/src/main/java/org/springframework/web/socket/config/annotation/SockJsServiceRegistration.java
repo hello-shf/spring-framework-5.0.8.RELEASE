@@ -85,6 +85,7 @@ public class SockJsServiceRegistration {
 
 	/**
 	 * Deprecated constructor with a TaskScheduler.
+	 *
 	 * @deprecated as of 5.0 a TaskScheduler is not provided upfront, not until
 	 * it is obvious that it is needed; call {@link #getTaskScheduler()} to check
 	 * and then {@link #setTaskScheduler(TaskScheduler)} to set it before a call
@@ -247,6 +248,7 @@ public class SockJsServiceRegistration {
 	 * This option can be used to disable automatic addition of CORS headers for
 	 * SockJS requests.
 	 * <p>The default value is "false".
+	 *
 	 * @since 4.1.2
 	 */
 	public SockJsServiceRegistration setSupressCors(boolean suppressCors) {
@@ -258,6 +260,7 @@ public class SockJsServiceRegistration {
 	 * The codec to use for encoding and decoding SockJS messages.
 	 * <p>By default {@code Jackson2SockJsMessageCodec} is used requiring the
 	 * Jackson library to be present on the classpath.
+	 *
 	 * @param codec the codec to use.
 	 * @since 4.1
 	 */

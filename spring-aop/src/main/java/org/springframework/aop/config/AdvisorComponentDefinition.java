@@ -47,7 +47,7 @@ public class AdvisorComponentDefinition extends AbstractComponentDefinition {
 
 
 	public AdvisorComponentDefinition(String advisorBeanName, BeanDefinition advisorDefinition) {
-		 this(advisorBeanName, advisorDefinition, null);
+		this(advisorBeanName, advisorDefinition, null);
 	}
 
 	public AdvisorComponentDefinition(
@@ -63,15 +63,14 @@ public class AdvisorComponentDefinition extends AbstractComponentDefinition {
 		Assert.state(adviceReference != null, "Missing 'adviceBeanName' property");
 
 		if (pointcutDefinition != null) {
-			this.beanReferences = new BeanReference[] {adviceReference};
-			this.beanDefinitions = new BeanDefinition[] {advisorDefinition, pointcutDefinition};
+			this.beanReferences = new BeanReference[]{adviceReference};
+			this.beanDefinitions = new BeanDefinition[]{advisorDefinition, pointcutDefinition};
 			this.description = buildDescription(adviceReference, pointcutDefinition);
-		}
-		else {
+		} else {
 			BeanReference pointcutReference = (BeanReference) pvs.get("pointcut");
 			Assert.state(pointcutReference != null, "Missing 'pointcut' property");
-			this.beanReferences = new BeanReference[] {adviceReference, pointcutReference};
-			this.beanDefinitions = new BeanDefinition[] {advisorDefinition};
+			this.beanReferences = new BeanReference[]{adviceReference, pointcutReference};
+			this.beanDefinitions = new BeanDefinition[]{advisorDefinition};
 			this.description = buildDescription(adviceReference, pointcutReference);
 		}
 	}

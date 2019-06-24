@@ -61,6 +61,7 @@ public class ServerRequestWrapper implements ServerRequest {
 
 	/**
 	 * Create a new {@code ServerRequestWrapper} that wraps the given request.
+	 *
 	 * @param delegate the request to wrap
 	 */
 	public ServerRequestWrapper(ServerRequest delegate) {
@@ -209,6 +210,7 @@ public class ServerRequestWrapper implements ServerRequest {
 
 		/**
 		 * Create a new {@code HeadersWrapper} that wraps the given request.
+		 *
 		 * @param headers the headers to wrap
 		 */
 		public HeadersWrapper(Headers headers) {

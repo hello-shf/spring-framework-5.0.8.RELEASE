@@ -57,15 +57,14 @@ class DeferredResultInterceptorChain {
 		}
 	}
 
-	public Object applyPostProcess(NativeWebRequest request,  DeferredResult<?> deferredResult,
-			Object concurrentResult) {
+	public Object applyPostProcess(NativeWebRequest request, DeferredResult<?> deferredResult,
+								   Object concurrentResult) {
 
 		try {
 			for (int i = this.preProcessingIndex; i >= 0; i--) {
 				this.interceptors.get(i).postProcess(request, deferredResult, concurrentResult);
 			}
-		}
-		catch (Throwable t) {
+		} catch (Throwable t) {
 			return t;
 		}
 		return concurrentResult;
@@ -76,7 +75,7 @@ class DeferredResultInterceptorChain {
 			if (deferredResult.isSetOrExpired()) {
 				return;
 			}
-			if (!interceptor.handleTimeout(request, deferredResult)){
+			if (!interceptor.handleTimeout(request, deferredResult)) {
 				break;
 			}
 		}
@@ -93,7 +92,7 @@ class DeferredResultInterceptorChain {
 			if (deferredResult.isSetOrExpired()) {
 				return false;
 			}
-			if (!interceptor.handleError(request, deferredResult, ex)){
+			if (!interceptor.handleError(request, deferredResult, ex)) {
 				return false;
 			}
 		}
@@ -104,8 +103,7 @@ class DeferredResultInterceptorChain {
 		for (int i = this.preProcessingIndex; i >= 0; i--) {
 			try {
 				this.interceptors.get(i).afterCompletion(request, deferredResult);
-			}
-			catch (Throwable t) {
+			} catch (Throwable t) {
 				logger.error("afterCompletion error", t);
 			}
 		}

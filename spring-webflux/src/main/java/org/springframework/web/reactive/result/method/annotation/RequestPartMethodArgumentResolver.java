@@ -86,8 +86,7 @@ public class RequestPartMethodArgumentResolver extends AbstractMessageReaderArgu
 			if (adapter != null) {
 				values = adapter.isMultiValue() ? values : values.take(1);
 				return Mono.just(adapter.fromPublisher(values));
-			}
-			else {
+			} else {
 				return values.next().cast(Object.class);
 			}
 		}

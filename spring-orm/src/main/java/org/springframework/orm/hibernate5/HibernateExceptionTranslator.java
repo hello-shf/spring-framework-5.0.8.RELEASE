@@ -37,10 +37,10 @@ import org.springframework.orm.jpa.EntityManagerFactoryUtils;
  * of this type must be registered manually.
  *
  * @author Juergen Hoeller
- * @since 4.2
  * @see org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor
  * @see SessionFactoryUtils#convertHibernateAccessException(HibernateException)
  * @see EntityManagerFactoryUtils#convertJpaAccessExceptionIfPossible(RuntimeException)
+ * @since 4.2
  */
 public class HibernateExceptionTranslator implements PersistenceExceptionTranslator {
 
@@ -62,6 +62,7 @@ public class HibernateExceptionTranslator implements PersistenceExceptionTransla
 	/**
 	 * Convert the given HibernateException to an appropriate exception from the
 	 * {@code org.springframework.dao} hierarchy.
+	 *
 	 * @param ex HibernateException that occurred
 	 * @return a corresponding DataAccessException
 	 * @see SessionFactoryUtils#convertHibernateAccessException

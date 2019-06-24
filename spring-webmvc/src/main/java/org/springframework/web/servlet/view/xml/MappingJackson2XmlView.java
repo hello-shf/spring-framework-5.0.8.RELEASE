@@ -64,6 +64,7 @@ public class MappingJackson2XmlView extends AbstractJackson2View {
 	/**
 	 * Construct a new {@code MappingJackson2XmlView} using the provided {@link XmlMapper}
 	 * and setting the content type to {@code application/xml}.
+	 *
 	 * @since 4.2.1
 	 */
 	public MappingJackson2XmlView(XmlMapper xmlMapper) {
@@ -81,6 +82,7 @@ public class MappingJackson2XmlView extends AbstractJackson2View {
 	/**
 	 * Filter out undesired attributes from the given model.
 	 * The return value can be either another {@link Map} or a single value object.
+	 *
 	 * @param model the model, as passed on to {@link #renderMergedOutputModel}
 	 * @return the value to be rendered
 	 */
@@ -93,8 +95,7 @@ public class MappingJackson2XmlView extends AbstractJackson2View {
 				throw new IllegalStateException(
 						"Model contains no object with key [" + this.modelKey + "]");
 			}
-		}
-		else {
+		} else {
 			for (Map.Entry<String, Object> entry : model.entrySet()) {
 				if (!(entry.getValue() instanceof BindingResult) && !entry.getKey().equals(JsonView.class.getName())) {
 					if (value != null) {

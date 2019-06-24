@@ -53,13 +53,12 @@ public class JsonpReceivingTransportHandler extends AbstractHttpReceivingTranspo
 
 	@Override
 	public void handleRequestInternal(ServerHttpRequest request, ServerHttpResponse response,
-			WebSocketHandler wsHandler, AbstractHttpSockJsSession sockJsSession) throws SockJsException {
+									  WebSocketHandler wsHandler, AbstractHttpSockJsSession sockJsSession) throws SockJsException {
 
 		super.handleRequestInternal(request, response, wsHandler, sockJsSession);
 		try {
 			response.getBody().write("ok".getBytes(StandardCharsets.UTF_8));
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			throw new SockJsException("Failed to write to the response body", sockJsSession.getId(), ex);
 		}
 	}
@@ -73,8 +72,7 @@ public class JsonpReceivingTransportHandler extends AbstractHttpReceivingTranspo
 			MultiValueMap<String, String> map = this.formConverter.read(null, request);
 			String d = map.getFirst("d");
 			return (StringUtils.hasText(d) ? messageCodec.decode(d) : null);
-		}
-		else {
+		} else {
 			return messageCodec.decodeInputStream(request.getBody());
 		}
 	}

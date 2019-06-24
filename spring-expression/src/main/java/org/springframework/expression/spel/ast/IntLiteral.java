@@ -48,7 +48,7 @@ public class IntLiteral extends Literal {
 	public boolean isCompilable() {
 		return true;
 	}
-	
+
 	@Override
 	public void generateCode(MethodVisitor mv, CodeFlow cf) {
 		Integer intValue = (Integer) this.value.getValue();
@@ -56,11 +56,9 @@ public class IntLiteral extends Literal {
 		if (intValue == -1) {
 			// Not sure we can get here because -1 is OpMinus
 			mv.visitInsn(ICONST_M1);
-		}
-		else if (intValue >= 0 && intValue < 6) {
+		} else if (intValue >= 0 && intValue < 6) {
 			mv.visitInsn(ICONST_0 + intValue);
-		}
-		else {
+		} else {
 			mv.visitLdcInsn(intValue);
 		}
 		cf.pushDescriptor(this.exitTypeDescriptor);

@@ -70,7 +70,7 @@ public class JsonpPollingTransportHandler extends AbstractHttpSendingTransportHa
 
 	@Override
 	public void handleRequestInternal(ServerHttpRequest request, ServerHttpResponse response,
-			AbstractHttpSockJsSession sockJsSession) throws SockJsException {
+									  AbstractHttpSockJsSession sockJsSession) throws SockJsException {
 
 		try {
 			String callback = getCallbackParam(request);
@@ -79,8 +79,7 @@ public class JsonpPollingTransportHandler extends AbstractHttpSendingTransportHa
 				response.getBody().write("\"callback\" parameter required".getBytes(StandardCharsets.UTF_8));
 				return;
 			}
-		}
-		catch (Throwable ex) {
+		} catch (Throwable ex) {
 			sockJsSession.tryCloseWithSockJsTransportError(ex, CloseStatus.SERVER_ERROR);
 			throw new SockJsTransportFailureException("Failed to send error", sockJsSession.getId(), ex);
 		}

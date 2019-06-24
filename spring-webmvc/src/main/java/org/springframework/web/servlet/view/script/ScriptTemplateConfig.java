@@ -73,6 +73,7 @@ public interface ScriptTemplateConfig {
 
 	/**
 	 * Return the content type to use for the response.
+	 *
 	 * @since 4.2.1
 	 */
 	@Nullable

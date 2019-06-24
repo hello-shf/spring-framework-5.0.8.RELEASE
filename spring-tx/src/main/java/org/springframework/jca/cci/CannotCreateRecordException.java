@@ -32,8 +32,9 @@ public class CannotCreateRecordException extends DataAccessResourceFailureExcept
 
 	/**
 	 * Constructor for CannotCreateRecordException.
+	 *
 	 * @param msg message
-	 * @param ex ResourceException root cause
+	 * @param ex  ResourceException root cause
 	 */
 	public CannotCreateRecordException(String msg, ResourceException ex) {
 		super(msg, ex);

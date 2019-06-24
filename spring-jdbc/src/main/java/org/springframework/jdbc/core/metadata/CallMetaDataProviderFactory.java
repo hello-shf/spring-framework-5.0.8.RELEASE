@@ -37,7 +37,9 @@ import org.springframework.jdbc.support.MetaDataAccessException;
  */
 public class CallMetaDataProviderFactory {
 
-	/** List of supported database products for procedure calls */
+	/**
+	 * List of supported database products for procedure calls
+	 */
 	public static final List<String> supportedDatabaseProductsForProcedures = Arrays.asList(
 			"Apache Derby",
 			"DB2",
@@ -46,23 +48,26 @@ public class CallMetaDataProviderFactory {
 			"Oracle",
 			"PostgreSQL",
 			"Sybase"
-		);
+	);
 
-	/** List of supported database products for function calls */
+	/**
+	 * List of supported database products for function calls
+	 */
 	public static final List<String> supportedDatabaseProductsForFunctions = Arrays.asList(
 			"MySQL",
 			"Microsoft SQL Server",
 			"Oracle",
 			"PostgreSQL"
-		);
+	);
 
 	private static final Log logger = LogFactory.getLog(CallMetaDataProviderFactory.class);
 
 
 	/**
 	 * Create a {@link CallMetaDataProvider} based on the database meta-data.
+	 *
 	 * @param dataSource the JDBC DataSource to use for retrieving meta-data
-	 * @param context the class that holds configuration and meta-data
+	 * @param context    the class that holds configuration and meta-data
 	 * @return instance of the CallMetaDataProvider implementation to be used
 	 */
 	public static CallMetaDataProvider createMetaDataProvider(DataSource dataSource, final CallMetaDataContext context) {
@@ -81,8 +86,7 @@ public class CallMetaDataProviderFactory {
 							accessProcedureColumnMetaData = false;
 						}
 					}
-				}
-				else {
+				} else {
 					if (!supportedDatabaseProductsForProcedures.contains(databaseProductName)) {
 						if (logger.isWarnEnabled()) {
 							logger.warn(databaseProductName + " is not one of the databases fully supported for procedure calls " +
@@ -98,26 +102,19 @@ public class CallMetaDataProviderFactory {
 				CallMetaDataProvider provider;
 				if ("Oracle".equals(databaseProductName)) {
 					provider = new OracleCallMetaDataProvider(databaseMetaData);
-				}
-				else if ("PostgreSQL".equals(databaseProductName)) {
+				} else if ("PostgreSQL".equals(databaseProductName)) {
 					provider = new PostgresCallMetaDataProvider((databaseMetaData));
-				}
-				else if ("Apache Derby".equals(databaseProductName)) {
+				} else if ("Apache Derby".equals(databaseProductName)) {
 					provider = new DerbyCallMetaDataProvider((databaseMetaData));
-				}
-				else if ("DB2".equals(databaseProductName)) {
+				} else if ("DB2".equals(databaseProductName)) {
 					provider = new Db2CallMetaDataProvider((databaseMetaData));
-				}
-				else if ("HDB".equals(databaseProductName)) {
+				} else if ("HDB".equals(databaseProductName)) {
 					provider = new HanaCallMetaDataProvider((databaseMetaData));
-				}
-				else if ("Microsoft SQL Server".equals(databaseProductName)) {
+				} else if ("Microsoft SQL Server".equals(databaseProductName)) {
 					provider = new SqlServerCallMetaDataProvider((databaseMetaData));
-				}
-				else if ("Sybase".equals(databaseProductName)) {
+				} else if ("Sybase".equals(databaseProductName)) {
 					provider = new SybaseCallMetaDataProvider((databaseMetaData));
-				}
-				else {
+				} else {
 					provider = new GenericCallMetaDataProvider(databaseMetaData);
 				}
 
@@ -131,8 +128,7 @@ public class CallMetaDataProviderFactory {
 				}
 				return provider;
 			});
-		}
-		catch (MetaDataAccessException ex) {
+		} catch (MetaDataAccessException ex) {
 			throw new DataAccessResourceFailureException("Error retrieving database meta-data", ex);
 		}
 	}

@@ -34,15 +34,16 @@ import java.sql.SQLException;
  *
  * @author Nicolas Fabre
  * @author Thomas Risberg
- * @since 3.1
  * @see JdbcTemplate#batchUpdate(String, java.util.Collection, int, ParameterizedPreparedStatementSetter)
+ * @since 3.1
  */
 @FunctionalInterface
 public interface ParameterizedPreparedStatementSetter<T> {
 
 	/**
 	 * Set parameter values on the given PreparedStatement.
-	 * @param ps the PreparedStatement to invoke setter methods on
+	 *
+	 * @param ps       the PreparedStatement to invoke setter methods on
 	 * @param argument the object containing the values to be set
 	 * @throws SQLException if a SQLException is encountered (i.e. there is no need to catch SQLException)
 	 */

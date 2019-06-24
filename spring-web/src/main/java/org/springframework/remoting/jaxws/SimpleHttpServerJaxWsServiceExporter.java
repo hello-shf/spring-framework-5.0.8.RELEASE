@@ -45,10 +45,10 @@ import org.springframework.util.Assert;
  * For a portable JAX-WS exporter, have a look at {@link SimpleJaxWsServiceExporter}.
  *
  * @author Juergen Hoeller
- * @since 2.5.5
  * @see javax.jws.WebService
  * @see javax.xml.ws.Endpoint#publish(Object)
  * @see SimpleJaxWsServiceExporter
+ * @since 2.5.5
  */
 @UsesSunHttpServer
 public class SimpleHttpServerJaxWsServiceExporter extends AbstractJaxWsServiceExporter {
@@ -134,6 +134,7 @@ public class SimpleHttpServerJaxWsServiceExporter extends AbstractJaxWsServiceEx
 	 * <p>For each context publication path, the service name will be
 	 * appended to this base address. E.g. service name "OrderService"
 	 * -> "/OrderService".
+	 *
 	 * @see javax.xml.ws.Endpoint#publish(Object)
 	 * @see javax.jws.WebService#serviceName()
 	 */
@@ -186,7 +187,8 @@ public class SimpleHttpServerJaxWsServiceExporter extends AbstractJaxWsServiceEx
 
 	/**
 	 * Build the HttpContext for the given endpoint.
-	 * @param endpoint the JAX-WS Provider Endpoint object
+	 *
+	 * @param endpoint    the JAX-WS Provider Endpoint object
 	 * @param serviceName the given service name
 	 * @return the fully populated HttpContext
 	 */
@@ -205,7 +207,8 @@ public class SimpleHttpServerJaxWsServiceExporter extends AbstractJaxWsServiceEx
 
 	/**
 	 * Calculate the full endpoint path for the given endpoint.
-	 * @param endpoint the JAX-WS Provider Endpoint object
+	 *
+	 * @param endpoint    the JAX-WS Provider Endpoint object
 	 * @param serviceName the given service name
 	 * @return the full endpoint path
 	 */

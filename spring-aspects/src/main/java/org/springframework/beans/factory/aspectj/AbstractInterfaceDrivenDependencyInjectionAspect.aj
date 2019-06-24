@@ -67,54 +67,54 @@ import java.io.Serializable;
  * @since 2.5.2
  */
 public abstract aspect AbstractInterfaceDrivenDependencyInjectionAspect extends AbstractDependencyInjectionAspect {
-	/**
-	 * Select initialization join point as object construction
-	 */
-	public pointcut beanConstruction(Object bean) :
-			initialization(ConfigurableObject+.new(..)) && this(bean);
+    /**
+     * Select initialization join point as object construction
+     */
+    public pointcut beanConstruction(Object bean):
+            initialization(ConfigurableObject+.new(..)) && this(bean);
 
-	/**
-	 * Select deserialization join point made available through ITDs for ConfigurableDeserializationSupport
-	 */
-	public pointcut beanDeserialization(Object bean) :
-			execution(Object ConfigurableDeserializationSupport+.readResolve()) && this(bean);
+    /**
+     * Select deserialization join point made available through ITDs for ConfigurableDeserializationSupport
+     */
+    public pointcut beanDeserialization(Object bean):
+            execution(Object ConfigurableDeserializationSupport+.readResolve()) && this(bean);
 
-	public pointcut leastSpecificSuperTypeConstruction() : initialization(ConfigurableObject.new(..));
+    public pointcut leastSpecificSuperTypeConstruction(): initialization(ConfigurableObject.new(..));
 
 
 
-	// Implementation to support re-injecting dependencies once an object is deserialized
+    // Implementation to support re-injecting dependencies once an object is deserialized
 
-	/**
-	 * Declare any class implementing Serializable and ConfigurableObject as also implementing
-	 * ConfigurableDeserializationSupport. This allows us to introduce the {@code readResolve()}
-	 * method and select it with the beanDeserialization() pointcut.
-	 * <p>Here is an improved version that uses the hasmethod() pointcut and lifts
-	 * even the minor requirement on user classes:
-	 * <pre class="code">
-	 * declare parents: ConfigurableObject+ Serializable+
-	 * && !hasmethod(Object readResolve() throws ObjectStreamException)
-	 * implements ConfigurableDeserializationSupport;
-	 * </pre>
-	 */
-	declare parents: ConfigurableObject+ && Serializable+ implements ConfigurableDeserializationSupport;
+    /**
+     * Declare any class implementing Serializable and ConfigurableObject as also implementing
+     * ConfigurableDeserializationSupport. This allows us to introduce the {@code readResolve()}
+     * method and select it with the beanDeserialization() pointcut.
+     * <p>Here is an improved version that uses the hasmethod() pointcut and lifts
+     * even the minor requirement on user classes:
+     * <pre class="code">
+     * declare parents: ConfigurableObject+ Serializable+
+     * && !hasmethod(Object readResolve() throws ObjectStreamException)
+     * implements ConfigurableDeserializationSupport;
+     * </pre>
+     */
+    declare parents:ConfigurableObject+&&Serializable+implements ConfigurableDeserializationSupport;
 
-	/**
-	 * A marker interface to which the {@code readResolve()} is introduced.
-	 */
-	static interface ConfigurableDeserializationSupport extends Serializable {
-	}
+    /**
+     * A marker interface to which the {@code readResolve()} is introduced.
+     */
+    static interface ConfigurableDeserializationSupport extends Serializable {
+    }
 
-	/**
-	 * Introduce the {@code readResolve()} method so that we can advise its
-	 * execution to configure the object.
-	 * <p>Note if a method with the same signature already exists in a
-	 * {@code Serializable} class of ConfigurableObject type,
-	 * that implementation will take precedence (a good thing, since we are
-	 * merely interested in an opportunity to detect deserialization.)
-	 */
-	public Object ConfigurableDeserializationSupport.readResolve() throws ObjectStreamException {
-		return this;
-	}
+    /**
+     * Introduce the {@code readResolve()} method so that we can advise its
+     * execution to configure the object.
+     * <p>Note if a method with the same signature already exists in a
+     * {@code Serializable} class of ConfigurableObject type,
+     * that implementation will take precedence (a good thing, since we are
+     * merely interested in an opportunity to detect deserialization.)
+     */
+    public Object ConfigurableDeserializationSupport.readResolve() throws ObjectStreamException {
+        return this;
+    }
 
 }

@@ -28,8 +28,8 @@ package org.springframework.orm.jpa.vendor;
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
- * @since 2.0
  * @see AbstractJpaVendorAdapter#setDatabase
+ * @since 2.0
  */
 public enum Database {
 

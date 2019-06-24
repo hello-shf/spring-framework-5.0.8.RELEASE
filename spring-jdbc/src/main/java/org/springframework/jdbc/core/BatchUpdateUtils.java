@@ -42,6 +42,7 @@ public abstract class BatchUpdateUtils {
 						Object[] values = batchValues.get(i);
 						setStatementParameters(values, ps, columnTypes);
 					}
+
 					@Override
 					public int getBatchSize() {
 						return batchValues.size();
@@ -58,13 +59,11 @@ public abstract class BatchUpdateUtils {
 			if (value instanceof SqlParameterValue) {
 				SqlParameterValue paramValue = (SqlParameterValue) value;
 				StatementCreatorUtils.setParameterValue(ps, colIndex, paramValue, paramValue.getValue());
-			}
-			else {
+			} else {
 				int colType;
 				if (columnTypes == null || columnTypes.length < colIndex) {
 					colType = SqlTypeValue.TYPE_UNKNOWN;
-				}
-				else {
+				} else {
 					colType = columnTypes[colIndex - 1];
 				}
 				StatementCreatorUtils.setParameterValue(ps, colIndex, colType, value);

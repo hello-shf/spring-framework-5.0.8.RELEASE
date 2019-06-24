@@ -39,6 +39,7 @@ import org.springframework.web.util.UriComponentsBuilder;
  * <p><strong>Note:</strong> This filter can also be used in a
  * {@link #setRemoveOnly removeOnly} mode where "Forwarded" and "X-Forwarded-*"
  * headers are only eliminated without being used.
+ *
  * @author Arjen Poutsma
  * @see <a href="https://tools.ietf.org/html/rfc7239">https://tools.ietf.org/html/rfc7239</a>
  * @since 5.0
@@ -60,6 +61,7 @@ public class ForwardedHeaderFilter implements WebFilter {
 	/**
 	 * Enables mode in which any "Forwarded" or "X-Forwarded-*" headers are
 	 * removed only and the information in them ignored.
+	 *
 	 * @param removeOnly whether to discard and ignore forwarded headers
 	 */
 	public void setRemoveOnly(boolean removeOnly) {
@@ -82,8 +84,7 @@ public class ForwardedHeaderFilter implements WebFilter {
 								}
 							})).build();
 			return chain.filter(withoutForwardHeaders);
-		}
-		else {
+		} else {
 			URI uri = UriComponentsBuilder.fromHttpRequest(exchange.getRequest()).build().toUri();
 			String prefix = getForwardedPrefix(exchange.getRequest().getHeaders());
 

@@ -59,6 +59,7 @@ public abstract class AbstractServletHttpHandlerAdapterInitializer implements We
 	 * <p>Further customization can be achieved by overriding
 	 * {@link #customizeRegistration(ServletRegistration.Dynamic)} or
 	 * {@link #createServlet(HttpHandler)}.
+	 *
 	 * @param servletContext the context to register the servlet with
 	 */
 	protected void registerHandlerAdapter(ServletContext servletContext) {
@@ -87,6 +88,7 @@ public abstract class AbstractServletHttpHandlerAdapterInitializer implements We
 	/**
 	 * Return the name under which the {@link ServletHttpHandlerAdapter} will be registered.
 	 * Defaults to {@link #DEFAULT_SERVLET_NAME}.
+	 *
 	 * @see #registerHandlerAdapter(ServletContext)
 	 */
 	protected String getServletName() {
@@ -110,6 +112,7 @@ public abstract class AbstractServletHttpHandlerAdapterInitializer implements We
 	/**
 	 * Specify the servlet mapping(s) for the {@code ServletHttpHandlerAdapter}:
 	 * for example {@code "/"}, {@code "/app"}, etc.
+	 *
 	 * @see #registerHandlerAdapter(ServletContext)
 	 */
 	protected abstract String[] getServletMappings();
@@ -117,6 +120,7 @@ public abstract class AbstractServletHttpHandlerAdapterInitializer implements We
 	/**
 	 * Optionally perform further registration customization once
 	 * {@link #registerHandlerAdapter(ServletContext)} has completed.
+	 *
 	 * @param registration the {@code DispatcherServlet} registration to be customized
 	 * @see #registerHandlerAdapter(ServletContext)
 	 */

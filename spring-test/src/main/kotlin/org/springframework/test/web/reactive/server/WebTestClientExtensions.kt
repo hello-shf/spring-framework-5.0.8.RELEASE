@@ -27,8 +27,7 @@ import org.springframework.test.web.reactive.server.WebTestClient.*
  * @author Sebastien Deleuze
  * @since 5.0
  */
-inline fun <reified T : Any, S : Publisher<T>> RequestBodySpec.body(publisher: S): RequestHeadersSpec<*>
-		= body(publisher, T::class.java)
+inline fun <reified T : Any, S : Publisher<T>> RequestBodySpec.body(publisher: S): RequestHeadersSpec<*> = body(publisher, T::class.java)
 
 /**
  * Extension for [ResponseSpec.expectBody] providing an `expectBody<Foo>()` variant and
@@ -44,13 +43,13 @@ inline fun <reified B : Any> ResponseSpec.expectBody(): KotlinBodySpec<B> =
 			object : KotlinBodySpec<B> {
 
 				override fun isEqualTo(expected: B): KotlinBodySpec<B> = it
-							.assertWithDiagnostics({ assertEquals("Response body", expected, it.responseBody) })
-							.let { this }
+						.assertWithDiagnostics({ assertEquals("Response body", expected, it.responseBody) })
+						.let { this }
 
 				override fun consumeWith(consumer: (EntityExchangeResult<B>) -> Unit): KotlinBodySpec<B> =
-					it
-							.assertWithDiagnostics({ consumer.invoke(it) })
-							.let { this }
+						it
+								.assertWithDiagnostics({ consumer.invoke(it) })
+								.let { this }
 
 				override fun returnResult(): EntityExchangeResult<B> = it
 			}

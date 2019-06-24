@@ -43,51 +43,49 @@ import org.springframework.cache.interceptor.CacheOperationSource;
  */
 public abstract aspect AbstractCacheAspect extends CacheAspectSupport implements DisposableBean {
 
-	protected AbstractCacheAspect() {
-	}
+    protected AbstractCacheAspect() {
+    }
 
-	/**
-	 * Construct object using the given caching metadata retrieval strategy.
-	 * @param cos {@link CacheOperationSource} implementation, retrieving Spring cache
-	 * metadata for each joinpoint.
-	 */
-	protected AbstractCacheAspect(CacheOperationSource... cos) {
-		setCacheOperationSources(cos);
-	}
+    /**
+     * Construct object using the given caching metadata retrieval strategy.
+     * @param cos {@link CacheOperationSource} implementation, retrieving Spring cache
+     * metadata for each joinpoint.
+     */
+    protected AbstractCacheAspect(CacheOperationSource... cos) {
+        setCacheOperationSources(cos);
+    }
 
-	@Override
-	public void destroy() {
-		clearMetadataCache(); // An aspect is basically a singleton
-	}
+    @Override
+    public void destroy() {
+        clearMetadataCache(); // An aspect is basically a singleton
+    }
 
-	@SuppressAjWarnings("adviceDidNotMatch")
-	Object around(final Object cachedObject) : cacheMethodExecution(cachedObject) {
-		MethodSignature methodSignature = (MethodSignature) thisJoinPoint.getSignature();
-		Method method = methodSignature.getMethod();
+    @SuppressAjWarnings("adviceDidNotMatch")
+    Object around(final Object cachedObject): cacheMethodExecution(cachedObject) {
+        MethodSignature methodSignature = (MethodSignature) thisJoinPoint.getSignature();
+        Method method = methodSignature.getMethod();
 
-		CacheOperationInvoker aspectJInvoker = new CacheOperationInvoker() {
-			public Object invoke() {
-				try {
-					return proceed(cachedObject);
-				}
-				catch (Throwable ex) {
-					throw new ThrowableWrapper(ex);
-				}
-			}
-		};
+        CacheOperationInvoker aspectJInvoker = new CacheOperationInvoker() {
+            public Object invoke() {
+                try {
+                    return proceed(cachedObject);
+                } catch (Throwable ex) {
+                    throw new ThrowableWrapper(ex);
+                }
+            }
+        };
 
-		try {
-			return execute(aspectJInvoker, thisJoinPoint.getTarget(), method, thisJoinPoint.getArgs());
-		}
-		catch (CacheOperationInvoker.ThrowableWrapper th) {
-			AnyThrow.throwUnchecked(th.getOriginal());
-			return null; // never reached
-		}
-	}
+        try {
+            return execute(aspectJInvoker, thisJoinPoint.getTarget(), method, thisJoinPoint.getArgs());
+        } catch (CacheOperationInvoker.ThrowableWrapper th) {
+            AnyThrow.throwUnchecked(th.getOriginal());
+            return null; // never reached
+        }
+    }
 
-	/**
-	 * Concrete subaspects must implement this pointcut, to identify cached methods.
-	 */
-	protected abstract pointcut cacheMethodExecution(Object cachedObject);
+    /**
+     * Concrete subaspects must implement this pointcut, to identify cached methods.
+     */
+    protected abstract pointcut cacheMethodExecution(Object cachedObject);
 
 }

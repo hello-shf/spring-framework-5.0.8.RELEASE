@@ -23,9 +23,9 @@ import java.sql.Connection;
  * Used by JpaDialect, for example.
  *
  * @author Juergen Hoeller
- * @since 1.1
  * @see SimpleConnectionHandle
  * @see ConnectionHolder
+ * @since 1.1
  */
 public interface ConnectionHandle {
 
@@ -36,6 +36,7 @@ public interface ConnectionHandle {
 
 	/**
 	 * Release the JDBC Connection that this handle refers to.
+	 *
 	 * @param con the JDBC Connection to release
 	 */
 	void releaseConnection(Connection con);

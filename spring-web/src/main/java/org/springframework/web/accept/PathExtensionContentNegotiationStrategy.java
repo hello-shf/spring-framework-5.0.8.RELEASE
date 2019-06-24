@@ -68,6 +68,7 @@ public class PathExtensionContentNegotiationStrategy extends AbstractMappingCont
 	/**
 	 * Configure a {@code UrlPathHelper} to use in {@link #getMediaTypeKey}
 	 * in order to derive the lookup path for a target request URL path.
+	 *
 	 * @since 4.2.8
 	 */
 	public void setUrlPathHelper(UrlPathHelper urlPathHelper) {
@@ -100,6 +101,7 @@ public class PathExtensionContentNegotiationStrategy extends AbstractMappingCont
 	 * resolve file extensions to a {@link MediaType} in this case for a given
 	 * {@link Resource}. The method first looks up any explicitly registered
 	 * file extensions first and then falls back on {@link MediaTypeFactory} if available.
+	 *
 	 * @param resource the resource to look up
 	 * @return the MediaType for the extension, or {@code null} if none found
 	 * @since 4.3

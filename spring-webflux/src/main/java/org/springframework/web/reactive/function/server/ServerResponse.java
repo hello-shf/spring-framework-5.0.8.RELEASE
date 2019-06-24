@@ -73,8 +73,9 @@ public interface ServerResponse {
 
 	/**
 	 * Write this response to the given web exchange.
+	 *
 	 * @param exchange the web exchange to write to
-	 * @param context the context to use when writing
+	 * @param context  the context to use when writing
 	 * @return {@code Mono<Void>} to indicate when writing is complete
 	 */
 	Mono<Void> writeTo(ServerWebExchange exchange, Context context);
@@ -84,6 +85,7 @@ public interface ServerResponse {
 
 	/**
 	 * Create a builder with the status code and headers of the given response.
+	 *
 	 * @param other the response to copy the status and headers from
 	 * @return the created builder
 	 */
@@ -93,6 +95,7 @@ public interface ServerResponse {
 
 	/**
 	 * Create a builder with the given HTTP status.
+	 *
 	 * @param status the response status
 	 * @return the created builder
 	 */
@@ -102,6 +105,7 @@ public interface ServerResponse {
 
 	/**
 	 * Create a builder with the given HTTP status.
+	 *
 	 * @param status the response status
 	 * @return the created builder
 	 * @since 5.0.3
@@ -112,6 +116,7 @@ public interface ServerResponse {
 
 	/**
 	 * Create a builder with the status set to {@linkplain HttpStatus#OK 200 OK}.
+	 *
 	 * @return the created builder
 	 */
 	static BodyBuilder ok() {
@@ -121,6 +126,7 @@ public interface ServerResponse {
 	/**
 	 * Create a new builder with a {@linkplain HttpStatus#CREATED 201 Created} status
 	 * and a location header set to the given URI.
+	 *
 	 * @param location the location URI
 	 * @return the created builder
 	 */
@@ -131,6 +137,7 @@ public interface ServerResponse {
 
 	/**
 	 * Create a builder with an {@linkplain HttpStatus#ACCEPTED 202 Accepted} status.
+	 *
 	 * @return the created builder
 	 */
 	static BodyBuilder accepted() {
@@ -139,6 +146,7 @@ public interface ServerResponse {
 
 	/**
 	 * Create a builder with a {@linkplain HttpStatus#NO_CONTENT 204 No Content} status.
+	 *
 	 * @return the created builder
 	 */
 	static HeadersBuilder<?> noContent() {
@@ -148,6 +156,7 @@ public interface ServerResponse {
 	/**
 	 * Create a builder with a {@linkplain HttpStatus#SEE_OTHER 303 See Other}
 	 * status and a location header set to the given URI.
+	 *
 	 * @param location the location URI
 	 * @return the created builder
 	 */
@@ -159,6 +168,7 @@ public interface ServerResponse {
 	/**
 	 * Create a builder with a {@linkplain HttpStatus#TEMPORARY_REDIRECT 307 Temporary Redirect}
 	 * status and a location header set to the given URI.
+	 *
 	 * @param location the location URI
 	 * @return the created builder
 	 */
@@ -170,6 +180,7 @@ public interface ServerResponse {
 	/**
 	 * Create a builder with a {@linkplain HttpStatus#PERMANENT_REDIRECT 308 Permanent Redirect}
 	 * status and a location header set to the given URI.
+	 *
 	 * @param location the location URI
 	 * @return the created builder
 	 */
@@ -180,6 +191,7 @@ public interface ServerResponse {
 
 	/**
 	 * Create a builder with a {@linkplain HttpStatus#BAD_REQUEST 400 Bad Request} status.
+	 *
 	 * @return the created builder
 	 */
 	static BodyBuilder badRequest() {
@@ -188,6 +200,7 @@ public interface ServerResponse {
 
 	/**
 	 * Create a builder with a {@linkplain HttpStatus#NOT_FOUND 404 Not Found} status.
+	 *
 	 * @return the created builder
 	 */
 	static HeadersBuilder<?> notFound() {
@@ -197,6 +210,7 @@ public interface ServerResponse {
 	/**
 	 * Create a builder with an
 	 * {@linkplain HttpStatus#UNPROCESSABLE_ENTITY 422 Unprocessable Entity} status.
+	 *
 	 * @return the created builder
 	 */
 	static BodyBuilder unprocessableEntity() {
@@ -206,12 +220,14 @@ public interface ServerResponse {
 
 	/**
 	 * Defines a builder that adds headers to the response.
+	 *
 	 * @param <B> the builder subclass
 	 */
 	interface HeadersBuilder<B extends HeadersBuilder<B>> {
 
 		/**
 		 * Add the given header value(s) under the given name.
+		 *
 		 * @param headerName   the header name
 		 * @param headerValues the header value(s)
 		 * @return this builder
@@ -225,6 +241,7 @@ public interface ServerResponse {
 		 * {@linkplain HttpHeaders#set(String, String) overwrite} existing header values,
 		 * {@linkplain HttpHeaders#remove(Object) remove} values, or use any of the other
 		 * {@link HttpHeaders} methods.
+		 *
 		 * @param headersConsumer a function that consumes the {@code HttpHeaders}
 		 * @return this builder
 		 */
@@ -232,6 +249,7 @@ public interface ServerResponse {
 
 		/**
 		 * Add the given cookie to the response.
+		 *
 		 * @param cookie the cookie to add
 		 * @return this builder
 		 */
@@ -243,6 +261,7 @@ public interface ServerResponse {
 		 * {@linkplain MultiValueMap#set(Object, Object) overwrite} existing cookies,
 		 * {@linkplain MultiValueMap#remove(Object) remove} cookies, or use any of the other
 		 * {@link MultiValueMap} methods.
+		 *
 		 * @param cookiesConsumer a function that consumes the cookies
 		 * @return this builder
 		 */
@@ -261,6 +280,7 @@ public interface ServerResponse {
 		/**
 		 * Set the set of allowed {@link HttpMethod HTTP methods}, as specified
 		 * by the {@code Allow} header.
+		 *
 		 * @param allowedMethods the allowed methods
 		 * @return this builder
 		 * @see HttpHeaders#setAllow(Set)
@@ -269,6 +289,7 @@ public interface ServerResponse {
 
 		/**
 		 * Set the entity tag of the body, as specified by the {@code ETag} header.
+		 *
 		 * @param eTag the new entity tag
 		 * @return this builder
 		 * @see HttpHeaders#setETag(String)
@@ -278,6 +299,7 @@ public interface ServerResponse {
 		/**
 		 * Set the time the resource was last changed, as specified by the
 		 * {@code Last-Modified} header.
+		 *
 		 * @param lastModified the last modified date
 		 * @return this builder
 		 * @see HttpHeaders#setLastModified(long)
@@ -286,6 +308,7 @@ public interface ServerResponse {
 
 		/**
 		 * Set the location of a resource, as specified by the {@code Location} header.
+		 *
 		 * @param location the location
 		 * @return this builder
 		 * @see HttpHeaders#setLocation(URI)
@@ -297,6 +320,7 @@ public interface ServerResponse {
 		 * {@code Cache-Control} header.
 		 * <p>A {@code CacheControl} instance can be built like
 		 * {@code CacheControl.maxAge(3600).cachePublic().noTransform()}.
+		 *
 		 * @param cacheControl a builder for cache-related HTTP response headers
 		 * @return this builder
 		 * @see <a href="https://tools.ietf.org/html/rfc7234#section-5.2">RFC-7234 Section 5.2</a>
@@ -309,6 +333,7 @@ public interface ServerResponse {
 		 * subject to content negotiation and variances based on the value of the
 		 * given request headers. The configured request header names are added only
 		 * if not already present in the response "Vary" header.
+		 *
 		 * @param requestHeaders request header names
 		 * @return this builder
 		 */
@@ -322,12 +347,14 @@ public interface ServerResponse {
 		/**
 		 * Build the response entity with no body.
 		 * The response will be committed when the given {@code voidPublisher} completes.
+		 *
 		 * @param voidPublisher publisher publisher to indicate when the response should be committed
 		 */
 		Mono<ServerResponse> build(Publisher<Void> voidPublisher);
 
 		/**
 		 * Build the response entity with a custom writer function.
+		 *
 		 * @param writeFunction the function used to write to the {@link ServerWebExchange}
 		 */
 		Mono<ServerResponse> build(BiFunction<ServerWebExchange, Context, Mono<Void>> writeFunction);
@@ -342,6 +369,7 @@ public interface ServerResponse {
 		/**
 		 * Set the length of the body in bytes, as specified by the
 		 * {@code Content-Length} header.
+		 *
 		 * @param contentLength the content length
 		 * @return this builder
 		 * @see HttpHeaders#setContentLength(long)
@@ -351,6 +379,7 @@ public interface ServerResponse {
 		/**
 		 * Set the {@linkplain MediaType media type} of the body, as specified by the
 		 * {@code Content-Type} header.
+		 *
 		 * @param contentType the content type
 		 * @return this builder
 		 * @see HttpHeaders#setContentType(MediaType)
@@ -360,7 +389,8 @@ public interface ServerResponse {
 		/**
 		 * Add a serialization hint like {@link Jackson2CodecSupport#JSON_VIEW_HINT}
 		 * to customize how the body will be serialized.
-		 * @param key the hint key
+		 *
+		 * @param key   the hint key
 		 * @param value the hint value
 		 */
 		BodyBuilder hint(String key, Object value);
@@ -369,10 +399,11 @@ public interface ServerResponse {
 		 * Set the body of the response to the given asynchronous {@code Publisher} and return it.
 		 * This convenience method combines {@link #body(BodyInserter)} and
 		 * {@link BodyInserters#fromPublisher(Publisher, Class)}.
-		 * @param publisher the {@code Publisher} to write to the response
+		 *
+		 * @param publisher    the {@code Publisher} to write to the response
 		 * @param elementClass the class of elements contained in the publisher
-		 * @param <T> the type of the elements contained in the publisher
-		 * @param <P> the type of the {@code Publisher}
+		 * @param <T>          the type of the elements contained in the publisher
+		 * @param <P>          the type of the {@code Publisher}
 		 * @return the built response
 		 */
 		<T, P extends Publisher<T>> Mono<ServerResponse> body(P publisher, Class<T> elementClass);
@@ -381,28 +412,31 @@ public interface ServerResponse {
 		 * Set the body of the response to the given asynchronous {@code Publisher} and return it.
 		 * This convenience method combines {@link #body(BodyInserter)} and
 		 * {@link BodyInserters#fromPublisher(Publisher, Class)}.
-		 * @param publisher the {@code Publisher} to write to the response
+		 *
+		 * @param publisher     the {@code Publisher} to write to the response
 		 * @param typeReference a type reference describing the elements contained in the publisher
-		 * @param <T> the type of the elements contained in the publisher
-		 * @param <P> the type of the {@code Publisher}
+		 * @param <T>           the type of the elements contained in the publisher
+		 * @param <P>           the type of the {@code Publisher}
 		 * @return the built response
 		 */
 		<T, P extends Publisher<T>> Mono<ServerResponse> body(P publisher,
-				ParameterizedTypeReference<T> typeReference);
+															  ParameterizedTypeReference<T> typeReference);
 
 		/**
 		 * Set the body of the response to the given synchronous {@code Object} and return it.
 		 * This convenience method combines {@link #body(BodyInserter)} and
 		 * {@link BodyInserters#fromObject(Object)}.
+		 *
 		 * @param body the body of the response
 		 * @return the built response
 		 * @throws IllegalArgumentException if {@code body} is a {@link Publisher}, for which
-		 * {@link #body(Publisher, Class)} should be used.
+		 *                                  {@link #body(Publisher, Class)} should be used.
 		 */
 		Mono<ServerResponse> syncBody(Object body);
 
 		/**
 		 * Set the body of the response to the given {@code BodyInserter} and return it.
+		 *
 		 * @param inserter the {@code BodyInserter} that writes to the response
 		 * @return the built response
 		 */
@@ -415,7 +449,8 @@ public interface ServerResponse {
 		 * <p><emphasis>Note: Empty {@link Collection Collections} are not added to
 		 * the model when using this method because we cannot correctly determine
 		 * the true convention name.</emphasis>
-		 * @param name the name of the template to be rendered
+		 *
+		 * @param name            the name of the template to be rendered
 		 * @param modelAttributes the modelAttributes used to render the template
 		 * @return the built response
 		 */
@@ -423,7 +458,8 @@ public interface ServerResponse {
 
 		/**
 		 * Render the template with the given {@code name} using the given {@code model}.
-		 * @param name the name of the template to be rendered
+		 *
+		 * @param name  the name of the template to be rendered
 		 * @param model the model used to render the template
 		 * @return the built response
 		 */
@@ -438,12 +474,14 @@ public interface ServerResponse {
 
 		/**
 		 * Return the {@link HttpMessageWriter}s to be used for response body conversion.
+		 *
 		 * @return the list of message writers
 		 */
 		List<HttpMessageWriter<?>> messageWriters();
 
 		/**
 		 * Return the  {@link ViewResolver}s to be used for view name resolution.
+		 *
 		 * @return the list of view resolvers
 		 */
 		List<ViewResolver> viewResolvers();

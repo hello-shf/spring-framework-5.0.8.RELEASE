@@ -37,8 +37,8 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  *
  * @author Juergen Hoeller
  * @author Rossen Stoyanchev
- * @since 20.06.2003
  * @see org.springframework.web.servlet.LocaleResolver
+ * @since 20.06.2003
  */
 public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 
@@ -78,6 +78,7 @@ public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 
 	/**
 	 * Configure the HTTP method(s) over which the locale can be changed.
+	 *
 	 * @param httpMethods the methods
 	 * @since 4.2
 	 */
@@ -87,6 +88,7 @@ public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 
 	/**
 	 * Return the configured HTTP methods.
+	 *
 	 * @since 4.2
 	 */
 	@Nullable
@@ -96,6 +98,7 @@ public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 
 	/**
 	 * Set whether to ignore an invalid value for the locale parameter.
+	 *
 	 * @since 4.2.2
 	 */
 	public void setIgnoreInvalidLocale(boolean ignoreInvalidLocale) {
@@ -104,6 +107,7 @@ public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 
 	/**
 	 * Return whether to ignore an invalid value for the locale parameter.
+	 *
 	 * @since 4.2.2
 	 */
 	public boolean isIgnoreInvalidLocale() {
@@ -114,9 +118,10 @@ public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 	 * Specify whether to parse request parameter values as BCP 47 language tags
 	 * instead of Java's legacy locale specification format.
 	 * The default is {@code false}.
-	 * @since 4.3
+	 *
 	 * @see Locale#forLanguageTag(String)
 	 * @see Locale#toLanguageTag()
+	 * @since 4.3
 	 */
 	public void setLanguageTagCompliant(boolean languageTagCompliant) {
 		this.languageTagCompliant = languageTagCompliant;
@@ -125,6 +130,7 @@ public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 	/**
 	 * Return whether to use BCP 47 language tags instead of Java's legacy
 	 * locale specification format.
+	 *
 	 * @since 4.3
 	 */
 	public boolean isLanguageTagCompliant() {
@@ -146,12 +152,10 @@ public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 				}
 				try {
 					localeResolver.setLocale(request, response, parseLocaleValue(newLocale));
-				}
-				catch (IllegalArgumentException ex) {
+				} catch (IllegalArgumentException ex) {
 					if (isIgnoreInvalidLocale()) {
 						logger.debug("Ignoring invalid locale value [" + newLocale + "]: " + ex.getMessage());
-					}
-					else {
+					} else {
 						throw ex;
 					}
 				}
@@ -179,6 +183,7 @@ public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 	 * <p>The default implementation calls {@link StringUtils#parseLocaleString(String)}
 	 * or JDK 7's {@link Locale#forLanguageTag(String)}, depending on the
 	 * {@link #setLanguageTagCompliant "languageTagCompliant"} configuration property.
+	 *
 	 * @param locale the locale value to parse
 	 * @return the corresponding {@code Locale} instance
 	 * @since 4.3

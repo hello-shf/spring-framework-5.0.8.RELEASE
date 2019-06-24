@@ -40,7 +40,7 @@ public abstract class AbstractResourceResolver implements ResourceResolver {
 	@Override
 	@Nullable
 	public Resource resolveResource(@Nullable HttpServletRequest request, String requestPath,
-			List<? extends Resource> locations, ResourceResolverChain chain) {
+									List<? extends Resource> locations, ResourceResolverChain chain) {
 
 		if (logger.isTraceEnabled()) {
 			logger.trace("Resolving resource for request path \"" + requestPath + "\"");
@@ -51,7 +51,7 @@ public abstract class AbstractResourceResolver implements ResourceResolver {
 	@Override
 	@Nullable
 	public String resolveUrlPath(String resourceUrlPath, List<? extends Resource> locations,
-			ResourceResolverChain chain) {
+								 ResourceResolverChain chain) {
 
 		if (logger.isTraceEnabled()) {
 			logger.trace("Resolving public URL for resource path \"" + resourceUrlPath + "\"");
@@ -63,10 +63,10 @@ public abstract class AbstractResourceResolver implements ResourceResolver {
 
 	@Nullable
 	protected abstract Resource resolveResourceInternal(@Nullable HttpServletRequest request,
-			String requestPath, List<? extends Resource> locations, ResourceResolverChain chain);
+														String requestPath, List<? extends Resource> locations, ResourceResolverChain chain);
 
 	@Nullable
 	protected abstract String resolveUrlPathInternal(String resourceUrlPath,
-			List<? extends Resource> locations, ResourceResolverChain chain);
+													 List<? extends Resource> locations, ResourceResolverChain chain);
 
 }

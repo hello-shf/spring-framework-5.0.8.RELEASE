@@ -21,8 +21,8 @@ package org.springframework.messaging;
  *
  * @author Mark Fisher
  * @author Arjen Poutsma
- * @since 4.0
  * @see org.springframework.messaging.support.MessageBuilder
+ * @since 4.0
  */
 public interface Message<T> {
 

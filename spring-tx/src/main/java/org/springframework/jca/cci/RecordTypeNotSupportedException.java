@@ -32,8 +32,9 @@ public class RecordTypeNotSupportedException extends InvalidDataAccessResourceUs
 
 	/**
 	 * Constructor for RecordTypeNotSupportedException.
+	 *
 	 * @param msg message
-	 * @param ex ResourceException root cause
+	 * @param ex  ResourceException root cause
 	 */
 	public RecordTypeNotSupportedException(String msg, ResourceException ex) {
 		super(msg, ex);

@@ -74,8 +74,7 @@ public class DefaultWebFilterChain implements WebFilterChain {
 				WebFilter filter = this.filters.get(this.index);
 				WebFilterChain chain = new DefaultWebFilterChain(this, this.index + 1);
 				return filter.filter(exchange, chain);
-			}
-			else {
+			} else {
 				return this.handler.handle(exchange);
 			}
 		});

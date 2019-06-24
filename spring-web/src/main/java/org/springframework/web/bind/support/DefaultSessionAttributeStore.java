@@ -26,11 +26,11 @@ import org.springframework.web.context.request.WebRequest;
  * or PortletSession).
  *
  * @author Juergen Hoeller
- * @since 2.5
  * @see #setAttributeNamePrefix
  * @see org.springframework.web.context.request.WebRequest#setAttribute
  * @see org.springframework.web.context.request.WebRequest#getAttribute
  * @see org.springframework.web.context.request.WebRequest#removeAttribute
+ * @since 2.5
  */
 public class DefaultSessionAttributeStore implements SessionAttributeStore {
 
@@ -78,7 +78,8 @@ public class DefaultSessionAttributeStore implements SessionAttributeStore {
 	 * Calculate the attribute name in the backend session.
 	 * <p>The default implementation simply prepends the configured
 	 * {@link #setAttributeNamePrefix "attributeNamePrefix"}, if any.
-	 * @param request the current request
+	 *
+	 * @param request       the current request
 	 * @param attributeName the name of the attribute
 	 * @return the attribute name in the backend session
 	 */

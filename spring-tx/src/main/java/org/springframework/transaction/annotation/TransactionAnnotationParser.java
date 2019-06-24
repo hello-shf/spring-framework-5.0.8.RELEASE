@@ -29,11 +29,11 @@ import org.springframework.transaction.interceptor.TransactionAttribute;
  * or EJB3's {@link javax.ejb.TransactionAttribute}.
  *
  * @author Juergen Hoeller
- * @since 2.5
  * @see AnnotationTransactionAttributeSource
  * @see SpringTransactionAnnotationParser
  * @see Ejb3TransactionAnnotationParser
  * @see JtaTransactionAnnotationParser
+ * @since 2.5
  */
 public interface TransactionAnnotationParser {
 
@@ -43,6 +43,7 @@ public interface TransactionAnnotationParser {
 	 * <p>This essentially parses a known transaction annotation into Spring's
 	 * metadata attribute class. Returns {@code null} if the method/class
 	 * is not transactional.
+	 *
 	 * @param ae the annotated method or class
 	 * @return TransactionAttribute the configured transaction attribute,
 	 * or {@code null} if none was found

@@ -107,8 +107,7 @@ public class JettyWebSocketClient extends WebSocketClientSupport implements WebS
 				try {
 					this.running = true;
 					this.jettyClient.start();
-				}
-				catch (Exception ex) {
+				} catch (Exception ex) {
 					throw new IllegalStateException("Failed to start Jetty WebSocketClient", ex);
 				}
 			}
@@ -125,8 +124,7 @@ public class JettyWebSocketClient extends WebSocketClientSupport implements WebS
 				try {
 					this.running = false;
 					this.jettyClient.stop();
-				}
-				catch (Exception ex) {
+				} catch (Exception ex) {
 					throw new IllegalStateException("Error stopping Jetty WebSocketClient", ex);
 				}
 			}

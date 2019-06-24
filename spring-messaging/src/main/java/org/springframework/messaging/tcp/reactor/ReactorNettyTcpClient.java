@@ -92,8 +92,9 @@ public class ReactorNettyTcpClient<P> implements TcpOperations<P> {
 
 	/**
 	 * Simple constructor with a host and a port.
-	 * @param host the host to connect to
-	 * @param port the port to connect to
+	 *
+	 * @param host  the host to connect to
+	 * @param port  the port to connect to
 	 * @param codec the code to use
 	 * @see org.springframework.messaging.simp.stomp.StompReactorNettyCodec
 	 */
@@ -118,11 +119,11 @@ public class ReactorNettyTcpClient<P> implements TcpOperations<P> {
 	 * see {@link #ReactorNettyTcpClient(TcpClient, ReactorNettyCodec)}.
 	 *
 	 * @param optionsConsumer consumer to customize client options
-	 * @param codec the code to use
+	 * @param codec           the code to use
 	 * @see org.springframework.messaging.simp.stomp.StompReactorNettyCodec
 	 */
 	public ReactorNettyTcpClient(Consumer<ClientOptions.Builder<?>> optionsConsumer,
-			ReactorNettyCodec<P> codec) {
+								 ReactorNettyCodec<P> codec) {
 
 		Assert.notNull(optionsConsumer, "Consumer<ClientOptions.Builder<?> is required");
 		Assert.notNull(codec, "ReactorNettyCodec is required");
@@ -157,7 +158,7 @@ public class ReactorNettyTcpClient<P> implements TcpOperations<P> {
 	 * lifecycle is expected to be managed externally.
 	 *
 	 * @param tcpClient the TcpClient instance to use
-	 * @param codec the code to use
+	 * @param codec     the code to use
 	 * @see org.springframework.messaging.simp.stomp.StompReactorNettyCodec
 	 */
 	public ReactorNettyTcpClient(TcpClient tcpClient, ReactorNettyCodec<P> codec) {
@@ -224,8 +225,7 @@ public class ReactorNettyTcpClient<P> implements TcpOperations<P> {
 			if (!connectMono.isTerminated()) {
 				if (o instanceof Throwable) {
 					connectMono.onError((Throwable) o);
-				}
-				else {
+				} else {
 					connectMono.onComplete();
 				}
 			}
@@ -260,8 +260,7 @@ public class ReactorNettyTcpClient<P> implements TcpOperations<P> {
 				result = result.onErrorResume(ex -> Mono.empty()).then(this.poolResources.disposeLater());
 			}
 			result = result.onErrorResume(ex -> Mono.empty()).then(stopScheduler());
-		}
-		else {
+		} else {
 			result = stopScheduler();
 		}
 
@@ -277,8 +276,7 @@ public class ReactorNettyTcpClient<P> implements TcpOperations<P> {
 				}
 				try {
 					Thread.sleep(100);
-				}
-				catch (Throwable ex) {
+				} catch (Throwable ex) {
 					break;
 				}
 			}
@@ -306,7 +304,7 @@ public class ReactorNettyTcpClient<P> implements TcpOperations<P> {
 				logger.debug("Connected to " + inbound.remoteAddress());
 			}
 			DirectProcessor<Void> completion = DirectProcessor.create();
-			TcpConnection<P> connection = new ReactorNettyTcpConnection<>(inbound, outbound,  codec, completion);
+			TcpConnection<P> connection = new ReactorNettyTcpConnection<>(inbound, outbound, codec, completion);
 			scheduler.schedule(() -> connectionHandler.afterConnected(connection));
 
 			inbound.context().addHandler(new StompMessageDecoder<>(codec));

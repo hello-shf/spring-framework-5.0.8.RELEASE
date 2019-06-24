@@ -69,6 +69,7 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	/**
 	 * Suffix that gets appended to the filter name for the
 	 * "already filtered" request attribute.
+	 *
 	 * @see #getAlreadyFilteredAttributeName
 	 */
 	public static final String ALREADY_FILTERED_SUFFIX = ".FILTERED";
@@ -78,6 +79,7 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	 * This {@code doFilter} implementation stores a request attribute for
 	 * "already filtered", proceeding without filtering again if the
 	 * attribute is already there.
+	 *
 	 * @see #getAlreadyFilteredAttributeName
 	 * @see #shouldNotFilter
 	 * @see #doFilterInternal
@@ -99,14 +101,12 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 
 			// Proceed without invoking this filter...
 			filterChain.doFilter(request, response);
-		}
-		else {
+		} else {
 			// Do invoke this filter...
 			request.setAttribute(alreadyFilteredAttributeName, Boolean.TRUE);
 			try {
 				doFilterInternal(httpRequest, httpResponse, filterChain);
-			}
-			finally {
+			} finally {
 				// Remove the "already filtered" request attribute for this request.
 				request.removeAttribute(alreadyFilteredAttributeName);
 			}
@@ -129,9 +129,10 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	 * in Servlet 3.0 means a filter can be invoked in more than one thread over
 	 * the course of a single request. This method returns {@code true} if the
 	 * filter is currently executing within an asynchronous dispatch.
+	 *
 	 * @param request the current request
-	 * @since 3.2
 	 * @see WebAsyncManager#hasConcurrentResult()
+	 * @since 3.2
 	 */
 	protected boolean isAsyncDispatch(HttpServletRequest request) {
 		return WebAsyncUtils.getAsyncManager(request).hasConcurrentResult();
@@ -140,9 +141,10 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	/**
 	 * Whether request processing is in asynchronous mode meaning that the
 	 * response will not be committed after the current thread is exited.
+	 *
 	 * @param request the current request
-	 * @since 3.2
 	 * @see WebAsyncManager#isConcurrentHandlingStarted()
+	 * @since 3.2
 	 */
 	protected boolean isAsyncStarted(HttpServletRequest request) {
 		return WebAsyncUtils.getAsyncManager(request).isConcurrentHandlingStarted();
@@ -154,6 +156,7 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	 * <p>The default implementation takes the configured name of the concrete filter
 	 * instance and appends ".FILTERED". If the filter is not fully initialized,
 	 * it falls back to its class name.
+	 *
 	 * @see #getFilterName
 	 * @see #ALREADY_FILTERED_SUFFIX
 	 */
@@ -169,6 +172,7 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	 * Can be overridden in subclasses for custom filtering control,
 	 * returning {@code true} to avoid filtering of the given request.
 	 * <p>The default implementation always returns {@code false}.
+	 *
 	 * @param request current HTTP request
 	 * @return whether the given request should <i>not</i> be filtered
 	 * @throws ServletException in case of errors
@@ -192,6 +196,7 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	 * invoked during subsequent async dispatches. If "false", the filter will
 	 * be invoked during async dispatches with the same guarantees of being
 	 * invoked only once during a request within a single thread.
+	 *
 	 * @since 3.2
 	 */
 	protected boolean shouldNotFilterAsyncDispatch() {
@@ -203,6 +208,7 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 	 * processes and error mapped in {@code web.xml}. The default return value
 	 * is "true", which means the filter will not be invoked in case of an error
 	 * dispatch.
+	 *
 	 * @since 3.2
 	 */
 	protected boolean shouldNotFilterErrorDispatch() {

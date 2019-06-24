@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * parameters and request header conditions in {@code @RequestMapping}.
  *
  * @author Rossen Stoyanchev
- * @since 3.1
  * @see RequestMapping#params()
  * @see RequestMapping#headers()
+ * @since 3.1
  */
 public interface NameValueExpression<T> {
 

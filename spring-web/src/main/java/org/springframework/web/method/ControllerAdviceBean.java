@@ -68,6 +68,7 @@ public class ControllerAdviceBean implements Ordered {
 
 	/**
 	 * Create a {@code ControllerAdviceBean} using the given bean instance.
+	 *
 	 * @param bean the bean instance
 	 */
 	public ControllerAdviceBean(Object bean) {
@@ -76,7 +77,8 @@ public class ControllerAdviceBean implements Ordered {
 
 	/**
 	 * Create a {@code ControllerAdviceBean} using the given bean name.
-	 * @param beanName the name of the bean
+	 *
+	 * @param beanName    the name of the bean
 	 * @param beanFactory a BeanFactory that can be used later to resolve the bean
 	 */
 	public ControllerAdviceBean(String beanName, @Nullable BeanFactory beanFactory) {
@@ -98,8 +100,7 @@ public class ControllerAdviceBean implements Ordered {
 			}
 			beanType = this.beanFactory.getType(beanName);
 			this.order = initOrderFromBeanType(beanType);
-		}
-		else {
+		} else {
 			Assert.notNull(bean, "Bean must not be null");
 			beanType = bean.getClass();
 			this.order = initOrderFromBean(bean);
@@ -112,8 +113,7 @@ public class ControllerAdviceBean implements Ordered {
 			this.basePackages = initBasePackages(annotation);
 			this.assignableTypes = Arrays.asList(annotation.assignableTypes());
 			this.annotations = Arrays.asList(annotation.annotations());
-		}
-		else {
+		} else {
 			this.basePackages = Collections.emptySet();
 			this.assignableTypes = Collections.emptyList();
 			this.annotations = Collections.emptyList();
@@ -157,6 +157,7 @@ public class ControllerAdviceBean implements Ordered {
 	/**
 	 * Check whether the given bean type should be assisted by this
 	 * {@code @ControllerAdvice} instance.
+	 *
 	 * @param beanType the type of the bean to check
 	 * @see org.springframework.web.bind.annotation.ControllerAdvice
 	 * @since 4.0
@@ -164,8 +165,7 @@ public class ControllerAdviceBean implements Ordered {
 	public boolean isApplicableToBeanType(@Nullable Class<?> beanType) {
 		if (!hasSelectors()) {
 			return true;
-		}
-		else if (beanType != null) {
+		} else if (beanType != null) {
 			for (String basePackage : this.basePackages) {
 				if (beanType.getName().startsWith(basePackage)) {
 					return true;

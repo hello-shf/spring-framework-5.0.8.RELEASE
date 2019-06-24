@@ -43,6 +43,7 @@ public class BasicAuthorizationInterceptor implements ClientHttpRequestIntercept
 	/**
 	 * Create a new interceptor which adds a BASIC authorization header
 	 * for the given username and password.
+	 *
 	 * @param username the username to use
 	 * @param password the password to use
 	 */
@@ -55,7 +56,7 @@ public class BasicAuthorizationInterceptor implements ClientHttpRequestIntercept
 
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body,
-			ClientHttpRequestExecution execution) throws IOException {
+										ClientHttpRequestExecution execution) throws IOException {
 
 		String token = Base64Utils.encodeToString(
 				(this.username + ":" + this.password).getBytes(StandardCharsets.UTF_8));

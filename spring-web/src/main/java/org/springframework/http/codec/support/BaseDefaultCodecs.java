@@ -160,9 +160,10 @@ class BaseDefaultCodecs implements CodecConfigurer.DefaultCodecs {
 
 	/**
 	 * Return writers that support specific types.
+	 *
 	 * @param forMultipart whether to returns writers for general use ("false"),
-	 * or for multipart requests only ("true"). Generally the two sets are the
-	 * same except for the multipart writer itself.
+	 *                     or for multipart requests only ("true"). Generally the two sets are the
+	 *                     same except for the multipart writer itself.
 	 */
 	final List<HttpMessageWriter<?>> getTypedWriters(boolean forMultipart) {
 		if (!this.registerDefaults) {
@@ -189,9 +190,10 @@ class BaseDefaultCodecs implements CodecConfigurer.DefaultCodecs {
 
 	/**
 	 * Return Object writers (JSON, XML, SSE).
+	 *
 	 * @param forMultipart whether to returns writers for general use ("false"),
-	 * or for multipart requests only ("true"). Generally the two sets are the
-	 * same except for the multipart writer itself.
+	 *                     or for multipart requests only ("true"). Generally the two sets are the
+	 *                     same except for the multipart writer itself.
 	 */
 	final List<HttpMessageWriter<?>> getObjectWriters(boolean forMultipart) {
 		if (!this.registerDefaults) {

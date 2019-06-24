@@ -36,6 +36,7 @@ public abstract class AspectJProxyUtils {
 	 * This will expose the current Spring AOP invocation (necessary for some AspectJ pointcut matching)
 	 * and make available the current AspectJ JoinPoint. The call will have no effect if there are no
 	 * AspectJ advisors in the advisor chain.
+	 *
 	 * @param advisors Advisors available
 	 * @return {@code true} if any special {@link Advisor Advisors} were added, otherwise {@code false}.
 	 */
@@ -60,13 +61,14 @@ public abstract class AspectJProxyUtils {
 
 	/**
 	 * Determine whether the given Advisor contains an AspectJ advice.
+	 *
 	 * @param advisor the Advisor to check
 	 */
 	private static boolean isAspectJAdvice(Advisor advisor) {
 		return (advisor instanceof InstantiationModelAwarePointcutAdvisor ||
 				advisor.getAdvice() instanceof AbstractAspectJAdvice ||
 				(advisor instanceof PointcutAdvisor &&
-						 ((PointcutAdvisor) advisor).getPointcut() instanceof AspectJExpressionPointcut));
+						((PointcutAdvisor) advisor).getPointcut() instanceof AspectJExpressionPointcut));
 	}
 
 }

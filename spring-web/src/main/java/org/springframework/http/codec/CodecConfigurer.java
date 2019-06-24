@@ -56,6 +56,7 @@ public interface CodecConfigurer {
 	/**
 	 * Provides a way to customize or replace HTTP message readers and writers
 	 * registered by default.
+	 *
 	 * @see #registerDefaults(boolean)
 	 */
 	DefaultCodecs defaultCodecs();
@@ -98,6 +99,7 @@ public interface CodecConfigurer {
 
 		/**
 		 * Override the default Jackson JSON {@code Decoder}.
+		 *
 		 * @param decoder the decoder instance to use
 		 * @see org.springframework.http.codec.json.Jackson2JsonDecoder
 		 */
@@ -105,6 +107,7 @@ public interface CodecConfigurer {
 
 		/**
 		 * Override the default Jackson JSON {@code Encoder}.
+		 *
 		 * @param encoder the encoder instance to use
 		 * @see org.springframework.http.codec.json.Jackson2JsonEncoder
 		 */
@@ -120,6 +123,7 @@ public interface CodecConfigurer {
 		/**
 		 * Add a custom {@code Decoder} internally wrapped with
 		 * {@link DecoderHttpMessageReader}).
+		 *
 		 * @param decoder the decoder to add
 		 */
 		void decoder(Decoder<?> decoder);
@@ -127,6 +131,7 @@ public interface CodecConfigurer {
 		/**
 		 * Add a custom {@code Encoder}, internally wrapped with
 		 * {@link EncoderHttpMessageWriter}.
+		 *
 		 * @param encoder the encoder to add
 		 */
 		void encoder(Encoder<?> encoder);
@@ -135,6 +140,7 @@ public interface CodecConfigurer {
 		 * Add a custom {@link HttpMessageReader}. For readers of type
 		 * {@link DecoderHttpMessageReader} consider using the shortcut
 		 * {@link #decoder(Decoder)} instead.
+		 *
 		 * @param reader the reader to add
 		 */
 		void reader(HttpMessageReader<?> reader);
@@ -143,6 +149,7 @@ public interface CodecConfigurer {
 		 * Add a custom {@link HttpMessageWriter}. For writers of type
 		 * {@link EncoderHttpMessageWriter} consider using the shortcut
 		 * {@link #encoder(Encoder)} instead.
+		 *
 		 * @param writer the writer to add
 		 */
 		void writer(HttpMessageWriter<?> writer);

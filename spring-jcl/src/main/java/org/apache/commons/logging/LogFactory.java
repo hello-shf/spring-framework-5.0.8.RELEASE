@@ -70,20 +70,17 @@ public abstract class LogFactory {
 			// Try Log4j 2.x API
 			cl.loadClass("org.apache.logging.log4j.spi.ExtendedLogger");
 			logApi = LogApi.LOG4J;
-		}
-		catch (ClassNotFoundException ex1) {
+		} catch (ClassNotFoundException ex1) {
 			try {
 				// Try SLF4J 1.7 SPI
 				cl.loadClass("org.slf4j.spi.LocationAwareLogger");
 				logApi = LogApi.SLF4J_LAL;
-			}
-			catch (ClassNotFoundException ex2) {
+			} catch (ClassNotFoundException ex2) {
 				try {
 					// Try SLF4J 1.7 API
 					cl.loadClass("org.slf4j.Logger");
 					logApi = LogApi.SLF4J;
-				}
-				catch (ClassNotFoundException ex3) {
+				} catch (ClassNotFoundException ex3) {
 					// Keep java.util.logging as default
 				}
 			}
@@ -93,6 +90,7 @@ public abstract class LogFactory {
 
 	/**
 	 * Convenience method to return a named logger.
+	 *
 	 * @param clazz containing Class from which a log name will be derived
 	 */
 	public static Log getLog(Class<?> clazz) {
@@ -101,6 +99,7 @@ public abstract class LogFactory {
 
 	/**
 	 * Convenience method to return a named logger.
+	 *
 	 * @param name logical name of the <code>Log</code> instance to be returned
 	 */
 	public static Log getLog(String name) {
@@ -125,18 +124,21 @@ public abstract class LogFactory {
 	/**
 	 * This method only exists for compatibility with unusual Commons Logging API
 	 * usage like e.g. {@code LogFactory.getFactory().getInstance(Class/String)}.
+	 *
 	 * @see #getInstance(Class)
 	 * @see #getInstance(String)
 	 * @deprecated in favor of {@link #getLog(Class)}/{@link #getLog(String)}
 	 */
 	@Deprecated
 	public static LogFactory getFactory() {
-		return new LogFactory() {};
+		return new LogFactory() {
+		};
 	}
 
 	/**
 	 * Convenience method to return a named logger.
 	 * <p>This variant just dispatches straight to {@link #getLog(Class)}.
+	 *
 	 * @param clazz containing Class from which a log name will be derived
 	 * @deprecated in favor of {@link #getLog(Class)}
 	 */
@@ -148,6 +150,7 @@ public abstract class LogFactory {
 	/**
 	 * Convenience method to return a named logger.
 	 * <p>This variant just dispatches straight to {@link #getLog(String)}.
+	 *
 	 * @param name logical name of the <code>Log</code> instance to be returned
 	 * @deprecated in favor of {@link #getLog(String)}
 	 */
@@ -300,12 +303,10 @@ public abstract class LogFactory {
 				// for message objects in case of "{}" sequences (SPR-16226)
 				if (exception != null) {
 					this.logger.logIfEnabled(FQCN, level, null, (String) message, exception);
-				}
-				else {
+				} else {
 					this.logger.logIfEnabled(FQCN, level, null, (String) message);
 				}
-			}
-			else {
+			} else {
 				this.logger.logIfEnabled(FQCN, level, null, message, exception);
 			}
 		}
@@ -607,8 +608,7 @@ public abstract class LogFactory {
 				LogRecord rec;
 				if (message instanceof LogRecord) {
 					rec = (LogRecord) message;
-				}
-				else {
+				} else {
 					rec = new LocationResolvingLogRecord(level, String.valueOf(message));
 					rec.setLoggerName(this.name);
 					rec.setResourceBundleName(logger.getResourceBundleName());
@@ -673,8 +673,7 @@ public abstract class LogFactory {
 				String className = element.getClassName();
 				if (FQCN.equals(className)) {
 					found = true;
-				}
-				else if (found) {
+				} else if (found) {
 					sourceClassName = className;
 					sourceMethodName = element.getMethodName();
 					break;

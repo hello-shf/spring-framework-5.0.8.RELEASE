@@ -30,9 +30,9 @@ import org.springframework.lang.Nullable;
  * inner class or as a lambda expression.
  *
  * @author Juergen Hoeller
- * @since 2.5.1
  * @see JmsTemplate#browse(BrowserCallback)
  * @see JmsTemplate#browseSelected(String, BrowserCallback)
+ * @since 2.5.1
  */
 @FunctionalInterface
 public interface BrowserCallback<T> {
@@ -40,6 +40,7 @@ public interface BrowserCallback<T> {
 	/**
 	 * Perform operations on the given {@link javax.jms.Session} and
 	 * {@link javax.jms.QueueBrowser}.
+	 *
 	 * @param session the JMS {@code Session} object to use
 	 * @param browser the JMS {@code QueueBrowser} object to use
 	 * @return a result object from working with the {@code Session}, if any

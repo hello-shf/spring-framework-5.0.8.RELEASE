@@ -78,15 +78,17 @@ import org.springframework.web.util.WebUtils;
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Sam Brannen
- * @since 1.0.2
  * @see #MockServletContext(org.springframework.core.io.ResourceLoader)
  * @see org.springframework.web.context.support.AnnotationConfigWebApplicationContext
  * @see org.springframework.web.context.support.XmlWebApplicationContext
  * @see org.springframework.web.context.support.GenericWebApplicationContext
+ * @since 1.0.2
  */
 public class MockServletContext implements ServletContext {
 
-	/** Default Servlet name used by Tomcat, Jetty, JBoss, and GlassFish: {@value} */
+	/**
+	 * Default Servlet name used by Tomcat, Jetty, JBoss, and GlassFish: {@value}
+	 */
 	private static final String COMMON_DEFAULT_SERVLET_NAME = "default";
 
 	private static final String TEMP_DIR_SYSTEM_PROPERTY = "java.io.tmpdir";
@@ -149,6 +151,7 @@ public class MockServletContext implements ServletContext {
 	/**
 	 * Create a new {@code MockServletContext}, using no base path and a
 	 * {@link DefaultResourceLoader} (i.e. the classpath root as WAR root).
+	 *
 	 * @see org.springframework.core.io.DefaultResourceLoader
 	 */
 	public MockServletContext() {
@@ -157,6 +160,7 @@ public class MockServletContext implements ServletContext {
 
 	/**
 	 * Create a new {@code MockServletContext}, using a {@link DefaultResourceLoader}.
+	 *
 	 * @param resourceBasePath the root directory of the WAR (should not end with a slash)
 	 * @see org.springframework.core.io.DefaultResourceLoader
 	 */
@@ -167,6 +171,7 @@ public class MockServletContext implements ServletContext {
 	/**
 	 * Create a new {@code MockServletContext}, using the specified {@link ResourceLoader}
 	 * and no base path.
+	 *
 	 * @param resourceLoader the ResourceLoader to use (or null for the default)
 	 */
 	public MockServletContext(@Nullable ResourceLoader resourceLoader) {
@@ -178,8 +183,9 @@ public class MockServletContext implements ServletContext {
 	 * path and resource loader.
 	 * <p>Registers a {@link MockRequestDispatcher} for the Servlet named
 	 * {@literal 'default'}.
+	 *
 	 * @param resourceBasePath the root directory of the WAR (should not end with a slash)
-	 * @param resourceLoader the ResourceLoader to use (or null for the default)
+	 * @param resourceLoader   the ResourceLoader to use (or null for the default)
 	 * @see #registerNamedDispatcher
 	 */
 	public MockServletContext(String resourceBasePath, @Nullable ResourceLoader resourceLoader) {
@@ -198,6 +204,7 @@ public class MockServletContext implements ServletContext {
 	/**
 	 * Build a full resource location for the given path, prepending the resource
 	 * base path of this {@code MockServletContext}.
+	 *
 	 * @param path the path as specified
 	 * @return the full resource path
 	 */
@@ -271,8 +278,7 @@ public class MockServletContext implements ServletContext {
 		String extension = StringUtils.getFilenameExtension(filePath);
 		if (this.mimeTypes.containsKey(extension)) {
 			return this.mimeTypes.get(extension).toString();
-		}
-		else {
+		} else {
 			return MediaTypeFactory.getMediaType(filePath).
 					map(MimeType::toString)
 					.orElse(null);
@@ -281,8 +287,9 @@ public class MockServletContext implements ServletContext {
 
 	/**
 	 * Adds a mime type mapping for use by {@link #getMimeType(String)}.
+	 *
 	 * @param fileExtension a file extension, such as {@code txt}, {@code gif}
-	 * @param mimeType the mime type
+	 * @param mimeType      the mime type
 	 */
 	public void addMimeType(String fileExtension, MediaType mimeType) {
 		Assert.notNull(fileExtension, "'fileExtension' must not be null");
@@ -309,8 +316,7 @@ public class MockServletContext implements ServletContext {
 				resourcePaths.add(resultPath);
 			}
 			return resourcePaths;
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			logger.warn("Couldn't get resource paths for " + resource, ex);
 			return null;
 		}
@@ -325,11 +331,9 @@ public class MockServletContext implements ServletContext {
 		}
 		try {
 			return resource.getURL();
-		}
-		catch (MalformedURLException ex) {
+		} catch (MalformedURLException ex) {
 			throw ex;
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			logger.warn("Couldn't get URL for " + resource, ex);
 			return null;
 		}
@@ -344,8 +348,7 @@ public class MockServletContext implements ServletContext {
 		}
 		try {
 			return resource.getInputStream();
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			logger.warn("Couldn't open InputStream for " + resource, ex);
 			return null;
 		}
@@ -366,7 +369,8 @@ public class MockServletContext implements ServletContext {
 	/**
 	 * Register a {@link RequestDispatcher} (typically a {@link MockRequestDispatcher})
 	 * that acts as a wrapper for the named Servlet.
-	 * @param name the name of the wrapped Servlet
+	 *
+	 * @param name              the name of the wrapped Servlet
 	 * @param requestDispatcher the dispatcher that wraps the named Servlet
 	 * @see #getNamedDispatcher
 	 * @see #unregisterNamedDispatcher
@@ -379,6 +383,7 @@ public class MockServletContext implements ServletContext {
 
 	/**
 	 * Unregister the {@link RequestDispatcher} with the given name.
+	 *
 	 * @param name the name of the dispatcher to unregister
 	 * @see #getNamedDispatcher
 	 * @see #registerNamedDispatcher
@@ -391,6 +396,7 @@ public class MockServletContext implements ServletContext {
 	/**
 	 * Get the name of the <em>default</em> {@code Servlet}.
 	 * <p>Defaults to {@literal 'default'}.
+	 *
 	 * @see #setDefaultServletName
 	 */
 	public String getDefaultServletName() {
@@ -403,8 +409,9 @@ public class MockServletContext implements ServletContext {
 	 * {@link RequestDispatcher} and {@link #registerNamedDispatcher replaces}
 	 * it with a {@link MockRequestDispatcher} for the provided
 	 * {@code defaultServletName}.
+	 *
 	 * @param defaultServletName the name of the <em>default</em> {@code Servlet};
-	 * never {@code null} or empty
+	 *                           never {@code null} or empty
 	 * @see #getDefaultServletName
 	 */
 	public void setDefaultServletName(String defaultServletName) {
@@ -455,8 +462,7 @@ public class MockServletContext implements ServletContext {
 		Resource resource = this.resourceLoader.getResource(getResourceLocation(path));
 		try {
 			return resource.getFile().getAbsolutePath();
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			logger.warn("Couldn't determine real path of resource " + resource, ex);
 			return null;
 		}
@@ -510,8 +516,7 @@ public class MockServletContext implements ServletContext {
 		Assert.notNull(name, "Attribute name must not be null");
 		if (value != null) {
 			this.attributes.put(name, value);
-		}
-		else {
+		} else {
 			this.attributes.remove(name);
 		}
 	}
@@ -641,6 +646,7 @@ public class MockServletContext implements ServletContext {
 
 	/**
 	 * This method always returns {@code null}.
+	 *
 	 * @see javax.servlet.ServletContext#getServletRegistration(java.lang.String)
 	 */
 	@Override
@@ -651,6 +657,7 @@ public class MockServletContext implements ServletContext {
 
 	/**
 	 * This method always returns an {@linkplain Collections#emptyMap empty map}.
+	 *
 	 * @see javax.servlet.ServletContext#getServletRegistrations()
 	 */
 	@Override
@@ -680,6 +687,7 @@ public class MockServletContext implements ServletContext {
 
 	/**
 	 * This method always returns {@code null}.
+	 *
 	 * @see javax.servlet.ServletContext#getFilterRegistration(java.lang.String)
 	 */
 	@Override
@@ -690,6 +698,7 @@ public class MockServletContext implements ServletContext {
 
 	/**
 	 * This method always returns an {@linkplain Collections#emptyMap empty map}.
+	 *
 	 * @see javax.servlet.ServletContext#getFilterRegistrations()
 	 */
 	@Override

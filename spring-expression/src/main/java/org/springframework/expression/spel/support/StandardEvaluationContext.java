@@ -49,7 +49,6 @@ import org.springframework.util.Assert;
  * @author Andy Clement
  * @author Juergen Hoeller
  * @author Sam Brannen
- * @since 3.0
  * @see SimpleEvaluationContext
  * @see ReflectivePropertyAccessor
  * @see ReflectiveConstructorResolver
@@ -58,6 +57,7 @@ import org.springframework.util.Assert;
  * @see StandardTypeConverter
  * @see StandardTypeComparator
  * @see StandardOperatorOverloader
+ * @since 3.0
  */
 public class StandardEvaluationContext implements EvaluationContext {
 
@@ -100,6 +100,7 @@ public class StandardEvaluationContext implements EvaluationContext {
 
 	/**
 	 * Create a {@code StandardEvaluationContext} with the given root object.
+	 *
 	 * @param rootObject the root object to use
 	 * @see #setRootObject
 	 */
@@ -203,7 +204,7 @@ public class StandardEvaluationContext implements EvaluationContext {
 	@Override
 	public TypeConverter getTypeConverter() {
 		if (this.typeConverter == null) {
-			 this.typeConverter = new StandardTypeConverter();
+			this.typeConverter = new StandardTypeConverter();
 		}
 		return this.typeConverter;
 	}
@@ -233,7 +234,7 @@ public class StandardEvaluationContext implements EvaluationContext {
 		this.variables.put(name, value);
 	}
 
-	public void setVariables(Map<String,Object> variables) {
+	public void setVariables(Map<String, Object> variables) {
 		this.variables.putAll(variables);
 	}
 
@@ -252,7 +253,8 @@ public class StandardEvaluationContext implements EvaluationContext {
 	 * for the specified type.
 	 * <p>The {@code MethodFilter} may remove methods and/or sort the methods which
 	 * will then be used by SpEL as the candidates to look through for a match.
-	 * @param type the type for which the filter should be called
+	 *
+	 * @param type   the type for which the filter should be called
 	 * @param filter a {@code MethodFilter}, or {@code null} to unregister a filter for the type
 	 * @throws IllegalStateException if the {@link ReflectiveMethodResolver} is not in use
 	 */

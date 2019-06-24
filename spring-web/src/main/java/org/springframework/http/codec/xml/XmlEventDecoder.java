@@ -56,7 +56,7 @@ import org.springframework.util.xml.StaxUtils;
  *     <child>bar</child>
  * </root>}
  * </pre>
- *
+ * <p>
  * this method with result in a flux with the following events:
  * <ol>
  * <li>{@link javax.xml.stream.events.StartDocument}</li>
@@ -69,7 +69,7 @@ import org.springframework.util.xml.StaxUtils;
  * <li>{@link javax.xml.stream.events.EndElement} {@code child}</li>
  * <li>{@link javax.xml.stream.events.EndElement} {@code root}</li>
  * </ol>
- *
+ * <p>
  * Note that this decoder is not registered by default but used internally
  * by other decoders who are there by default.
  *
@@ -94,15 +94,14 @@ public class XmlEventDecoder extends AbstractDecoder<XMLEvent> {
 	@Override
 	@SuppressWarnings({"rawtypes", "unchecked"})  // on JDK 9 where XMLEventReader is Iterator<Object>
 	public Flux<XMLEvent> decode(Publisher<DataBuffer> inputStream, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+								 @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		Flux<DataBuffer> flux = Flux.from(inputStream);
 		if (useAalto) {
 			AaltoDataBufferToXmlEvent aaltoMapper = new AaltoDataBufferToXmlEvent();
 			return flux.flatMap(aaltoMapper)
 					.doFinally(signalType -> aaltoMapper.endOfInput());
-		}
-		else {
+		} else {
 			Mono<DataBuffer> singleBuffer = DataBufferUtils.join(flux);
 			return singleBuffer.
 					flatMapMany(dataBuffer -> {
@@ -111,8 +110,7 @@ public class XmlEventDecoder extends AbstractDecoder<XMLEvent> {
 							Iterator eventReader = inputFactory.createXMLEventReader(is);
 							return Flux.fromIterable((Iterable<XMLEvent>) () -> eventReader)
 									.doFinally(t -> DataBufferUtils.release(dataBuffer));
-						}
-						catch (XMLStreamException ex) {
+						} catch (XMLStreamException ex) {
 							return Mono.error(ex);
 						}
 					});
@@ -141,8 +139,7 @@ public class XmlEventDecoder extends AbstractDecoder<XMLEvent> {
 					if (streamReader.next() == AsyncXMLStreamReader.EVENT_INCOMPLETE) {
 						// no more events with what currently has been fed to the reader
 						break;
-					}
-					else {
+					} else {
 						XMLEvent event = eventAllocator.allocate(streamReader);
 						events.add(event);
 						if (event.isEndDocument()) {
@@ -151,11 +148,9 @@ public class XmlEventDecoder extends AbstractDecoder<XMLEvent> {
 					}
 				}
 				return Flux.fromIterable(events);
-			}
-			catch (XMLStreamException ex) {
+			} catch (XMLStreamException ex) {
 				return Mono.error(ex);
-			}
-			finally {
+			} finally {
 				DataBufferUtils.release(dataBuffer);
 			}
 		}

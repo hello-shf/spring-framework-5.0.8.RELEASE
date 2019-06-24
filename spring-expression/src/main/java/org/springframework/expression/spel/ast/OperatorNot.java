@@ -49,8 +49,7 @@ public class OperatorNot extends SpelNodeImpl {  // Not is a unary operator so d
 				throw new SpelEvaluationException(SpelMessage.TYPE_CONVERSION_ERROR, "null", "boolean");
 			}
 			return BooleanTypedValue.forValue(!value);
-		}
-		catch (SpelEvaluationException ex) {
+		} catch (SpelEvaluationException ex) {
 			ex.setPosition(getChild(0).getStartPosition());
 			throw ex;
 		}
@@ -60,22 +59,22 @@ public class OperatorNot extends SpelNodeImpl {  // Not is a unary operator so d
 	public String toStringAST() {
 		return "!" + getChild(0).toStringAST();
 	}
-	
+
 	@Override
 	public boolean isCompilable() {
 		SpelNodeImpl child = this.children[0];
 		return (child.isCompilable() && CodeFlow.isBooleanCompatible(child.exitTypeDescriptor));
 	}
-	
+
 	@Override
 	public void generateCode(MethodVisitor mv, CodeFlow cf) {
 		this.children[0].generateCode(mv, cf);
 		cf.unboxBooleanIfNecessary(mv);
 		Label elseTarget = new Label();
 		Label endOfIf = new Label();
-		mv.visitJumpInsn(IFNE,elseTarget);		
+		mv.visitJumpInsn(IFNE, elseTarget);
 		mv.visitInsn(ICONST_1); // TRUE
-		mv.visitJumpInsn(GOTO,endOfIf);
+		mv.visitJumpInsn(GOTO, endOfIf);
 		mv.visitLabel(elseTarget);
 		mv.visitInsn(ICONST_0); // FALSE
 		mv.visitLabel(endOfIf);

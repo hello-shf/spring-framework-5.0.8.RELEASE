@@ -36,8 +36,8 @@ import static java.time.format.DateTimeFormatter.*;
  *
  * @author Sebastien Deleuze
  * @author Juergen Hoeller
- * @since 5.0
  * @see <a href="https://tools.ietf.org/html/rfc2183">RFC 2183</a>
+ * @since 5.0
  */
 public class ContentDisposition {
 
@@ -70,8 +70,8 @@ public class ContentDisposition {
 	 * Private constructor. See static factory methods in this class.
 	 */
 	private ContentDisposition(@Nullable String type, @Nullable String name, @Nullable String filename,
-			@Nullable Charset charset, @Nullable Long size, @Nullable ZonedDateTime creationDate,
-			@Nullable ZonedDateTime modificationDate, @Nullable ZonedDateTime readDate) {
+							   @Nullable Charset charset, @Nullable Long size, @Nullable ZonedDateTime creationDate,
+							   @Nullable ZonedDateTime modificationDate, @Nullable ZonedDateTime readDate) {
 
 		this.type = type;
 		this.name = name;
@@ -165,8 +165,8 @@ public class ContentDisposition {
 				ObjectUtils.nullSafeEquals(this.filename, otherCd.filename) &&
 				ObjectUtils.nullSafeEquals(this.charset, otherCd.charset) &&
 				ObjectUtils.nullSafeEquals(this.size, otherCd.size) &&
-				ObjectUtils.nullSafeEquals(this.creationDate, otherCd.creationDate)&&
-				ObjectUtils.nullSafeEquals(this.modificationDate, otherCd.modificationDate)&&
+				ObjectUtils.nullSafeEquals(this.creationDate, otherCd.creationDate) &&
+				ObjectUtils.nullSafeEquals(this.modificationDate, otherCd.modificationDate) &&
 				ObjectUtils.nullSafeEquals(this.readDate, otherCd.readDate));
 	}
 
@@ -185,6 +185,7 @@ public class ContentDisposition {
 
 	/**
 	 * Return the header value for this content disposition as defined in RFC 2183.
+	 *
 	 * @see #parse(String)
 	 */
 	@Override
@@ -201,8 +202,7 @@ public class ContentDisposition {
 			if (this.charset == null || StandardCharsets.US_ASCII.equals(this.charset)) {
 				sb.append("; filename=\"");
 				sb.append(this.filename).append('\"');
-			}
-			else {
+			} else {
 				sb.append("; filename*=");
 				sb.append(encodeHeaderFieldParam(this.filename, this.charset));
 			}
@@ -232,8 +232,9 @@ public class ContentDisposition {
 
 	/**
 	 * Return a builder for a {@code ContentDisposition}.
+	 *
 	 * @param type the disposition type like for example {@literal inline},
-	 * {@literal attachment}, or {@literal form-data}
+	 *             {@literal attachment}, or {@literal form-data}
 	 * @return the builder
 	 */
 	public static Builder builder(String type) {
@@ -249,6 +250,7 @@ public class ContentDisposition {
 
 	/**
 	 * Parse a {@literal Content-Disposition} header value as defined in RFC 2183.
+	 *
 	 * @param contentDisposition the {@literal Content-Disposition} header value
 	 * @return the parsed content disposition
 	 * @see #toString()
@@ -271,47 +273,37 @@ public class ContentDisposition {
 				String value = (part.startsWith("\"", eqIndex + 1) && part.endsWith("\"") ?
 						part.substring(eqIndex + 2, part.length() - 1) :
 						part.substring(eqIndex + 1, part.length()));
-				if (attribute.equals("name") ) {
+				if (attribute.equals("name")) {
 					name = value;
-				}
-				else if (attribute.equals("filename*") ) {
+				} else if (attribute.equals("filename*")) {
 					filename = decodeHeaderFieldParam(value);
 					charset = Charset.forName(value.substring(0, value.indexOf('\'')));
 					Assert.isTrue(UTF_8.equals(charset) || ISO_8859_1.equals(charset),
 							"Charset should be UTF-8 or ISO-8859-1");
-				}
-				else if (attribute.equals("filename") && (filename == null)) {
+				} else if (attribute.equals("filename") && (filename == null)) {
 					filename = value;
-				}
-				else if (attribute.equals("size") ) {
+				} else if (attribute.equals("size")) {
 					size = Long.parseLong(value);
-				}
-				else if (attribute.equals("creation-date")) {
+				} else if (attribute.equals("creation-date")) {
 					try {
 						creationDate = ZonedDateTime.parse(value, RFC_1123_DATE_TIME);
-					}
-					catch (DateTimeParseException ex) {
+					} catch (DateTimeParseException ex) {
 						// ignore
 					}
-				}
-				else if (attribute.equals("modification-date")) {
+				} else if (attribute.equals("modification-date")) {
 					try {
 						modificationDate = ZonedDateTime.parse(value, RFC_1123_DATE_TIME);
-					}
-					catch (DateTimeParseException ex) {
+					} catch (DateTimeParseException ex) {
 						// ignore
 					}
-				}
-				else if (attribute.equals("read-date")) {
+				} else if (attribute.equals("read-date")) {
 					try {
 						readDate = ZonedDateTime.parse(value, RFC_1123_DATE_TIME);
-					}
-					catch (DateTimeParseException ex) {
+					} catch (DateTimeParseException ex) {
 						// ignore
 					}
 				}
-			}
-			else {
+			} else {
 				throw new IllegalArgumentException("Invalid content disposition format");
 			}
 		}
@@ -336,8 +328,7 @@ public class ContentDisposition {
 						if (!quoted) {
 							break;
 						}
-					}
-					else if (ch == '"') {
+					} else if (ch == '"') {
 						quoted = !quoted;
 					}
 					nextIndex++;
@@ -356,6 +347,7 @@ public class ContentDisposition {
 	/**
 	 * Decode the given header field param as describe in RFC 5987.
 	 * <p>Only the US-ASCII, UTF-8 and ISO-8859-1 charsets are supported.
+	 *
 	 * @param input the header field param
 	 * @return the encoded header field param
 	 * @see <a href="https://tools.ietf.org/html/rfc5987">RFC 5987</a>
@@ -379,13 +371,11 @@ public class ContentDisposition {
 			if (isRFC5987AttrChar(b)) {
 				bos.write((char) b);
 				index++;
-			}
-			else if (b == '%') {
-				char[] array = { (char)value[index + 1], (char)value[index + 2]};
+			} else if (b == '%') {
+				char[] array = {(char) value[index + 1], (char) value[index + 2]};
 				bos.write(Integer.parseInt(String.valueOf(array), 16));
-				index+=3;
-			}
-			else {
+				index += 3;
+			} else {
 				throw new IllegalArgumentException("Invalid header field parameter format (as defined in RFC 5987)");
 			}
 		}
@@ -400,9 +390,10 @@ public class ContentDisposition {
 
 	/**
 	 * Encode the given header field param as describe in RFC 5987.
-	 * @param input the header field param
+	 *
+	 * @param input   the header field param
 	 * @param charset the charset of the header field param string,
-	 * only the US-ASCII, UTF-8 and ISO-8859-1 charsets are supported
+	 *                only the US-ASCII, UTF-8 and ISO-8859-1 charsets are supported
 	 * @return the encoded header field param
 	 * @see <a href="https://tools.ietf.org/html/rfc5987">RFC 5987</a>
 	 */
@@ -422,8 +413,7 @@ public class ContentDisposition {
 		for (byte b : source) {
 			if (isRFC5987AttrChar(b)) {
 				sb.append((char) b);
-			}
-			else {
+			} else {
 				sb.append('%');
 				char hex1 = Character.toUpperCase(Character.forDigit((b >> 4) & 0xF, 16));
 				char hex2 = Character.toUpperCase(Character.forDigit(b & 0xF, 16));

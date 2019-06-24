@@ -32,9 +32,9 @@ import org.springframework.web.util.UrlPathHelper;
  * </ul>
  *
  * @author Brian Clozel
- * @since 4.0.3
  * @see org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping
  * @see org.springframework.web.servlet.handler.SimpleUrlHandlerMapping
+ * @since 4.0.3
  */
 public class PathMatchConfigurer {
 
@@ -58,6 +58,7 @@ public class PathMatchConfigurer {
 	 * Whether to use suffix pattern match (".*") when matching patterns to
 	 * requests. If enabled a method mapped to "/users" also matches to "/users.*".
 	 * <p>By default this is set to {@code true}.
+	 *
 	 * @see #registeredSuffixPatternMatch
 	 */
 	public PathMatchConfigurer setUseSuffixPatternMatch(Boolean suffixPatternMatch) {
@@ -82,6 +83,7 @@ public class PathMatchConfigurer {
 	 * negotiation}. This is generally recommended to reduce ambiguity and to
 	 * avoid issues such as when a "." appears in the path for other reasons.
 	 * <p>By default this is set to "false".
+	 *
 	 * @see WebMvcConfigurer#configureContentNegotiation
 	 */
 	public PathMatchConfigurer setUseRegisteredSuffixPatternMatch(Boolean registeredSuffixPatternMatch) {
@@ -103,6 +105,7 @@ public class PathMatchConfigurer {
 	/**
 	 * Set the PathMatcher implementation to use for matching URL paths
 	 * against registered URL patterns. Default is AntPathMatcher.
+	 *
 	 * @see org.springframework.util.AntPathMatcher
 	 */
 	public PathMatchConfigurer setPathMatcher(PathMatcher pathMatcher) {

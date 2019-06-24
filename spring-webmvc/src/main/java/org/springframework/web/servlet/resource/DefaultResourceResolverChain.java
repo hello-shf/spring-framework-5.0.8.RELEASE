@@ -59,8 +59,7 @@ class DefaultResourceResolverChain implements ResourceResolverChain {
 
 		try {
 			return resolver.resolveResource(request, requestPath, locations, this);
-		}
-		finally {
+		} finally {
 			this.index--;
 		}
 	}
@@ -75,8 +74,7 @@ class DefaultResourceResolverChain implements ResourceResolverChain {
 
 		try {
 			return resolver.resolveUrlPath(resourcePath, locations, this);
-		}
-		finally {
+		} finally {
 			this.index--;
 		}
 	}

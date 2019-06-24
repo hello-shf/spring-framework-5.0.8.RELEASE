@@ -89,7 +89,7 @@ public class HttpPutFormContentFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(final HttpServletRequest request, HttpServletResponse response,
-			FilterChain filterChain) throws ServletException, IOException {
+									FilterChain filterChain) throws ServletException, IOException {
 
 		if (("PUT".equals(request.getMethod()) || "PATCH".equals(request.getMethod())) && isFormContentType(request)) {
 			HttpInputMessage inputMessage = new ServletServerHttpRequest(request) {
@@ -115,12 +115,10 @@ public class HttpPutFormContentFilter extends OncePerRequestFilter {
 			try {
 				MediaType mediaType = MediaType.parseMediaType(contentType);
 				return (MediaType.APPLICATION_FORM_URLENCODED.includes(mediaType));
-			}
-			catch (IllegalArgumentException ex) {
+			} catch (IllegalArgumentException ex) {
 				return false;
 			}
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -172,8 +170,7 @@ public class HttpPutFormContentFilter extends OncePerRequestFilter {
 			}
 			if (parameterValues == null || getQueryString() == null) {
 				return StringUtils.toStringArray(formParam);
-			}
-			else {
+			} else {
 				List<String> result = new ArrayList<>(parameterValues.length + formParam.size());
 				result.addAll(Arrays.asList(parameterValues));
 				result.addAll(formParam);

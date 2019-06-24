@@ -69,6 +69,7 @@ public class MarshallingHttpMessageConverter extends AbstractXmlHttpMessageConve
 	 * it is used for both marshalling and unmarshalling. Otherwise, an exception is thrown.
 	 * <p>Note that all {@code Marshaller} implementations in Spring also implement the
 	 * {@code Unmarshaller} interface, so that you can safely use this constructor.
+	 *
 	 * @param marshaller object used as marshaller and unmarshaller
 	 */
 	public MarshallingHttpMessageConverter(Marshaller marshaller) {
@@ -82,7 +83,8 @@ public class MarshallingHttpMessageConverter extends AbstractXmlHttpMessageConve
 	/**
 	 * Construct a new {@code MarshallingMessageConverter} with the given
 	 * {@code Marshaller} and {@code Unmarshaller}.
-	 * @param marshaller the Marshaller to use
+	 *
+	 * @param marshaller   the Marshaller to use
 	 * @param unmarshaller the Unmarshaller to use
 	 */
 	public MarshallingHttpMessageConverter(Marshaller marshaller, Unmarshaller unmarshaller) {
@@ -133,8 +135,7 @@ public class MarshallingHttpMessageConverter extends AbstractXmlHttpMessageConve
 				throw new TypeMismatchException(result, clazz);
 			}
 			return result;
-		}
-		catch (UnmarshallingFailureException ex) {
+		} catch (UnmarshallingFailureException ex) {
 			throw new HttpMessageNotReadableException("Could not read [" + clazz + "]", ex);
 		}
 	}
@@ -144,8 +145,7 @@ public class MarshallingHttpMessageConverter extends AbstractXmlHttpMessageConve
 		Assert.notNull(this.marshaller, "Property 'marshaller' is required");
 		try {
 			this.marshaller.marshal(o, result);
-		}
-		catch (MarshallingFailureException ex) {
+		} catch (MarshallingFailureException ex) {
 			throw new HttpMessageNotWritableException("Could not write [" + o + "]", ex);
 		}
 	}

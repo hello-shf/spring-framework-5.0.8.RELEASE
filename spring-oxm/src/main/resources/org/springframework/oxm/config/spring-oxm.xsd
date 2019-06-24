@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xsd:schema xmlns="http://www.springframework.org/schema/oxm" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-		xmlns:beans="http://www.springframework.org/schema/beans"
-		xmlns:tool="http://www.springframework.org/schema/tool"
-		targetNamespace="http://www.springframework.org/schema/oxm"
-		elementFormDefault="qualified"
-		attributeFormDefault="unqualified">
+			xmlns:beans="http://www.springframework.org/schema/beans"
+			xmlns:tool="http://www.springframework.org/schema/tool"
+			targetNamespace="http://www.springframework.org/schema/oxm"
+			elementFormDefault="qualified"
+			attributeFormDefault="unqualified">
 
-	<xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
-	<xsd:import namespace="http://www.springframework.org/schema/tool" schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/beans"
+				schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/tool"
+				schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
 
 	<xsd:annotation>
 		<xsd:documentation>
@@ -84,12 +86,12 @@
 		<xsd:complexType>
 			<xsd:annotation>
 				<xsd:documentation
-					source="java:org.springframework.oxm.castor.CastorMarshaller">
+						source="java:org.springframework.oxm.castor.CastorMarshaller">
 					Defines a Castor Marshaller. Deprecated as of Spring Framework 4.3.13!
 				</xsd:documentation>
 				<xsd:appinfo>
 					<tool:annotation>
-						<tool:exports type="org.springframework.oxm.castor.CastorMarshaller" />
+						<tool:exports type="org.springframework.oxm.castor.CastorMarshaller"/>
 					</tool:annotation>
 				</xsd:appinfo>
 			</xsd:annotation>
@@ -102,12 +104,14 @@
 					</xsd:attribute>
 					<xsd:attribute name="target-class" type="classType">
 						<xsd:annotation>
-							<xsd:documentation>The target class to be bound with the Castor marshaller.</xsd:documentation>
+							<xsd:documentation>The target class to be bound with the Castor marshaller.
+							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:attribute>
 					<xsd:attribute name="target-package" type="xsd:string">
 						<xsd:annotation>
-							<xsd:documentation>The target package that contains Castor descriptor classes.</xsd:documentation>
+							<xsd:documentation>The target package that contains Castor descriptor classes.
+							</xsd:documentation>
 						</xsd:annotation>
 					</xsd:attribute>
 					<xsd:attribute name="mapping-location" type="xsd:string">

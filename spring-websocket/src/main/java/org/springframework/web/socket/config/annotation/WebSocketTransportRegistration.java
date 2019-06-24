@@ -98,8 +98,9 @@ public class WebSocketTransportRegistration {
 	 * customizing OS-level TCP settings, for example
 	 * {@code /proc/sys/net/ipv4/tcp_retries2} on Linux.
 	 * <p>The default value is 10 seconds (i.e. 10 * 10000).
+	 *
 	 * @param timeLimit the timeout value in milliseconds; the value must be
-	 * greater than 0, otherwise it is ignored.
+	 *                  greater than 0, otherwise it is ignored.
 	 */
 	public WebSocketTransportRegistration setSendTimeLimit(int timeLimit) {
 		this.sendTimeLimit = timeLimit;
@@ -134,9 +135,10 @@ public class WebSocketTransportRegistration {
 	 * OS-level TCP settings, for example {@code /proc/sys/net/ipv4/tcp_retries2}
 	 * on Linux.
 	 * <p>The default value is 512K (i.e. 512 * 1024).
+	 *
 	 * @param sendBufferSizeLimit the maximum number of bytes to buffer when
-	 * sending messages; if the value is less than or equal to 0 then buffering
-	 * is effectively disabled.
+	 *                            sending messages; if the value is less than or equal to 0 then buffering
+	 *                            is effectively disabled.
 	 */
 	public WebSocketTransportRegistration setSendBufferSizeLimit(int sendBufferSizeLimit) {
 		this.sendBufferSizeLimit = sendBufferSizeLimit;
@@ -156,6 +158,7 @@ public class WebSocketTransportRegistration {
 	 * WebSocket messages. This may be useful in some advanced use cases, for
 	 * example to allow Spring Security to forcibly close the WebSocket session
 	 * when the corresponding HTTP session expires.
+	 *
 	 * @since 4.1.2
 	 */
 	public WebSocketTransportRegistration setDecoratorFactories(WebSocketHandlerDecoratorFactory... factories) {
@@ -168,6 +171,7 @@ public class WebSocketTransportRegistration {
 	 * messages. This may be useful for some advanced use cases, for example
 	 * to allow Spring Security to forcibly close the WebSocket session when
 	 * the corresponding HTTP session expires.
+	 *
 	 * @since 4.1.2
 	 */
 	public WebSocketTransportRegistration addDecoratorFactory(WebSocketHandlerDecoratorFactory factory) {

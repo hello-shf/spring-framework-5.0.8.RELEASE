@@ -29,8 +29,8 @@ import org.springframework.util.StringUtils;
  * static method.
  *
  * @author Rossen Stoyanchev
- * @since 5.0
  * @see <a href="https://tools.ietf.org/html/rfc6265">RFC 6265</a>
+ * @since 5.0
  */
 public final class ResponseCookie extends HttpCookie {
 
@@ -51,7 +51,7 @@ public final class ResponseCookie extends HttpCookie {
 	 * Private constructor. See {@link #from(String, String)}.
 	 */
 	private ResponseCookie(String name, String value, Duration maxAge, @Nullable String domain,
-			@Nullable String path, boolean secure, boolean httpOnly) {
+						   @Nullable String path, boolean secure, boolean httpOnly) {
 
 		super(name, value);
 		Assert.notNull(maxAge, "Max age must not be null");
@@ -99,6 +99,7 @@ public final class ResponseCookie extends HttpCookie {
 
 	/**
 	 * Return {@code true} if the cookie has the "HttpOnly" attribute.
+	 *
 	 * @see <a href="http://www.owasp.org/index.php/HTTPOnly">http://www.owasp.org/index.php/HTTPOnly</a>
 	 */
 	public boolean isHttpOnly() {
@@ -158,7 +159,8 @@ public final class ResponseCookie extends HttpCookie {
 	/**
 	 * Factory method to obtain a builder for a server-defined cookie that starts
 	 * with a name-value pair and may also include attributes.
-	 * @param name the cookie name
+	 *
+	 * @param name  the cookie name
 	 * @param value the cookie value
 	 * @return the created cookie instance
 	 */
@@ -260,6 +262,7 @@ public final class ResponseCookie extends HttpCookie {
 
 		/**
 		 * Add the "HttpOnly" attribute to the cookie.
+		 *
 		 * @see <a href="http://www.owasp.org/index.php/HTTPOnly">http://www.owasp.org/index.php/HTTPOnly</a>
 		 */
 		ResponseCookieBuilder httpOnly(boolean httpOnly);

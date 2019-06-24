@@ -59,8 +59,8 @@ import org.springframework.util.StringUtils;
  * in a {@code WebMvcConfigurer}.
  *
  * @author Brian Clozel
- * @since 4.1
  * @see <a href="https://html.spec.whatwg.org/multipage/browsers.html#offline">HTML5 offline applications spec</a>
+ * @since 4.1
  */
 public class AppCacheManifestTransformer extends ResourceTransformerSupport {
 
@@ -97,7 +97,7 @@ public class AppCacheManifestTransformer extends ResourceTransformerSupport {
 
 	@Override
 	public Resource transform(HttpServletRequest request, Resource resource,
-			ResourceTransformerChain chain) throws IOException {
+							  ResourceTransformerChain chain) throws IOException {
 
 		resource = chain.transform(request, resource);
 		if (!this.fileExtension.equals(StringUtils.getFilenameExtension(resource.getFilename()))) {
@@ -138,7 +138,7 @@ public class AppCacheManifestTransformer extends ResourceTransformerSupport {
 	}
 
 	private LineOutput processLine(LineInfo info, HttpServletRequest request,
-			Resource resource, ResourceTransformerChain transformerChain) {
+								   Resource resource, ResourceTransformerChain transformerChain) {
 
 		if (!info.isLink()) {
 			return new LineOutput(info.getLine(), null);
@@ -154,8 +154,7 @@ public class AppCacheManifestTransformer extends ResourceTransformerSupport {
 		if (logger.isTraceEnabled()) {
 			if (newPath != null && !newPath.equals(path)) {
 				logger.trace("Link modified: " + path + " (original: " + path + ")");
-			}
-			else {
+			} else {
 				logger.trace("Link not modified: " + path);
 			}
 		}
@@ -181,8 +180,7 @@ public class AppCacheManifestTransformer extends ResourceTransformerSupport {
 		private static boolean initCacheSectionFlag(String line, @Nullable LineInfo previousLine) {
 			if (MANIFEST_SECTION_HEADERS.contains(line.trim())) {
 				return line.trim().equals(CACHE_HEADER);
-			}
-			else if (previousLine != null) {
+			} else if (previousLine != null) {
 				return previousLine.isCacheSection();
 			}
 			throw new IllegalStateException(
@@ -261,7 +259,7 @@ public class AppCacheManifestTransformer extends ResourceTransformerSupport {
 			String hash = DigestUtils.md5DigestAsHex(this.baos.toByteArray());
 			this.writer.write("\n" + "# Hash: " + hash);
 			if (logger.isTraceEnabled()) {
-				logger.trace("AppCache file: [" + resource.getFilename()+ "] hash: [" + hash + "]");
+				logger.trace("AppCache file: [" + resource.getFilename() + "] hash: [" + hash + "]");
 			}
 			byte[] bytes = this.writer.toString().getBytes(DEFAULT_CHARSET);
 			return new TransformedResource(this.resource, bytes);

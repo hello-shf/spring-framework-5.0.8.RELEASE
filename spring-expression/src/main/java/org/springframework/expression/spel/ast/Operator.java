@@ -41,7 +41,7 @@ import org.springframework.util.ObjectUtils;
 public abstract class Operator extends SpelNodeImpl {
 
 	private final String operatorName;
-	
+
 	// The descriptors of the runtime operand values are used if the discovered declared
 	// descriptors are not providing enough information (for example a generic type
 	// whose accessors seem to only be returning 'Object' - the actual descriptors may
@@ -103,8 +103,8 @@ public abstract class Operator extends SpelNodeImpl {
 		return (dc.areNumbers && dc.areCompatible);
 	}
 
-	/** 
-	 * Numeric comparison operators share very similar generated code, only differing in 
+	/**
+	 * Numeric comparison operators share very similar generated code, only differing in
 	 * two comparison instructions.
 	 */
 	protected void generateComparisonCode(MethodVisitor mv, CodeFlow cf, int compInstruction1, int compInstruction2) {
@@ -112,20 +112,20 @@ public abstract class Operator extends SpelNodeImpl {
 		SpelNodeImpl right = getRightOperand();
 		String leftDesc = left.exitTypeDescriptor;
 		String rightDesc = right.exitTypeDescriptor;
-		
+
 		boolean unboxLeft = !CodeFlow.isPrimitive(leftDesc);
 		boolean unboxRight = !CodeFlow.isPrimitive(rightDesc);
 		DescriptorComparison dc = DescriptorComparison.checkNumericCompatibility(
 				leftDesc, rightDesc, this.leftActualDescriptor, this.rightActualDescriptor);
 		char targetType = dc.compatibleType;  // CodeFlow.toPrimitiveTargetDesc(leftDesc);
-		
+
 		cf.enterCompilationScope();
 		left.generateCode(mv, cf);
 		cf.exitCompilationScope();
 		if (unboxLeft) {
 			CodeFlow.insertUnboxInsns(mv, targetType, leftDesc);
 		}
-	
+
 		cf.enterCompilationScope();
 		right.generateCode(mv, cf);
 		cf.exitCompilationScope();
@@ -139,25 +139,21 @@ public abstract class Operator extends SpelNodeImpl {
 		if (targetType == 'D') {
 			mv.visitInsn(DCMPG);
 			mv.visitJumpInsn(compInstruction1, elseTarget);
-		}
-		else if (targetType == 'F') {
-			mv.visitInsn(FCMPG);		
+		} else if (targetType == 'F') {
+			mv.visitInsn(FCMPG);
 			mv.visitJumpInsn(compInstruction1, elseTarget);
-		}
-		else if (targetType == 'J') {
-			mv.visitInsn(LCMP);		
+		} else if (targetType == 'J') {
+			mv.visitInsn(LCMP);
 			mv.visitJumpInsn(compInstruction1, elseTarget);
-		}
-		else if (targetType == 'I') {
+		} else if (targetType == 'I') {
 			mv.visitJumpInsn(compInstruction2, elseTarget);
-		}
-		else {
+		} else {
 			throw new IllegalStateException("Unexpected descriptor " + leftDesc);
 		}
 
 		// Other numbers are not yet supported (isCompilable will not have returned true)
 		mv.visitInsn(ICONST_1);
-		mv.visitJumpInsn(GOTO,endOfIf);
+		mv.visitJumpInsn(GOTO, endOfIf);
 		mv.visitLabel(elseTarget);
 		mv.visitInsn(ICONST_0);
 		mv.visitLabel(endOfIf);
@@ -170,9 +166,10 @@ public abstract class Operator extends SpelNodeImpl {
 	 * <p>This method is not just used for reflective comparisons in subclasses
 	 * but also from compiled expression code, which is why it needs to be
 	 * declared as {@code public static} here.
+	 *
 	 * @param context the current evaluation context
-	 * @param left the left-hand operand value
-	 * @param right the right-hand operand value
+	 * @param left    the left-hand operand value
+	 * @param right   the right-hand operand value
 	 */
 	public static boolean equalityCheck(EvaluationContext context, @Nullable Object left, @Nullable Object right) {
 		if (left instanceof Number && right instanceof Number) {
@@ -183,31 +180,23 @@ public abstract class Operator extends SpelNodeImpl {
 				BigDecimal leftBigDecimal = NumberUtils.convertNumberToTargetClass(leftNumber, BigDecimal.class);
 				BigDecimal rightBigDecimal = NumberUtils.convertNumberToTargetClass(rightNumber, BigDecimal.class);
 				return (leftBigDecimal.compareTo(rightBigDecimal) == 0);
-			}
-			else if (leftNumber instanceof Double || rightNumber instanceof Double) {
+			} else if (leftNumber instanceof Double || rightNumber instanceof Double) {
 				return (leftNumber.doubleValue() == rightNumber.doubleValue());
-			}
-			else if (leftNumber instanceof Float || rightNumber instanceof Float) {
+			} else if (leftNumber instanceof Float || rightNumber instanceof Float) {
 				return (leftNumber.floatValue() == rightNumber.floatValue());
-			}
-			else if (leftNumber instanceof BigInteger || rightNumber instanceof BigInteger) {
+			} else if (leftNumber instanceof BigInteger || rightNumber instanceof BigInteger) {
 				BigInteger leftBigInteger = NumberUtils.convertNumberToTargetClass(leftNumber, BigInteger.class);
 				BigInteger rightBigInteger = NumberUtils.convertNumberToTargetClass(rightNumber, BigInteger.class);
 				return (leftBigInteger.compareTo(rightBigInteger) == 0);
-			}
-			else if (leftNumber instanceof Long || rightNumber instanceof Long) {
+			} else if (leftNumber instanceof Long || rightNumber instanceof Long) {
 				return (leftNumber.longValue() == rightNumber.longValue());
-			}
-			else if (leftNumber instanceof Integer || rightNumber instanceof Integer) {
+			} else if (leftNumber instanceof Integer || rightNumber instanceof Integer) {
 				return (leftNumber.intValue() == rightNumber.intValue());
-			}
-			else if (leftNumber instanceof Short || rightNumber instanceof Short) {
+			} else if (leftNumber instanceof Short || rightNumber instanceof Short) {
 				return (leftNumber.shortValue() == rightNumber.shortValue());
-			}
-			else if (leftNumber instanceof Byte || rightNumber instanceof Byte) {
+			} else if (leftNumber instanceof Byte || rightNumber instanceof Byte) {
 				return (leftNumber.byteValue() == rightNumber.byteValue());
-			}
-			else {
+			} else {
 				// Unknown Number subtypes -> best guess is double comparison
 				return (leftNumber.doubleValue() == rightNumber.doubleValue());
 			}
@@ -230,7 +219,7 @@ public abstract class Operator extends SpelNodeImpl {
 
 		return false;
 	}
-	
+
 
 	/**
 	 * A descriptor comparison encapsulates the result of comparing descriptor
@@ -253,7 +242,7 @@ public abstract class Operator extends SpelNodeImpl {
 			this.areCompatible = areCompatible;
 			this.compatibleType = compatibleType;
 		}
-		
+
 		/**
 		 * Return an object that indicates whether the input descriptors are compatible.
 		 * <p>A declared descriptor is what could statically be determined (e.g. from looking
@@ -262,10 +251,11 @@ public abstract class Operator extends SpelNodeImpl {
 		 * <p>For generic types with unbound type variables, the declared descriptor
 		 * discovered may be 'Object' but from the actual descriptor it is possible to
 		 * observe that the objects are really numeric values (e.g. ints).
-		 * @param leftDeclaredDescriptor the statically determinable left descriptor
+		 *
+		 * @param leftDeclaredDescriptor  the statically determinable left descriptor
 		 * @param rightDeclaredDescriptor the statically determinable right descriptor
-		 * @param leftActualDescriptor the dynamic/runtime left object descriptor
-		 * @param rightActualDescriptor the dynamic/runtime right object descriptor
+		 * @param leftActualDescriptor    the dynamic/runtime left object descriptor
+		 * @param rightActualDescriptor   the dynamic/runtime right object descriptor
 		 * @return a DescriptorComparison object indicating the type of compatibility, if any
 		 */
 		public static DescriptorComparison checkNumericCompatibility(
@@ -277,7 +267,7 @@ public abstract class Operator extends SpelNodeImpl {
 
 			boolean leftNumeric = CodeFlow.isPrimitiveOrUnboxableSupportedNumberOrBoolean(ld);
 			boolean rightNumeric = CodeFlow.isPrimitiveOrUnboxableSupportedNumberOrBoolean(rd);
-			
+
 			// If the declared descriptors aren't providing the information, try the actual descriptors
 			if (!leftNumeric && !ObjectUtils.nullSafeEquals(ld, leftActualDescriptor)) {
 				ld = leftActualDescriptor;
@@ -287,18 +277,16 @@ public abstract class Operator extends SpelNodeImpl {
 				rd = rightActualDescriptor;
 				rightNumeric = CodeFlow.isPrimitiveOrUnboxableSupportedNumberOrBoolean(rd);
 			}
-			
+
 			if (leftNumeric && rightNumeric) {
 				if (CodeFlow.areBoxingCompatible(ld, rd)) {
 					return new DescriptorComparison(true, true, CodeFlow.toPrimitiveTargetDesc(ld));
-				}
-				else {
+				} else {
 					return DescriptorComparison.INCOMPATIBLE_NUMBERS;
 				}
-			}
-			else {
+			} else {
 				return DescriptorComparison.NOT_NUMBERS;
-			}		
+			}
 		}
 	}
 

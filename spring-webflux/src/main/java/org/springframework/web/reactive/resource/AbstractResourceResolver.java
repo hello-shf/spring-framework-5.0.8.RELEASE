@@ -39,7 +39,7 @@ public abstract class AbstractResourceResolver implements ResourceResolver {
 
 	@Override
 	public Mono<Resource> resolveResource(@Nullable ServerWebExchange exchange, String requestPath,
-			List<? extends Resource> locations, ResourceResolverChain chain) {
+										  List<? extends Resource> locations, ResourceResolverChain chain) {
 
 		if (logger.isTraceEnabled()) {
 			logger.trace("Resolving resource for request path \"" + requestPath + "\"");
@@ -49,7 +49,7 @@ public abstract class AbstractResourceResolver implements ResourceResolver {
 
 	@Override
 	public Mono<String> resolveUrlPath(String resourceUrlPath, List<? extends Resource> locations,
-			ResourceResolverChain chain) {
+									   ResourceResolverChain chain) {
 
 		if (logger.isTraceEnabled()) {
 			logger.trace("Resolving public URL for resource path \"" + resourceUrlPath + "\"");
@@ -60,9 +60,9 @@ public abstract class AbstractResourceResolver implements ResourceResolver {
 
 
 	protected abstract Mono<Resource> resolveResourceInternal(@Nullable ServerWebExchange exchange,
-			String requestPath, List<? extends Resource> locations, ResourceResolverChain chain);
+															  String requestPath, List<? extends Resource> locations, ResourceResolverChain chain);
 
 	protected abstract Mono<String> resolveUrlPathInternal(String resourceUrlPath,
-			List<? extends Resource> locations, ResourceResolverChain chain);
+														   List<? extends Resource> locations, ResourceResolverChain chain);
 
 }

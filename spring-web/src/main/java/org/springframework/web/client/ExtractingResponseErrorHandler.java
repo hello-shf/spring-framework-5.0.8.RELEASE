@@ -51,8 +51,8 @@ import org.springframework.util.CollectionUtils;
  *
  * @author Simon Galperin
  * @author Arjen Poutsma
- * @since 5.0
  * @see RestTemplate#setErrorHandler(ResponseErrorHandler)
+ * @since 5.0
  */
 public class ExtractingResponseErrorHandler extends DefaultResponseErrorHandler {
 
@@ -73,6 +73,7 @@ public class ExtractingResponseErrorHandler extends DefaultResponseErrorHandler 
 	/**
 	 * Create a new {@code ExtractingResponseErrorHandler} with the given
 	 * {@link HttpMessageConverter} instances.
+	 *
 	 * @param messageConverters the message converters to use
 	 */
 	public ExtractingResponseErrorHandler(List<HttpMessageConverter<?>> messageConverters) {
@@ -122,11 +123,9 @@ public class ExtractingResponseErrorHandler extends DefaultResponseErrorHandler 
 	protected boolean hasError(HttpStatus statusCode) {
 		if (this.statusMapping.containsKey(statusCode)) {
 			return this.statusMapping.get(statusCode) != null;
-		}
-		else if (this.seriesMapping.containsKey(statusCode.series())) {
+		} else if (this.seriesMapping.containsKey(statusCode.series())) {
 			return this.seriesMapping.get(statusCode.series()) != null;
-		}
-		else {
+		} else {
 			return super.hasError(statusCode);
 		}
 	}
@@ -135,17 +134,15 @@ public class ExtractingResponseErrorHandler extends DefaultResponseErrorHandler 
 	public void handleError(ClientHttpResponse response, HttpStatus statusCode) throws IOException {
 		if (this.statusMapping.containsKey(statusCode)) {
 			extract(this.statusMapping.get(statusCode), response);
-		}
-		else if (this.seriesMapping.containsKey(statusCode.series())) {
+		} else if (this.seriesMapping.containsKey(statusCode.series())) {
 			extract(this.seriesMapping.get(statusCode.series()), response);
-		}
-		else {
+		} else {
 			super.handleError(response, statusCode);
 		}
 	}
 
 	private void extract(@Nullable Class<? extends RestClientException> exceptionClass,
-			ClientHttpResponse response) throws IOException {
+						 ClientHttpResponse response) throws IOException {
 
 		if (exceptionClass == null) {
 			return;

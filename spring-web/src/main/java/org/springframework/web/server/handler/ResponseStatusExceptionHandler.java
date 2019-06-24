@@ -45,11 +45,9 @@ public class ResponseStatusExceptionHandler implements WebExceptionHandler {
 		if (status != null && exchange.getResponse().setStatusCode(status)) {
 			if (status.is5xxServerError()) {
 				logger.error(buildMessage(exchange.getRequest(), ex));
-			}
-			else if (status == HttpStatus.BAD_REQUEST) {
+			} else if (status == HttpStatus.BAD_REQUEST) {
 				logger.warn(buildMessage(exchange.getRequest(), ex));
-			}
-			else {
+			} else {
 				logger.trace(buildMessage(exchange.getRequest(), ex));
 			}
 			return exchange.getResponse().setComplete();
@@ -75,6 +73,7 @@ public class ResponseStatusExceptionHandler implements WebExceptionHandler {
 
 	/**
 	 * Determine the HTTP status implied by the given exception.
+	 *
 	 * @param ex the exception to introspect
 	 * @return the associated HTTP status, if any
 	 * @since 5.0.5

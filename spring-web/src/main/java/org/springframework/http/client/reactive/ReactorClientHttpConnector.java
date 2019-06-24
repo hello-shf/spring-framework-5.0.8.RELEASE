@@ -33,8 +33,8 @@ import org.springframework.http.HttpMethod;
  * Reactor-Netty implementation of {@link ClientHttpConnector}.
  *
  * @author Brian Clozel
- * @since 5.0
  * @see reactor.ipc.netty.http.client.HttpClient
+ * @since 5.0
  */
 public class ReactorClientHttpConnector implements ClientHttpConnector {
 
@@ -62,7 +62,7 @@ public class ReactorClientHttpConnector implements ClientHttpConnector {
 
 	@Override
 	public Mono<ClientHttpResponse> connect(HttpMethod method, URI uri,
-			Function<? super ClientHttpRequest, Mono<Void>> requestCallback) {
+											Function<? super ClientHttpRequest, Mono<Void>> requestCallback) {
 
 		if (!uri.isAbsolute()) {
 			return Mono.error(new IllegalArgumentException("URI is not absolute: " + uri));

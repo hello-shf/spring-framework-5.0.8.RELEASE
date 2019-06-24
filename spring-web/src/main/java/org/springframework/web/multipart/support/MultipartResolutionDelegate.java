@@ -80,35 +80,28 @@ public abstract class MultipartResolutionDelegate {
 				multipartRequest = new StandardMultipartHttpServletRequest(request);
 			}
 			return (multipartRequest != null ? multipartRequest.getFile(name) : null);
-		}
-		else if (isMultipartFileCollection(parameter)) {
+		} else if (isMultipartFileCollection(parameter)) {
 			if (multipartRequest == null && isMultipart) {
 				multipartRequest = new StandardMultipartHttpServletRequest(request);
 			}
 			return (multipartRequest != null ? multipartRequest.getFiles(name) : null);
-		}
-		else if (isMultipartFileArray(parameter)) {
+		} else if (isMultipartFileArray(parameter)) {
 			if (multipartRequest == null && isMultipart) {
 				multipartRequest = new StandardMultipartHttpServletRequest(request);
 			}
 			if (multipartRequest != null) {
 				List<MultipartFile> multipartFiles = multipartRequest.getFiles(name);
 				return multipartFiles.toArray(new MultipartFile[0]);
-			}
-			else {
+			} else {
 				return null;
 			}
-		}
-		else if (Part.class == parameter.getNestedParameterType()) {
+		} else if (Part.class == parameter.getNestedParameterType()) {
 			return (isMultipart ? resolvePart(request, name) : null);
-		}
-		else if (isPartCollection(parameter)) {
+		} else if (isPartCollection(parameter)) {
 			return (isMultipart ? resolvePartList(request, name) : null);
-		}
-		else if (isPartArray(parameter)) {
+		} else if (isPartArray(parameter)) {
 			return (isMultipart ? resolvePartArray(request, name) : null);
-		}
-		else {
+		} else {
 			return UNRESOLVABLE;
 		}
 	}
@@ -132,7 +125,7 @@ public abstract class MultipartResolutionDelegate {
 	@Nullable
 	private static Class<?> getCollectionParameterType(MethodParameter methodParam) {
 		Class<?> paramType = methodParam.getNestedParameterType();
-		if (Collection.class == paramType || List.class.isAssignableFrom(paramType)){
+		if (Collection.class == paramType || List.class.isAssignableFrom(paramType)) {
 			Class<?> valueType = ResolvableType.forMethodParameter(methodParam).asCollection().resolveGeneric();
 			if (valueType != null) {
 				return valueType;

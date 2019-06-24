@@ -80,72 +80,81 @@ public interface ClientResponse {
 
 	/**
 	 * Extract the body with the given {@code BodyExtractor}.
+	 *
 	 * @param extractor the {@code BodyExtractor} that reads from the response
-	 * @param <T> the type of the body returned
+	 * @param <T>       the type of the body returned
 	 * @return the extracted body
 	 */
 	<T> T body(BodyExtractor<T, ? super ClientHttpResponse> extractor);
 
 	/**
 	 * Extract the body to a {@code Mono}.
+	 *
 	 * @param elementClass the class of element in the {@code Mono}
-	 * @param <T> the element type
+	 * @param <T>          the element type
 	 * @return a mono containing the body of the given type {@code T}
 	 */
 	<T> Mono<T> bodyToMono(Class<? extends T> elementClass);
 
 	/**
 	 * Extract the body to a {@code Mono}.
+	 *
 	 * @param typeReference a type reference describing the expected response body type
-	 * @param <T> the element type
+	 * @param <T>           the element type
 	 * @return a mono containing the body of the given type {@code T}
 	 */
 	<T> Mono<T> bodyToMono(ParameterizedTypeReference<T> typeReference);
 
 	/**
 	 * Extract the body to a {@code Flux}.
+	 *
 	 * @param elementClass the class of element in the {@code Flux}
-	 * @param <T> the element type
+	 * @param <T>          the element type
 	 * @return a flux containing the body of the given type {@code T}
 	 */
 	<T> Flux<T> bodyToFlux(Class<? extends T> elementClass);
 
 	/**
 	 * Extract the body to a {@code Flux}.
+	 *
 	 * @param typeReference a type reference describing the expected response body type
-	 * @param <T> the element type
+	 * @param <T>           the element type
 	 * @return a flux containing the body of the given type {@code T}
 	 */
 	<T> Flux<T> bodyToFlux(ParameterizedTypeReference<T> typeReference);
 
 	/**
 	 * Return this response as a delayed {@code ResponseEntity}.
+	 *
 	 * @param bodyType the expected response body type
-	 * @param <T> response body type
+	 * @param <T>      response body type
 	 * @return {@code Mono} with the {@code ResponseEntity}
 	 */
 	<T> Mono<ResponseEntity<T>> toEntity(Class<T> bodyType);
 
 	/**
 	 * Return this response as a delayed {@code ResponseEntity}.
+	 *
 	 * @param typeReference a type reference describing the expected response body type
-	 * @param <T> response body type
+	 * @param <T>           response body type
 	 * @return {@code Mono} with the {@code ResponseEntity}
 	 */
 	<T> Mono<ResponseEntity<T>> toEntity(ParameterizedTypeReference<T> typeReference);
 
 	/**
 	 * Return this response as a delayed list of {@code ResponseEntity}s.
+	 *
 	 * @param elementType the expected response body list element type
-	 * @param <T> the type of elements in the list
+	 * @param <T>         the type of elements in the list
 	 * @return {@code Mono} with the list of {@code ResponseEntity}s
 	 */
 	<T> Mono<ResponseEntity<List<T>>> toEntityList(Class<T> elementType);
 
 	/**
 	 * Return this response as a delayed list of {@code ResponseEntity}s.
+	 *
 	 * @param typeReference a type reference describing the expected response body type
-	 * @param <T> the type of elements in the list
+	 * @param <T>           the type of elements in the list
 	 * @return {@code Mono} with the list of {@code ResponseEntity}s
 	 */
 	<T> Mono<ResponseEntity<List<T>>> toEntityList(ParameterizedTypeReference<T> typeReference);
@@ -155,6 +164,7 @@ public interface ClientResponse {
 
 	/**
 	 * Create a builder with the status, headers, and cookies of the given response.
+	 *
 	 * @param other the response to copy the status, headers, and cookies from
 	 * @return the created builder
 	 */
@@ -165,6 +175,7 @@ public interface ClientResponse {
 	/**
 	 * Create a response builder with the given status code and using default strategies for
 	 * reading the body.
+	 *
 	 * @param statusCode the status code
 	 * @return the created builder
 	 */
@@ -174,6 +185,7 @@ public interface ClientResponse {
 
 	/**
 	 * Create a response builder with the given status code and strategies for reading the body.
+	 *
 	 * @param statusCode the status code
 	 * @param strategies the strategies
 	 * @return the created builder
@@ -184,7 +196,8 @@ public interface ClientResponse {
 
 	/**
 	 * Create a response builder with the given status code and message body readers.
-	 * @param statusCode the status code
+	 *
+	 * @param statusCode     the status code
 	 * @param messageReaders the message readers
 	 * @return the created builder
 	 */
@@ -194,6 +207,7 @@ public interface ClientResponse {
 			public List<HttpMessageReader<?>> messageReaders() {
 				return messageReaders;
 			}
+
 			@Override
 			public List<HttpMessageWriter<?>> messageWriters() {
 				// not used in the response
@@ -205,6 +219,7 @@ public interface ClientResponse {
 
 	/**
 	 * Represents the headers of the HTTP response.
+	 *
 	 * @see ClientResponse#headers()
 	 */
 	interface Headers {
@@ -224,6 +239,7 @@ public interface ClientResponse {
 		/**
 		 * Return the header value(s), if any, for the header of the given name.
 		 * <p>Return an empty list if no header values are found.
+		 *
 		 * @param headerName the header name
 		 */
 		List<String> header(String headerName);
@@ -242,6 +258,7 @@ public interface ClientResponse {
 
 		/**
 		 * Set the status code of the response.
+		 *
 		 * @param statusCode the new status code.
 		 * @return this builder
 		 */
@@ -249,7 +266,8 @@ public interface ClientResponse {
 
 		/**
 		 * Add the given header value(s) under the given name.
-		 * @param headerName  the header name
+		 *
+		 * @param headerName   the header name
 		 * @param headerValues the header value(s)
 		 * @return this builder
 		 * @see HttpHeaders#add(String, String)
@@ -262,6 +280,7 @@ public interface ClientResponse {
 		 * {@linkplain HttpHeaders#set(String, String) overwrite} existing header values,
 		 * {@linkplain HttpHeaders#remove(Object) remove} values, or use any of the other
 		 * {@link HttpHeaders} methods.
+		 *
 		 * @param headersConsumer a function that consumes the {@code HttpHeaders}
 		 * @return this builder
 		 */
@@ -269,7 +288,8 @@ public interface ClientResponse {
 
 		/**
 		 * Add a cookie with the given name and value(s).
-		 * @param name the cookie name
+		 *
+		 * @param name   the cookie name
 		 * @param values the cookie value(s)
 		 * @return this builder
 		 */
@@ -281,6 +301,7 @@ public interface ClientResponse {
 		 * {@linkplain MultiValueMap#set(Object, Object) overwrite} existing header values,
 		 * {@linkplain MultiValueMap#remove(Object) remove} values, or use any of the other
 		 * {@link MultiValueMap} methods.
+		 *
 		 * @param cookiesConsumer a function that consumes the cookies map
 		 * @return this builder
 		 */
@@ -290,6 +311,7 @@ public interface ClientResponse {
 		 * Set the body of the response. Calling this methods will
 		 * {@linkplain org.springframework.core.io.buffer.DataBufferUtils#release(DataBuffer) release}
 		 * the existing body of the builder.
+		 *
 		 * @param body the new body.
 		 * @return this builder
 		 */
@@ -300,6 +322,7 @@ public interface ClientResponse {
 		 * Calling this methods will
 		 * {@linkplain org.springframework.core.io.buffer.DataBufferUtils#release(DataBuffer) release}
 		 * the existing body of the builder.
+		 *
 		 * @param body the new body.
 		 * @return this builder
 		 */

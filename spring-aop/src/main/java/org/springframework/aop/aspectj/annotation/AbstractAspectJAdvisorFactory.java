@@ -61,7 +61,9 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 	private static final String AJC_MAGIC = "ajc$";
 
 
-	/** Logger available to subclasses */
+	/**
+	 * Logger available to subclasses
+	 */
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	protected final ParameterNameDiscoverer parameterNameDiscoverer = new AspectJAnnotationParameterNameDiscoverer();
@@ -128,7 +130,7 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 	@SuppressWarnings("unchecked")
 	@Nullable
 	protected static AspectJAnnotation<?> findAspectJAnnotationOnMethod(Method method) {
-		Class<?>[] classesToLookFor = new Class<?>[] {
+		Class<?>[] classesToLookFor = new Class<?>[]{
 				Before.class, Around.class, After.class, AfterReturning.class, AfterThrowing.class, Pointcut.class};
 		for (Class<?> c : classesToLookFor) {
 			AspectJAnnotation<?> foundAnnotation = findAnnotation(method, (Class<Annotation>) c);
@@ -144,8 +146,7 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 		A result = AnnotationUtils.findAnnotation(method, toLookFor);
 		if (result != null) {
 			return new AspectJAnnotation<>(result);
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -168,17 +169,17 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 	 */
 	protected static class AspectJAnnotation<A extends Annotation> {
 
-		private static final String[] EXPRESSION_PROPERTIES = new String[] {"value", "pointcut"};
+		private static final String[] EXPRESSION_PROPERTIES = new String[]{"value", "pointcut"};
 
 		private static Map<Class<?>, AspectJAnnotationType> annotationTypes = new HashMap<>();
 
 		static {
-			annotationTypes.put(Pointcut.class,AspectJAnnotationType.AtPointcut);
-			annotationTypes.put(After.class,AspectJAnnotationType.AtAfter);
-			annotationTypes.put(AfterReturning.class,AspectJAnnotationType.AtAfterReturning);
-			annotationTypes.put(AfterThrowing.class,AspectJAnnotationType.AtAfterThrowing);
-			annotationTypes.put(Around.class,AspectJAnnotationType.AtAround);
-			annotationTypes.put(Before.class,AspectJAnnotationType.AtBefore);
+			annotationTypes.put(Pointcut.class, AspectJAnnotationType.AtPointcut);
+			annotationTypes.put(After.class, AspectJAnnotationType.AtAfter);
+			annotationTypes.put(AfterReturning.class, AspectJAnnotationType.AtAfterReturning);
+			annotationTypes.put(AfterThrowing.class, AspectJAnnotationType.AtAfterThrowing);
+			annotationTypes.put(Around.class, AspectJAnnotationType.AtAround);
+			annotationTypes.put(Before.class, AspectJAnnotationType.AtBefore);
 		}
 
 		private final A annotation;
@@ -197,8 +198,7 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 			try {
 				this.pointcutExpression = resolveExpression(annotation);
 				this.argumentNames = (String) annotation.getClass().getMethod("argNames").invoke(annotation);
-			}
-			catch (Exception ex) {
+			} catch (Exception ex) {
 				throw new IllegalArgumentException(annotation + " cannot be an AspectJ annotation", ex);
 			}
 		}
@@ -217,8 +217,7 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 				Method method;
 				try {
 					method = annotation.getClass().getDeclaredMethod(methodName);
-				}
-				catch (NoSuchMethodException ex) {
+				} catch (NoSuchMethodException ex) {
 					method = null;
 				}
 				if (method != null) {
@@ -277,8 +276,7 @@ public abstract class AbstractAspectJAdvisorFactory implements AspectJAdvisorFac
 					names[i] = strTok.nextToken();
 				}
 				return names;
-			}
-			else {
+			} else {
 				return null;
 			}
 		}

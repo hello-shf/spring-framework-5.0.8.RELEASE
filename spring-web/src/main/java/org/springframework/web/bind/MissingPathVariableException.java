@@ -38,8 +38,9 @@ public class MissingPathVariableException extends ServletRequestBindingException
 
 	/**
 	 * Constructor for MissingPathVariableException.
+	 *
 	 * @param variableName the name of the missing path variable
-	 * @param parameter the method parameter
+	 * @param parameter    the method parameter
 	 */
 	public MissingPathVariableException(String variableName, MethodParameter parameter) {
 		super("");

@@ -50,8 +50,8 @@ import org.springframework.util.MimeType;
  * @author Sebastien Deleuze
  * @author Rossen Stoyanchev
  * @author Arjen Poutsma
- * @since 5.0
  * @see <a href="https://github.com/FasterXML/jackson-core/issues/57" target="_blank">Add support for non-blocking ("async") JSON parsing</a>
+ * @since 5.0
  */
 public abstract class AbstractJackson2Decoder extends Jackson2CodecSupport implements HttpMessageDecoder<Object> {
 
@@ -73,7 +73,7 @@ public abstract class AbstractJackson2Decoder extends Jackson2CodecSupport imple
 
 	@Override
 	public Flux<Object> decode(Publisher<DataBuffer> input, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+							   @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		Flux<TokenBuffer> tokens = tokenize(input, true);
 		return decodeInternal(tokens, elementType, mimeType, hints);
@@ -81,7 +81,7 @@ public abstract class AbstractJackson2Decoder extends Jackson2CodecSupport imple
 
 	@Override
 	public Mono<Object> decodeToMono(Publisher<DataBuffer> input, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+									 @Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		Flux<TokenBuffer> tokens = tokenize(input, false);
 		return decodeInternal(tokens, elementType, mimeType, hints).singleOrEmpty();
@@ -94,7 +94,7 @@ public abstract class AbstractJackson2Decoder extends Jackson2CodecSupport imple
 	}
 
 	private Flux<Object> decodeInternal(Flux<TokenBuffer> tokens, ResolvableType elementType,
-			@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
+										@Nullable MimeType mimeType, @Nullable Map<String, Object> hints) {
 
 		Assert.notNull(tokens, "'tokens' must not be null");
 		Assert.notNull(elementType, "'elementType' must not be null");
@@ -111,14 +111,11 @@ public abstract class AbstractJackson2Decoder extends Jackson2CodecSupport imple
 		return tokens.map(tokenBuffer -> {
 			try {
 				return reader.readValue(tokenBuffer.asParser(getObjectMapper()));
-			}
-			catch (InvalidDefinitionException ex) {
+			} catch (InvalidDefinitionException ex) {
 				throw new CodecException("Type definition error: " + ex.getType(), ex);
-			}
-			catch (JsonProcessingException ex) {
+			} catch (JsonProcessingException ex) {
 				throw new DecodingException("JSON decoding error: " + ex.getOriginalMessage(), ex);
-			}
-			catch (IOException ex) {
+			} catch (IOException ex) {
 				throw new DecodingException("I/O error while parsing input stream", ex);
 			}
 		});
@@ -129,7 +126,7 @@ public abstract class AbstractJackson2Decoder extends Jackson2CodecSupport imple
 
 	@Override
 	public Map<String, Object> getDecodeHints(ResolvableType actualType, ResolvableType elementType,
-			ServerHttpRequest request, ServerHttpResponse response) {
+											  ServerHttpRequest request, ServerHttpResponse response) {
 
 		return getHints(actualType);
 	}

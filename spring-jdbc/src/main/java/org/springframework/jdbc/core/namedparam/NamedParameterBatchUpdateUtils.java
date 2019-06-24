@@ -33,10 +33,10 @@ import org.springframework.jdbc.core.JdbcOperations;
 public class NamedParameterBatchUpdateUtils extends BatchUpdateUtils {
 
 	public static int[] executeBatchUpdateWithNamedParameters(final ParsedSql parsedSql,
-			final SqlParameterSource[] batchArgs, JdbcOperations jdbcOperations) {
+															  final SqlParameterSource[] batchArgs, JdbcOperations jdbcOperations) {
 
 		if (batchArgs.length <= 0) {
-			return new int[] {0};
+			return new int[]{0};
 		}
 
 		String sqlToUse = NamedParameterUtils.substituteNamedParameters(parsedSql, batchArgs[0]);
@@ -49,6 +49,7 @@ public class NamedParameterBatchUpdateUtils extends BatchUpdateUtils {
 						int[] columnTypes = NamedParameterUtils.buildSqlTypeArray(parsedSql, batchArgs[i]);
 						setStatementParameters(values, ps, columnTypes);
 					}
+
 					@Override
 					public int getBatchSize() {
 						return batchArgs.length;

@@ -46,6 +46,7 @@ public final class PatternsRequestCondition extends AbstractRequestCondition<Pat
 
 	/**
 	 * Creates a new instance with the given URL patterns.
+	 *
 	 * @param patterns 0 or more URL patterns; if 0 the condition will match to every request.
 	 */
 	public PatternsRequestCondition(PathPattern... patterns) {
@@ -97,11 +98,9 @@ public final class PatternsRequestCondition extends AbstractRequestCondition<Pat
 					combined.add(pattern1.combine(pattern2));
 				}
 			}
-		}
-		else if (!this.patterns.isEmpty()) {
+		} else if (!this.patterns.isEmpty()) {
 			combined.addAll(this.patterns);
-		}
-		else if (!other.patterns.isEmpty()) {
+		} else if (!other.patterns.isEmpty()) {
 			combined.addAll(other.patterns);
 		}
 		return new PatternsRequestCondition(combined);
@@ -110,6 +109,7 @@ public final class PatternsRequestCondition extends AbstractRequestCondition<Pat
 	/**
 	 * Checks if any of the patterns match the given request and returns an instance
 	 * that is guaranteed to contain matching patterns, sorted.
+	 *
 	 * @param exchange the current exchange
 	 * @return the same instance if the condition contains no patterns;
 	 * or a new condition with sorted matching patterns;
@@ -131,6 +131,7 @@ public final class PatternsRequestCondition extends AbstractRequestCondition<Pat
 	 * {@link #getMatchingCondition(ServerWebExchange)}.
 	 * This method is provided as an alternative to be used if no request is available
 	 * (e.g. introspection, tooling, etc).
+	 *
 	 * @param exchange the current exchange
 	 * @return a sorted set of matching patterns sorted with the closest match first
 	 */
@@ -163,11 +164,9 @@ public final class PatternsRequestCondition extends AbstractRequestCondition<Pat
 		}
 		if (iterator.hasNext()) {
 			return -1;
-		}
-		else if (iteratorOther.hasNext()) {
+		} else if (iteratorOther.hasNext()) {
 			return 1;
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}

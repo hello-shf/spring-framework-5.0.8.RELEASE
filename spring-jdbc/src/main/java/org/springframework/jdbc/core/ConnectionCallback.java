@@ -33,10 +33,10 @@ import org.springframework.lang.Nullable;
  * operations, for example a {@code query} or {@code update} variant.
  *
  * @author Juergen Hoeller
- * @since 1.1.3
  * @see JdbcTemplate#execute(ConnectionCallback)
  * @see JdbcTemplate#query
  * @see JdbcTemplate#update
+ * @since 1.1.3
  */
 @FunctionalInterface
 public interface ConnectionCallback<T> {
@@ -55,10 +55,11 @@ public interface ConnectionCallback<T> {
 	 * support for single step actions: see {@code JdbcTemplate.queryForObject}
 	 * etc. A thrown RuntimeException is treated as application exception:
 	 * it gets propagated to the caller of the template.
+	 *
 	 * @param con active JDBC Connection
 	 * @return a result object, or {@code null} if none
-	 * @throws SQLException if thrown by a JDBC method, to be auto-converted
-	 * to a DataAccessException by a SQLExceptionTranslator
+	 * @throws SQLException        if thrown by a JDBC method, to be auto-converted
+	 *                             to a DataAccessException by a SQLExceptionTranslator
 	 * @throws DataAccessException in case of custom exceptions
 	 * @see JdbcTemplate#queryForObject(String, Class)
 	 * @see JdbcTemplate#queryForRowSet(String)

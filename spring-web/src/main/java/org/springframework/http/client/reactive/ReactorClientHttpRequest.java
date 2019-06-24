@@ -37,8 +37,8 @@ import org.springframework.http.ZeroCopyHttpOutputMessage;
  * {@link ClientHttpRequest} implementation for the Reactor-Netty HTTP client.
  *
  * @author Brian Clozel
- * @since 5.0
  * @see reactor.ipc.netty.http.client.HttpClient
+ * @since 5.0
  */
 class ReactorClientHttpRequest extends AbstractClientHttpRequest implements ZeroCopyHttpOutputMessage {
 
@@ -52,7 +52,7 @@ class ReactorClientHttpRequest extends AbstractClientHttpRequest implements Zero
 
 
 	public ReactorClientHttpRequest(HttpMethod httpMethod, URI uri,
-			HttpClientRequest httpRequest) {
+									HttpClientRequest httpRequest) {
 		this.httpMethod = httpMethod;
 		this.uri = uri;
 		this.httpRequest = httpRequest.failOnClientError(false).failOnServerError(false);

@@ -61,8 +61,7 @@ public class EnableCachingIntegrationTests {
 		ctx.register(Config.class, AspectJCacheConfig.class);
 		try {
 			ctx.refresh();
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			// this test is a bit fragile, but gets the job done, proving that an
 			// attempt was made to look up the AJ aspect. It's due to classpath issues
 			// in .integration-tests that it's not found.
@@ -75,7 +74,7 @@ public class EnableCachingIntegrationTests {
 
 		boolean isCacheProxy = false;
 		if (AopUtils.isAopProxy(repo)) {
-			for (Advisor advisor : ((Advised)repo).getAdvisors()) {
+			for (Advisor advisor : ((Advised) repo).getAdvisors()) {
 				if (advisor instanceof BeanFactoryCacheOperationSourceAdvisor) {
 					isCacheProxy = true;
 					break;
@@ -87,7 +86,7 @@ public class EnableCachingIntegrationTests {
 
 
 	@Configuration
-	@EnableCaching(proxyTargetClass=true)
+	@EnableCaching(proxyTargetClass = true)
 	static class ProxyTargetClassCachingConfig {
 		@Bean
 		CacheManager mgr() {
@@ -106,7 +105,7 @@ public class EnableCachingIntegrationTests {
 
 
 	@Configuration
-	@EnableCaching(mode=AdviceMode.ASPECTJ)
+	@EnableCaching(mode = AdviceMode.ASPECTJ)
 	static class AspectJCacheConfig {
 		@Bean
 		CacheManager cacheManager() {

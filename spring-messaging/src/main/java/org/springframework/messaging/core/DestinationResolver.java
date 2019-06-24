@@ -28,10 +28,11 @@ public interface DestinationResolver<D> {
 
 	/**
 	 * Resolve the given destination name.
+	 *
 	 * @param name the destination name to resolve
 	 * @return the resolved destination (never {@code null})
 	 * @throws DestinationResolutionException if the specified destination
-	 * wasn't found or wasn't resolvable for any other reason
+	 *                                        wasn't found or wasn't resolvable for any other reason
 	 */
 	D resolveDestination(String name) throws DestinationResolutionException;
 

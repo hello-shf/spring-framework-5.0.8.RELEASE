@@ -69,6 +69,7 @@ public class ServerSentEventHttpMessageWriter implements HttpMessageWriter<Objec
 	/**
 	 * Constructor with JSON {@code Encoder} for encoding objects.
 	 * Support for {@code String} event data is built-in.
+	 *
 	 * @param encoder the Encoder to use (may be {@code null})
 	 */
 	public ServerSentEventHttpMessageWriter(@Nullable Encoder<?> encoder) {
@@ -98,7 +99,7 @@ public class ServerSentEventHttpMessageWriter implements HttpMessageWriter<Objec
 
 	@Override
 	public Mono<Void> write(Publisher<?> input, ResolvableType elementType, @Nullable MediaType mediaType,
-			ReactiveHttpOutputMessage message, Map<String, Object> hints) {
+							ReactiveHttpOutputMessage message, Map<String, Object> hints) {
 
 		mediaType = (mediaType != null && mediaType.getCharset() != null ? mediaType : DEFAULT_MEDIA_TYPE);
 		DataBufferFactory bufferFactory = message.bufferFactory();
@@ -108,7 +109,7 @@ public class ServerSentEventHttpMessageWriter implements HttpMessageWriter<Objec
 	}
 
 	private Flux<Publisher<DataBuffer>> encode(Publisher<?> input, ResolvableType elementType,
-			MediaType mediaType, DataBufferFactory factory, Map<String, Object> hints) {
+											   MediaType mediaType, DataBufferFactory factory, Map<String, Object> hints) {
 
 		Class<?> elementClass = elementType.getRawClass();
 		ResolvableType valueType = (elementClass != null && ServerSentEvent.class.isAssignableFrom(elementClass) ?
@@ -156,7 +157,7 @@ public class ServerSentEventHttpMessageWriter implements HttpMessageWriter<Objec
 
 	@SuppressWarnings("unchecked")
 	private <T> Flux<DataBuffer> encodeData(@Nullable T data, ResolvableType valueType,
-			MediaType mediaType, DataBufferFactory factory, Map<String, Object> hints) {
+											MediaType mediaType, DataBufferFactory factory, Map<String, Object> hints) {
 
 		if (data == null) {
 			return Flux.empty();
@@ -185,8 +186,8 @@ public class ServerSentEventHttpMessageWriter implements HttpMessageWriter<Objec
 
 	@Override
 	public Mono<Void> write(Publisher<?> input, ResolvableType actualType, ResolvableType elementType,
-			@Nullable MediaType mediaType, ServerHttpRequest request, ServerHttpResponse response,
-			Map<String, Object> hints) {
+							@Nullable MediaType mediaType, ServerHttpRequest request, ServerHttpResponse response,
+							Map<String, Object> hints) {
 
 		Map<String, Object> allHints = new HashMap<>();
 		allHints.putAll(getEncodeHints(actualType, elementType, mediaType, request, response));
@@ -196,7 +197,7 @@ public class ServerSentEventHttpMessageWriter implements HttpMessageWriter<Objec
 	}
 
 	private Map<String, Object> getEncodeHints(ResolvableType actualType, ResolvableType elementType,
-			@Nullable MediaType mediaType, ServerHttpRequest request, ServerHttpResponse response) {
+											   @Nullable MediaType mediaType, ServerHttpRequest request, ServerHttpResponse response) {
 
 		if (this.encoder instanceof HttpMessageEncoder) {
 			HttpMessageEncoder<?> httpEncoder = (HttpMessageEncoder<?>) this.encoder;

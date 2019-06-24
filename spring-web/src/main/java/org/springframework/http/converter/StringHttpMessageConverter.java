@@ -53,6 +53,7 @@ public class StringHttpMessageConverter extends AbstractHttpMessageConverter<Str
 
 	/**
 	 * A default constructor that uses {@code "ISO-8859-1"} as the default charset.
+	 *
 	 * @see #StringHttpMessageConverter(Charset)
 	 */
 	public StringHttpMessageConverter() {
@@ -108,6 +109,7 @@ public class StringHttpMessageConverter extends AbstractHttpMessageConverter<Str
 	 * Return the list of supported {@link Charset}s.
 	 * <p>By default, returns {@link Charset#availableCharsets()}.
 	 * Can be overridden in subclasses.
+	 *
 	 * @return the list of accepted charsets
 	 */
 	protected List<Charset> getAcceptedCharsets() {
@@ -122,8 +124,7 @@ public class StringHttpMessageConverter extends AbstractHttpMessageConverter<Str
 	private Charset getContentTypeCharset(@Nullable MediaType contentType) {
 		if (contentType != null && contentType.getCharset() != null) {
 			return contentType.getCharset();
-		}
-		else {
+		} else {
 			Charset charset = getDefaultCharset();
 			Assert.state(charset != null, "No default charset");
 			return charset;

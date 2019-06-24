@@ -69,7 +69,7 @@ public class CachingResourceResolver extends AbstractResourceResolver {
 
 	@Override
 	protected Mono<Resource> resolveResourceInternal(@Nullable ServerWebExchange exchange,
-			String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
+													 String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
 
 		String key = computeKey(exchange, requestPath);
 		Resource cachedResource = this.cache.get(key, Resource.class);
@@ -104,7 +104,7 @@ public class CachingResourceResolver extends AbstractResourceResolver {
 
 	@Override
 	protected Mono<String> resolveUrlPathInternal(String resourceUrlPath,
-			List<? extends Resource> locations, ResourceResolverChain chain) {
+												  List<? extends Resource> locations, ResourceResolverChain chain) {
 
 		String key = RESOLVED_URL_PATH_CACHE_KEY_PREFIX + resourceUrlPath;
 		String cachedUrlPath = this.cache.get(key, String.class);

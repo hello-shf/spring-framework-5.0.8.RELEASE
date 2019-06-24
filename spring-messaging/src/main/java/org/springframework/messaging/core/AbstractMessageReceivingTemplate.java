@@ -47,6 +47,7 @@ public abstract class AbstractMessageReceivingTemplate<D> extends AbstractMessag
 
 	/**
 	 * Actually receive a message from the given destination.
+	 *
 	 * @param destination the target destination
 	 * @return the received message, possibly {@code null} if the message could not
 	 * be received, for example due to a timeout
@@ -67,15 +68,15 @@ public abstract class AbstractMessageReceivingTemplate<D> extends AbstractMessag
 		Message<?> message = doReceive(destination);
 		if (message != null) {
 			return doConvert(message, targetClass);
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
 
 	/**
 	 * Convert from the given message to the given target class.
-	 * @param message the message to convert
+	 *
+	 * @param message     the message to convert
 	 * @param targetClass the target class to convert the payload to
 	 * @return the converted payload of the reply message (never {@code null})
 	 */

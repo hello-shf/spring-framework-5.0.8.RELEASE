@@ -59,8 +59,9 @@ public abstract class BodyExtractors {
 
 	/**
 	 * Return a {@code BodyExtractor} that reads into a Reactor {@link Mono}.
+	 *
 	 * @param elementClass the class of element in the {@code Mono}
-	 * @param <T> the element type
+	 * @param <T>          the element type
 	 * @return a {@code BodyExtractor} that reads a mono
 	 */
 	public static <T> BodyExtractor<Mono<T>, ReactiveHttpInputMessage> toMono(Class<? extends T> elementClass) {
@@ -78,8 +79,9 @@ public abstract class BodyExtractors {
 	 *  .exchange()
 	 *  .flatMap(r -> r.body(toMono(new ParameterizedTypeReference&lt;Map&lt;String,String&gt;&gt;() {})));
 	 * </pre>
+	 *
 	 * @param typeReference a reference to the type of element in the {@code Mono}
-	 * @param <T> the element type
+	 * @param <T>           the element type
 	 * @return a {@code BodyExtractor} that reads a mono
 	 */
 	public static <T> BodyExtractor<Mono<T>, ReactiveHttpInputMessage> toMono(
@@ -96,8 +98,7 @@ public abstract class BodyExtractors {
 					if (serverResponse.isPresent() && inputMessage instanceof ServerHttpRequest) {
 						return reader.readMono(elementType, elementType, (ServerHttpRequest) inputMessage,
 								serverResponse.get(), context.hints());
-					}
-					else {
+					} else {
 						return reader.readMono(elementType, inputMessage, context.hints());
 					}
 				},
@@ -108,8 +109,9 @@ public abstract class BodyExtractors {
 
 	/**
 	 * Return a {@code BodyExtractor} that reads into a Reactor {@link Flux}.
+	 *
 	 * @param elementClass the class of element in the {@code Flux}
-	 * @param <T> the element type
+	 * @param <T>          the element type
 	 * @return a {@code BodyExtractor} that reads a flux
 	 */
 	public static <T> BodyExtractor<Flux<T>, ReactiveHttpInputMessage> toFlux(Class<? extends T> elementClass) {
@@ -127,8 +129,9 @@ public abstract class BodyExtractors {
 	 *  .exchange()
 	 *  .flatMap(r -> r.body(toFlux(new ParameterizedTypeReference&lt;ServerSentEvent&lt;String&gt;&gt;() {})));
 	 * </pre>
+	 *
 	 * @param typeReference a reference to the type of element in the {@code Flux}
-	 * @param <T> the element type
+	 * @param <T>           the element type
 	 * @return a {@code BodyExtractor} that reads a flux
 	 */
 	public static <T> BodyExtractor<Flux<T>, ReactiveHttpInputMessage> toFlux(
@@ -146,8 +149,7 @@ public abstract class BodyExtractors {
 					if (serverResponse.isPresent() && inputMessage instanceof ServerHttpRequest) {
 						return reader.read(elementType, elementType, (ServerHttpRequest) inputMessage,
 								serverResponse.get(), context.hints());
-					}
-					else {
+					} else {
 						return reader.read(elementType, inputMessage, context.hints());
 					}
 				},
@@ -165,6 +167,7 @@ public abstract class BodyExtractors {
 
 	/**
 	 * Return a {@code BodyExtractor} that reads form data into a {@link MultiValueMap}.
+	 *
 	 * @return a {@code BodyExtractor} that reads form data
 	 */
 	// Note that the returned BodyExtractor is parameterized to ServerHttpRequest, not
@@ -184,6 +187,7 @@ public abstract class BodyExtractors {
 	/**
 	 * Return a {@code BodyExtractor} that reads multipart (i.e. file upload) form data into a
 	 * {@link MultiValueMap}.
+	 *
 	 * @return a {@code BodyExtractor} that reads multipart data
 	 */
 	// Note that the returned BodyExtractor is parameterized to ServerHttpRequest, not
@@ -203,6 +207,7 @@ public abstract class BodyExtractors {
 	/**
 	 * Return a {@code BodyExtractor} that reads multipart (i.e. file upload) form data into a
 	 * {@link MultiValueMap}.
+	 *
 	 * @return a {@code BodyExtractor} that reads multipart data
 	 */
 	// Note that the returned BodyExtractor is parameterized to ServerHttpRequest, not
@@ -223,6 +228,7 @@ public abstract class BodyExtractors {
 	 * {@link DataBuffer}s.
 	 * <p><strong>Note</strong> that the returned buffers should be released after usage by calling
 	 * {@link org.springframework.core.io.buffer.DataBufferUtils#release(DataBuffer)}
+	 *
 	 * @return a {@code BodyExtractor} that returns the body
 	 * @see ReactiveHttpInputMessage#getBody()
 	 */
@@ -258,7 +264,7 @@ public abstract class BodyExtractors {
 	}
 
 	private static <T> HttpMessageReader<T> messageReader(ResolvableType elementType,
-			MediaType mediaType, BodyExtractor.Context context) {
+														  MediaType mediaType, BodyExtractor.Context context) {
 		return context.messageReaders().stream()
 				.filter(messageReader -> messageReader.canRead(elementType, mediaType))
 				.findFirst()

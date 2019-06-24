@@ -47,15 +47,16 @@ public class WebClientResponseException extends WebClientException {
 
 	/**
 	 * Construct a new instance of with the given response data.
-	 * @param statusCode the raw status code value
-	 * @param statusText the status text
-	 * @param headers the response headers (may be {@code null})
-	 * @param responseBody the response body content (may be {@code null})
+	 *
+	 * @param statusCode      the raw status code value
+	 * @param statusText      the status text
+	 * @param headers         the response headers (may be {@code null})
+	 * @param responseBody    the response body content (may be {@code null})
 	 * @param responseCharset the response body charset (may be {@code null})
 	 */
 	public WebClientResponseException(String message, int statusCode, String statusText,
-			@Nullable HttpHeaders headers, @Nullable byte[] responseBody,
-			@Nullable Charset responseCharset) {
+									  @Nullable HttpHeaders headers, @Nullable byte[] responseBody,
+									  @Nullable Charset responseCharset) {
 
 		super(message);
 

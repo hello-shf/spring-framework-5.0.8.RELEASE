@@ -59,6 +59,7 @@ public interface WebSocketSession extends Closeable {
 	 * HandshakeInterceptor}. On the client side the map can be populated via
 	 * {@link org.springframework.web.socket.client.WebSocketClient
 	 * WebSocketClient} handshake methods.
+	 *
 	 * @return a Map with the session attributes (never {@code null})
 	 */
 	Map<String, Object> getAttributes();
@@ -85,6 +86,7 @@ public interface WebSocketSession extends Closeable {
 
 	/**
 	 * Return the negotiated sub-protocol.
+	 *
 	 * @return the protocol identifier, or {@code null} if no protocol
 	 * was specified or negotiated successfully
 	 */
@@ -113,6 +115,7 @@ public interface WebSocketSession extends Closeable {
 
 	/**
 	 * Determine the negotiated extensions.
+	 *
 	 * @return the list of extensions, or an empty list if no extension
 	 * was specified or negotiated successfully
 	 */

@@ -66,34 +66,48 @@ import org.springframework.util.StringUtils;
  *
  * @author Andy Clement
  * @author Rossen Stoyanchev
- * @since 5.0
  * @see PathContainer
+ * @since 5.0
  */
 public class PathPattern implements Comparable<PathPattern> {
 
 	private static final PathContainer EMPTY_PATH = PathContainer.parsePath("");
 
 
-	/** The text of the parsed pattern */
+	/**
+	 * The text of the parsed pattern
+	 */
 	private final String patternString;
 
-	/** The parser used to construct this pattern */
+	/**
+	 * The parser used to construct this pattern
+	 */
 	private final PathPatternParser parser;
 
-	/** The separator used when parsing the pattern */
+	/**
+	 * The separator used when parsing the pattern
+	 */
 	private final char separator;
 
-	/** If this pattern has no trailing slash, allow candidates to include one and still match successfully */
+	/**
+	 * If this pattern has no trailing slash, allow candidates to include one and still match successfully
+	 */
 	private final boolean matchOptionalTrailingSeparator;
 
-	/** Will this match candidates in a case sensitive way? (case sensitivity  at parse time) */
+	/**
+	 * Will this match candidates in a case sensitive way? (case sensitivity  at parse time)
+	 */
 	private final boolean caseSensitive;
 
-	/** First path element in the parsed chain of path elements for this pattern */
+	/**
+	 * First path element in the parsed chain of path elements for this pattern
+	 */
 	@Nullable
 	private final PathElement head;
 
-	/** How many variables are captured in this pattern */
+	/**
+	 * How many variables are captured in this pattern
+	 */
 	private int capturedVariableCount;
 
 	/**
@@ -105,7 +119,7 @@ public class PathPattern implements Comparable<PathPattern> {
 	private int normalizedLength;
 
 	/**
-	 * Does the pattern end with '&lt;separator&gt;*' 
+	 * Does the pattern end with '&lt;separator&gt;*'
 	 */
 	private boolean endsWithSeparatorWildcard = false;
 
@@ -119,7 +133,9 @@ public class PathPattern implements Comparable<PathPattern> {
 	 */
 	private int score;
 
-	/** Does the pattern end with {*...} */
+	/**
+	 * Does the pattern end with {*...}
+	 */
 	private boolean catchAll = false;
 
 
@@ -158,19 +174,18 @@ public class PathPattern implements Comparable<PathPattern> {
 
 	/**
 	 * Whether this pattern matches the given path.
+	 *
 	 * @param pathContainer the candidate path to attempt to match against
 	 * @return {@code true} if the path matches this pattern
 	 */
 	public boolean matches(PathContainer pathContainer) {
 		if (this.head == null) {
-			return !hasLength(pathContainer) || 
-				(this.matchOptionalTrailingSeparator && pathContainerIsJustSeparator(pathContainer));
-		}
-		else if (!hasLength(pathContainer)) {
+			return !hasLength(pathContainer) ||
+					(this.matchOptionalTrailingSeparator && pathContainerIsJustSeparator(pathContainer));
+		} else if (!hasLength(pathContainer)) {
 			if (this.head instanceof WildcardTheRestPathElement || this.head instanceof CaptureTheRestPathElement) {
 				pathContainer = EMPTY_PATH; // Will allow CaptureTheRest to bind the variable to empty
-			}
-			else {
+			} else {
 				return false;
 			}
 		}
@@ -181,6 +196,7 @@ public class PathPattern implements Comparable<PathPattern> {
 	/**
 	 * Match this pattern to the given URI path and return extracted URI template
 	 * variables as well as path parameters (matrix variables).
+	 *
 	 * @param pathContainer the candidate path to attempt to match against
 	 * @return info object with the extracted variables, or {@code null} for no match
 	 */
@@ -188,14 +204,12 @@ public class PathPattern implements Comparable<PathPattern> {
 	public PathMatchInfo matchAndExtract(PathContainer pathContainer) {
 		if (this.head == null) {
 			return hasLength(pathContainer) &&
-				!(this.matchOptionalTrailingSeparator && pathContainerIsJustSeparator(pathContainer))
-				? null : PathMatchInfo.EMPTY;
-		}
-		else if (!hasLength(pathContainer)) {
+					!(this.matchOptionalTrailingSeparator && pathContainerIsJustSeparator(pathContainer))
+					? null : PathMatchInfo.EMPTY;
+		} else if (!hasLength(pathContainer)) {
 			if (this.head instanceof WildcardTheRestPathElement || this.head instanceof CaptureTheRestPathElement) {
 				pathContainer = EMPTY_PATH; // Will allow CaptureTheRest to bind the variable to empty
-			}
-			else {
+			} else {
 				return null;
 			}
 		}
@@ -207,6 +221,7 @@ public class PathPattern implements Comparable<PathPattern> {
 	 * Match the beginning of the given path and return the remaining portion
 	 * not covered by this pattern. This is useful for matching nested routes
 	 * where the path is matched incrementally at each level.
+	 *
 	 * @param pathContainer the candidate path to attempt to match against
 	 * @return info object with the match result or {@code null} for no match
 	 */
@@ -214,8 +229,7 @@ public class PathPattern implements Comparable<PathPattern> {
 	public PathRemainingMatchInfo matchStartOfPath(PathContainer pathContainer) {
 		if (this.head == null) {
 			return new PathRemainingMatchInfo(pathContainer);
-		}
-		else if (!hasLength(pathContainer)) {
+		} else if (!hasLength(pathContainer)) {
 			return null;
 		}
 
@@ -224,13 +238,11 @@ public class PathPattern implements Comparable<PathPattern> {
 		boolean matches = this.head.matches(0, matchingContext);
 		if (!matches) {
 			return null;
-		}
-		else {
+		} else {
 			PathRemainingMatchInfo info;
 			if (matchingContext.remainingPathIndex == pathContainer.elements().size()) {
 				info = new PathRemainingMatchInfo(EMPTY_PATH, matchingContext.getPathMatchResult());
-			}
-			else {
+			} else {
 				info = new PathRemainingMatchInfo(pathContainer.subPath(matchingContext.remainingPathIndex),
 						matchingContext.getPathMatchResult());
 			}
@@ -253,6 +265,7 @@ public class PathPattern implements Comparable<PathPattern> {
 	 * <li>Duplicate occurrences of separators within the returned result are removed
 	 * <li>Leading and trailing separators are removed from the returned result
 	 * </ul>
+	 *
 	 * @param path a path that matches this pattern
 	 * @return the subset of the path that is matched by pattern or "" if none
 	 * of it is matched by pattern elements
@@ -275,26 +288,26 @@ public class PathPattern implements Comparable<PathPattern> {
 			// There is no pattern piece
 			return PathContainer.parsePath("");
 		}
-		
+
 		// Skip leading separators that would be in the result
 		while (startIndex < pathElementsCount && (pathElements.get(startIndex) instanceof Separator)) {
 			startIndex++;
 		}
-		
+
 		int endIndex = pathElements.size();
 		// Skip trailing separators that would be in the result
 		while (endIndex > 0 && (pathElements.get(endIndex - 1) instanceof Separator)) {
 			endIndex--;
 		}
-		
+
 		boolean multipleAdjacentSeparators = false;
 		for (int i = startIndex; i < (endIndex - 1); i++) {
-			if ((pathElements.get(i) instanceof Separator) && (pathElements.get(i+1) instanceof Separator)) {
-				multipleAdjacentSeparators=true;
+			if ((pathElements.get(i) instanceof Separator) && (pathElements.get(i + 1) instanceof Separator)) {
+				multipleAdjacentSeparators = true;
 				break;
 			}
 		}
-		
+
 		PathContainer resultPath = null;
 		if (multipleAdjacentSeparators) {
 			// Need to rebuild the path without the duplicate adjacent separators
@@ -306,15 +319,13 @@ public class PathPattern implements Comparable<PathPattern> {
 				if (e instanceof Separator) {
 					while (i < endIndex && (pathElements.get(i) instanceof Separator)) {
 						i++;
-					} 
+					}
 				}
 			}
 			resultPath = PathContainer.parsePath(buf.toString());
-		}
-		else if (startIndex >= endIndex) {
+		} else if (startIndex >= endIndex) {
 			resultPath = PathContainer.parsePath("");
-		}
-		else {
+		} else {
 			resultPath = path.subPath(startIndex, endIndex);
 		}
 		return resultPath;
@@ -340,12 +351,10 @@ public class PathPattern implements Comparable<PathPattern> {
 		if (!StringUtils.hasLength(this.patternString)) {
 			if (!StringUtils.hasLength(pattern2string.patternString)) {
 				return parser.parse("");
-			}
-			else {
+			} else {
 				return pattern2string;
 			}
-		}
-		else if (!StringUtils.hasLength(pattern2string.patternString)) {
+		} else if (!StringUtils.hasLength(pattern2string.patternString)) {
 			return this;
 		}
 
@@ -354,7 +363,7 @@ public class PathPattern implements Comparable<PathPattern> {
 		// However:
 		// /usr + /user => /usr/user 
 		// /{foo} + /bar => /{foo}/bar
-		if (!this.patternString.equals(pattern2string.patternString) && this.capturedVariableCount == 0 && 
+		if (!this.patternString.equals(pattern2string.patternString) && this.capturedVariableCount == 0 &&
 				matches(PathContainer.parsePath(pattern2string.patternString))) {
 			return pattern2string;
 		}
@@ -425,7 +434,7 @@ public class PathPattern implements Comparable<PathPattern> {
 
 
 		PathMatchInfo(Map<String, String> uriVars,
-				@Nullable Map<String, MultiValueMap<String, String>> matrixVars) {
+					  @Nullable Map<String, MultiValueMap<String, String>> matrixVars) {
 
 			this.uriVariables = Collections.unmodifiableMap(uriVars);
 			this.matrixVariables = matrixVars != null ?
@@ -547,7 +556,7 @@ public class PathPattern implements Comparable<PathPattern> {
 		}
 		return buf.toString();
 	}
-	
+
 	@Nullable
 	PathElement getHeadSection() {
 		return this.head;
@@ -596,7 +605,7 @@ public class PathPattern implements Comparable<PathPattern> {
 			return matchOptionalTrailingSeparator;
 		}
 
-		public void set(String key, String value, MultiValueMap<String,String> parameters) {
+		public void set(String key, String value, MultiValueMap<String, String> parameters) {
 			if (this.extractedUriVariables == null) {
 				this.extractedUriVariables = new HashMap<>();
 			}
@@ -613,8 +622,7 @@ public class PathPattern implements Comparable<PathPattern> {
 		public PathMatchInfo getPathMatchResult() {
 			if (this.extractedUriVariables == null) {
 				return PathMatchInfo.EMPTY;
-			}
-			else {
+			} else {
 				return new PathMatchInfo(this.extractedUriVariables, this.extractedMatrixVariables);
 			}
 		}
@@ -634,7 +642,7 @@ public class PathPattern implements Comparable<PathPattern> {
 		String pathElementValue(int pathIndex) {
 			Element element = (pathIndex < pathLength) ? pathElements.get(pathIndex) : null;
 			if (element instanceof PathContainer.PathSegment) {
-				return ((PathContainer.PathSegment)element).valueToMatch();
+				return ((PathContainer.PathSegment) element).valueToMatch();
 			}
 			return "";
 		}
@@ -644,6 +652,7 @@ public class PathPattern implements Comparable<PathPattern> {
 	 * Join two paths together including a separator if necessary.
 	 * Extraneous separators are removed (if the first path
 	 * ends with one and the second path starts with one).
+	 *
 	 * @param path1 first path
 	 * @param path2 second path
 	 * @return joined path that may include separator if necessary
@@ -653,11 +662,9 @@ public class PathPattern implements Comparable<PathPattern> {
 		boolean path2StartsWithSeparator = (path2.charAt(0) == this.separator);
 		if (path1EndsWithSeparator && path2StartsWithSeparator) {
 			return path1 + path2.substring(1);
-		}
-		else if (path1EndsWithSeparator || path2StartsWithSeparator) {
+		} else if (path1EndsWithSeparator || path2StartsWithSeparator) {
 			return path1 + path2;
-		}
-		else {
+		} else {
 			return path1 + this.separator + path2;
 		}
 	}
@@ -693,9 +700,9 @@ public class PathPattern implements Comparable<PathPattern> {
 	private static int scoreByNormalizedLength(PathPattern pattern) {
 		return -pattern.getNormalizedLength();
 	}
-	
+
 	private boolean pathContainerIsJustSeparator(PathContainer pathContainer) {
-		return pathContainer.value().length() == 1 && 
+		return pathContainer.value().length() == 1 &&
 				pathContainer.value().charAt(0) == separator;
 	}
 

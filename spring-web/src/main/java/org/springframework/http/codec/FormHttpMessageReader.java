@@ -84,14 +84,14 @@ public class FormHttpMessageReader implements HttpMessageReader<MultiValueMap<St
 
 	@Override
 	public Flux<MultiValueMap<String, String>> read(ResolvableType elementType,
-			ReactiveHttpInputMessage message, Map<String, Object> hints) {
+													ReactiveHttpInputMessage message, Map<String, Object> hints) {
 
 		return Flux.from(readMono(elementType, message, hints));
 	}
 
 	@Override
 	public Mono<MultiValueMap<String, String>> readMono(ResolvableType elementType,
-			ReactiveHttpInputMessage message, Map<String, Object> hints) {
+														ReactiveHttpInputMessage message, Map<String, Object> hints) {
 
 		MediaType contentType = message.getHeaders().getContentType();
 		Charset charset = getMediaTypeCharset(contentType);
@@ -108,8 +108,7 @@ public class FormHttpMessageReader implements HttpMessageReader<MultiValueMap<St
 	private Charset getMediaTypeCharset(@Nullable MediaType mediaType) {
 		if (mediaType != null && mediaType.getCharset() != null) {
 			return mediaType.getCharset();
-		}
-		else {
+		} else {
 			return getDefaultCharset();
 		}
 	}
@@ -122,15 +121,13 @@ public class FormHttpMessageReader implements HttpMessageReader<MultiValueMap<St
 				int idx = pair.indexOf('=');
 				if (idx == -1) {
 					result.add(URLDecoder.decode(pair, charset.name()), null);
-				}
-				else {
-					String name = URLDecoder.decode(pair.substring(0, idx),  charset.name());
+				} else {
+					String name = URLDecoder.decode(pair.substring(0, idx), charset.name());
 					String value = URLDecoder.decode(pair.substring(idx + 1), charset.name());
 					result.add(name, value);
 				}
 			}
-		}
-		catch (UnsupportedEncodingException ex) {
+		} catch (UnsupportedEncodingException ex) {
 			throw new IllegalStateException(ex);
 		}
 		return result;

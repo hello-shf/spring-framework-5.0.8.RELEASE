@@ -57,12 +57,13 @@ public class ResourceHandlerRegistry {
 
 	private final List<ResourceHandlerRegistration> registrations = new ArrayList<>();
 
-	private int order = Ordered.LOWEST_PRECEDENCE -1;
+	private int order = Ordered.LOWEST_PRECEDENCE - 1;
 
 
 	/**
 	 * Create a new resource handler registry for the given resource loader
 	 * (typically an application context).
+	 *
 	 * @param resourceLoader the resource loader to use
 	 */
 	public ResourceHandlerRegistry(ResourceLoader resourceLoader) {
@@ -77,6 +78,7 @@ public class ResourceHandlerRegistry {
 	 * <p>Patterns like {@code "/static/**"} or {@code "/css/{filename:\\w+\\.css}"}
 	 * are allowed. See {@link org.springframework.web.util.pattern.PathPattern}
 	 * for more details on the syntax.
+	 *
 	 * @return A {@link ResourceHandlerRegistration} to use to further
 	 * configure the registered resource handler
 	 */
@@ -123,8 +125,7 @@ public class ResourceHandlerRegistry {
 				ResourceWebHandler handler = registration.getRequestHandler();
 				try {
 					handler.afterPropertiesSet();
-				}
-				catch (Throwable ex) {
+				} catch (Throwable ex) {
 					throw new BeanInitializationException("Failed to init ResourceHttpRequestHandler", ex);
 				}
 				urlMap.put(pathPattern, handler);

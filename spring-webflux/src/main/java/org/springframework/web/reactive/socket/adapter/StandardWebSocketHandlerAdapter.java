@@ -37,7 +37,7 @@ import org.springframework.web.reactive.socket.WebSocketSession;
 /**
  * Adapter for Java WebSocket API (JSR-356) that delegates events to a reactive
  * {@link WebSocketHandler} and its session.
- * 
+ *
  * @author Violeta Georgieva
  * @author Rossen Stoyanchev
  * @since 5.0
@@ -53,7 +53,7 @@ public class StandardWebSocketHandlerAdapter extends Endpoint {
 
 
 	public StandardWebSocketHandlerAdapter(WebSocketHandler handler,
-			Function<Session, StandardWebSocketSession> sessionFactory) {
+										   Function<Session, StandardWebSocketSession> sessionFactory) {
 
 		Assert.notNull(handler, "WebSocketHandler is required");
 		Assert.notNull(sessionFactory, "'sessionFactory' is required");
@@ -89,16 +89,13 @@ public class StandardWebSocketHandlerAdapter extends Endpoint {
 		if (message instanceof String) {
 			byte[] bytes = ((String) message).getBytes(StandardCharsets.UTF_8);
 			return new WebSocketMessage(Type.TEXT, session.bufferFactory().wrap(bytes));
-		}
-		else if (message instanceof ByteBuffer) {
+		} else if (message instanceof ByteBuffer) {
 			DataBuffer buffer = session.bufferFactory().wrap((ByteBuffer) message);
 			return new WebSocketMessage(Type.BINARY, buffer);
-		}
-		else if (message instanceof PongMessage) {
+		} else if (message instanceof PongMessage) {
 			DataBuffer buffer = session.bufferFactory().wrap(((PongMessage) message).getApplicationData());
 			return new WebSocketMessage(Type.PONG, buffer);
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException("Unexpected message type: " + message);
 		}
 	}

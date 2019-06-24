@@ -101,17 +101,17 @@ public class ResourceUrlProvider implements ApplicationListener<ContextRefreshed
 		AnnotationAwareOrderComparator.sort(mappings);
 
 		mappings.forEach(mapping ->
-			mapping.getHandlerMap().forEach((pattern, handler) -> {
-				if (handler instanceof ResourceWebHandler) {
-					ResourceWebHandler resourceHandler = (ResourceWebHandler) handler;
-					if (logger.isDebugEnabled()) {
-						logger.debug("Found resource handler mapping: URL pattern=\"" + pattern + "\", " +
-								"locations=" + resourceHandler.getLocations() + ", " +
-								"resolvers=" + resourceHandler.getResourceResolvers());
+				mapping.getHandlerMap().forEach((pattern, handler) -> {
+					if (handler instanceof ResourceWebHandler) {
+						ResourceWebHandler resourceHandler = (ResourceWebHandler) handler;
+						if (logger.isDebugEnabled()) {
+							logger.debug("Found resource handler mapping: URL pattern=\"" + pattern + "\", " +
+									"locations=" + resourceHandler.getLocations() + ", " +
+									"resolvers=" + resourceHandler.getResourceResolvers());
+						}
+						this.handlerMap.put(pattern, resourceHandler);
 					}
-					this.handlerMap.put(pattern, resourceHandler);
-				}
-			}));
+				}));
 	}
 
 
@@ -119,8 +119,9 @@ public class ResourceUrlProvider implements ApplicationListener<ContextRefreshed
 	 * Get the public resource URL for the given URI string.
 	 * <p>The URI string is expected to be a path and if it contains a query or
 	 * fragment those will be preserved in the resulting public resource URL.
+	 *
 	 * @param uriString the URI string to transform
-	 * @param exchange the current exchange
+	 * @param exchange  the current exchange
 	 * @return the resolved public resource URL path, or empty if unresolved
 	 */
 	public final Mono<String> getForUriString(String uriString, ServerWebExchange exchange) {
@@ -184,8 +185,7 @@ public class ResourceUrlProvider implements ApplicationListener<ContextRefreshed
 	private static String prependLeadingSlash(String pattern) {
 		if (StringUtils.hasLength(pattern) && !pattern.startsWith("/")) {
 			return "/" + pattern;
-		}
-		else {
+		} else {
 			return pattern;
 		}
 	}

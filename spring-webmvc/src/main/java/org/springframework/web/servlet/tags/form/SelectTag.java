@@ -234,8 +234,8 @@ import org.springframework.web.servlet.support.BindStatus;
  *
  * @author Rob Harrop
  * @author Juergen Hoeller
- * @since 2.0
  * @see OptionTag
+ * @since 2.0
  */
 @SuppressWarnings("serial")
 public class SelectTag extends AbstractHtmlInputElementTag {
@@ -297,6 +297,7 @@ public class SelectTag extends AbstractHtmlInputElementTag {
 	 * <p>Required when wishing to render '{@code option}' tags from
 	 * an array, {@link Collection} or {@link Map}.
 	 * <p>Typically a runtime expression.
+	 *
 	 * @param items the items that comprise the options of this selection
 	 */
 	public void setItems(Object items) {
@@ -419,8 +420,7 @@ public class SelectTag extends AbstractHtmlInputElementTag {
 			tagWriter.endTag(true);
 			writeHiddenTagIfNecessary(tagWriter);
 			return SKIP_BODY;
-		}
-		else {
+		} else {
 			// Using nested <form:option/> tags, so just expose the value in the PageContext...
 			tagWriter.forceBlock();
 			this.tagWriter = tagWriter;
@@ -463,8 +463,7 @@ public class SelectTag extends AbstractHtmlInputElementTag {
 		Class<?> valueType = bindStatus.getValueType();
 		if (valueType != null && typeRequiresMultiple(valueType)) {
 			return true;
-		}
-		else if (bindStatus.getEditor() != null) {
+		} else if (bindStatus.getEditor() != null) {
 			Object editorValue = bindStatus.getEditor().getValue();
 			if (editorValue != null && typeRequiresMultiple(editorValue.getClass())) {
 				return true;

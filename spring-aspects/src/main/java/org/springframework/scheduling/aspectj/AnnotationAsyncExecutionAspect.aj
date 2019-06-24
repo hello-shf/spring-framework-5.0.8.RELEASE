@@ -47,41 +47,41 @@ import org.springframework.scheduling.annotation.Async;
  */
 public aspect AnnotationAsyncExecutionAspect extends AbstractAsyncExecutionAspect {
 
-	private pointcut asyncMarkedMethod() : execution(@Async (void || Future+) *(..));
+    private pointcut asyncMarkedMethod(): execution(@Async (void || Future+) *(..));
 
-	private pointcut asyncTypeMarkedMethod() : execution((void || Future+) (@Async *).*(..));
+    private pointcut asyncTypeMarkedMethod(): execution((void || Future+) (@Async *).*(..));
 
-	public pointcut asyncMethod() : asyncMarkedMethod() || asyncTypeMarkedMethod();
-
-
-	/**
-	 * This implementation inspects the given method and its declaring class for the
-	 * {@code @Async} annotation, returning the qualifier value expressed by {@link Async#value()}.
-	 * If {@code @Async} is specified at both the method and class level, the method's
-	 * {@code #value} takes precedence (even if empty string, indicating that the default
-	 * executor should be used preferentially).
-	 * @return the qualifier if specified, otherwise empty string indicating that the
-	 * {@linkplain #setExecutor default executor} should be used
-	 * @see #determineAsyncExecutor(Method)
-	 */
-	@Override
-	protected String getExecutorQualifier(Method method) {
-		// Maintainer's note: changes made here should also be made in
-		// AnnotationAsyncExecutionInterceptor#getExecutorQualifier
-		Async async = AnnotatedElementUtils.findMergedAnnotation(method, Async.class);
-		if (async == null) {
-			async = AnnotatedElementUtils.findMergedAnnotation(method.getDeclaringClass(), Async.class);
-		}
-		return (async != null ? async.value() : null);
-	}
+    public pointcut asyncMethod(): asyncMarkedMethod() || asyncTypeMarkedMethod();
 
 
-	declare error:
-		execution(@Async !(void || Future+) *(..)):
-		"Only methods that return void or Future may have an @Async annotation";
+    /**
+     * This implementation inspects the given method and its declaring class for the
+     * {@code @Async} annotation, returning the qualifier value expressed by {@link Async#value()}.
+     * If {@code @Async} is specified at both the method and class level, the method's
+     * {@code #value} takes precedence (even if empty string, indicating that the default
+     * executor should be used preferentially).
+     * @return the qualifier if specified, otherwise empty string indicating that the
+     * {@linkplain #setExecutor default executor} should be used
+     * @see #determineAsyncExecutor(Method)
+     */
+    @Override
+    protected String getExecutorQualifier(Method method) {
+        // Maintainer's note: changes made here should also be made in
+        // AnnotationAsyncExecutionInterceptor#getExecutorQualifier
+        Async async = AnnotatedElementUtils.findMergedAnnotation(method, Async.class);
+        if (async == null) {
+            async = AnnotatedElementUtils.findMergedAnnotation(method.getDeclaringClass(), Async.class);
+        }
+        return (async != null ? async.value() : null);
+    }
 
-	declare warning:
-		execution(!(void || Future+) (@Async *).*(..)):
-		"Methods in a class marked with @Async that do not return void or Future will be routed synchronously";
+
+    declare error:
+            execution(@Async !(void || Future+) *(..)):
+            "Only methods that return void or Future may have an @Async annotation";
+
+    declare warning:
+            execution(!(void || Future+) (@Async *).*(..)):
+            "Methods in a class marked with @Async that do not return void or Future will be routed synchronously";
 
 }
