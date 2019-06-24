@@ -36,9 +36,9 @@ import org.springframework.util.ExceptionTypeFilter;
 /**
  * A base {@link JCacheOperation} implementation.
  *
+ * @param <A> the annotation type
  * @author Stephane Nicoll
  * @since 4.1
- * @param <A> the annotation type
  */
 abstract class AbstractJCacheOperation<A extends Annotation> implements JCacheOperation<A> {
 
@@ -51,6 +51,7 @@ abstract class AbstractJCacheOperation<A extends Annotation> implements JCacheOp
 
 	/**
 	 * Construct a new {@code AbstractJCacheOperation}.
+	 *
 	 * @param methodDetails the {@link CacheMethodDetails} related to the cached method
 	 * @param cacheResolver the cache resolver to resolve regular caches
 	 */

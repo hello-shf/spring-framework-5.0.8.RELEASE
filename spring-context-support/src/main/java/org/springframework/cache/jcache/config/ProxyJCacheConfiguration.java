@@ -31,9 +31,9 @@ import org.springframework.context.annotation.Role;
  * <p>Can safely be used alongside Spring's caching support.
  *
  * @author Stephane Nicoll
- * @since 4.1
  * @see org.springframework.cache.annotation.EnableCaching
  * @see org.springframework.cache.annotation.CachingConfigurationSelector
+ * @since 4.1
  */
 @Configuration
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)

@@ -25,9 +25,9 @@ import org.springframework.util.Assert;
  * Simple Work adapter that delegates to a given Runnable.
  *
  * @author Juergen Hoeller
- * @since 2.0
  * @see commonj.work.Work
  * @see java.lang.Runnable
+ * @since 2.0
  */
 public class DelegatingWork implements Work {
 
@@ -36,8 +36,9 @@ public class DelegatingWork implements Work {
 
 	/**
 	 * Create a new DelegatingWork.
+	 *
 	 * @param delegate the Runnable implementation to delegate to
-	 * (may be a SchedulingAwareRunnable for extended support)
+	 *                 (may be a SchedulingAwareRunnable for extended support)
 	 * @see org.springframework.scheduling.SchedulingAwareRunnable
 	 * @see #isDaemon()
 	 */

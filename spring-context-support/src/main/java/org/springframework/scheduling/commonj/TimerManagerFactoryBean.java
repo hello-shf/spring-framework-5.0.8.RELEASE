@@ -47,10 +47,10 @@ import org.springframework.lang.Nullable;
  * instantiates a new Job for each execution.
  *
  * @author Juergen Hoeller
- * @since 2.0
  * @see ScheduledTimerListener
  * @see commonj.timers.TimerManager
  * @see commonj.timers.TimerListener
+ * @since 2.0
  */
 public class TimerManagerFactoryBean extends TimerManagerAccessor
 		implements FactoryBean<TimerManager>, InitializingBean, DisposableBean, Lifecycle {
@@ -65,6 +65,7 @@ public class TimerManagerFactoryBean extends TimerManagerAccessor
 	 * Register a list of ScheduledTimerListener objects with the TimerManager
 	 * that this FactoryBean creates. Depending on each ScheduledTimerListener's settings,
 	 * it will be registered via one of TimerManager's schedule methods.
+	 *
 	 * @see commonj.timers.TimerManager#schedule(commonj.timers.TimerListener, long)
 	 * @see commonj.timers.TimerManager#schedule(commonj.timers.TimerListener, long, long)
 	 * @see commonj.timers.TimerManager#scheduleAtFixedRate(commonj.timers.TimerListener, long, long)
@@ -88,13 +89,11 @@ public class TimerManagerFactoryBean extends TimerManagerAccessor
 				Timer timer;
 				if (scheduledTask.isOneTimeTask()) {
 					timer = timerManager.schedule(scheduledTask.getTimerListener(), scheduledTask.getDelay());
-				}
-				else {
+				} else {
 					if (scheduledTask.isFixedRate()) {
 						timer = timerManager.scheduleAtFixedRate(
 								scheduledTask.getTimerListener(), scheduledTask.getDelay(), scheduledTask.getPeriod());
-					}
-					else {
+					} else {
 						timer = timerManager.schedule(
 								scheduledTask.getTimerListener(), scheduledTask.getDelay(), scheduledTask.getPeriod());
 					}
@@ -134,6 +133,7 @@ public class TimerManagerFactoryBean extends TimerManagerAccessor
 	/**
 	 * Cancels all statically registered Timers on shutdown,
 	 * and stops the underlying TimerManager (if not shared).
+	 *
 	 * @see commonj.timers.Timer#cancel()
 	 * @see commonj.timers.TimerManager#stop()
 	 */
@@ -143,8 +143,7 @@ public class TimerManagerFactoryBean extends TimerManagerAccessor
 		for (Timer timer : this.timers) {
 			try {
 				timer.cancel();
-			}
-			catch (Throwable ex) {
+			} catch (Throwable ex) {
 				logger.warn("Could not cancel CommonJ Timer", ex);
 			}
 		}

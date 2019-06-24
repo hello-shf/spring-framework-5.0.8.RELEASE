@@ -53,6 +53,7 @@ public class JCacheCacheManager extends AbstractTransactionSupportingCacheManage
 
 	/**
 	 * Create a new JCacheCacheManager for the given backing JCache.
+	 *
 	 * @param cacheManager the backing JCache {@link javax.cache.CacheManager}
 	 */
 	public JCacheCacheManager(CacheManager cacheManager) {

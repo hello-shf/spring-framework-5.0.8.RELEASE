@@ -40,6 +40,7 @@ abstract class AbstractKeyCacheInterceptor<O extends AbstractJCacheKeyOperation<
 
 	/**
 	 * Generate a key for the specified invocation.
+	 *
 	 * @param context the context of the invocation
 	 * @return the key to use
 	 */
@@ -54,6 +55,7 @@ abstract class AbstractKeyCacheInterceptor<O extends AbstractJCacheKeyOperation<
 
 	/**
 	 * Create a {@link CacheKeyInvocationContext} based on the specified invocation.
+	 *
 	 * @param context the context of the invocation.
 	 * @return the related {@code CacheKeyInvocationContext}
 	 */
