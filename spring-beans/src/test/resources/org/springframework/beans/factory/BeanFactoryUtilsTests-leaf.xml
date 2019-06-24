@@ -4,8 +4,12 @@
 <beans>
 
 	<bean id="test3" class="org.springframework.tests.sample.beans.TestBean" scope="prototype">
-		<property name="name"><value>custom</value></property>
-		<property name="age"><value>25</value></property>
+		<property name="name">
+			<value>custom</value>
+		</property>
+		<property name="age">
+			<value>25</value>
+		</property>
 	</bean>
 
 </beans>	

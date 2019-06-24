@@ -35,7 +35,8 @@ public interface DestructionAwareBeanPostProcessor extends BeanPostProcessor {
 	 * <p>Like DisposableBean's {@code destroy} and a custom destroy method,
 	 * this callback just applies to singleton beans in the factory (including
 	 * inner beans).
-	 * @param bean the bean instance to be destroyed
+	 *
+	 * @param bean     the bean instance to be destroyed
 	 * @param beanName the name of the bean
 	 * @throws org.springframework.beans.BeansException in case of errors
 	 * @see org.springframework.beans.factory.DisposableBean
@@ -56,6 +57,7 @@ public interface DestructionAwareBeanPostProcessor extends BeanPostProcessor {
 	 * not provide a concrete implementation of this method, Spring's invocation
 	 * mechanism silently assumes a method returning {@code true} (the effective
 	 * default before 4.3, and the to-be-default in the Java 8 method in Spring 5).
+	 *
 	 * @param bean the bean instance to check
 	 * @return {@code true} if {@link #postProcessBeforeDestruction} is supposed to
 	 * be called for this bean instance eventually, or {@code false} if not needed

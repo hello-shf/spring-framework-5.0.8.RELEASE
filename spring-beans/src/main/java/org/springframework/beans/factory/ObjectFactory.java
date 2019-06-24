@@ -32,8 +32,8 @@ import org.springframework.beans.BeansException;
  * {@code getObject()} method has different exception handling behavior.
  *
  * @author Colin Sampaleanu
- * @since 1.0.2
  * @see FactoryBean
+ * @since 1.0.2
  */
 @FunctionalInterface
 public interface ObjectFactory<T> {
@@ -41,6 +41,7 @@ public interface ObjectFactory<T> {
 	/**
 	 * Return an instance (possibly shared or independent)
 	 * of the object managed by this factory.
+	 *
 	 * @return the resulting instance
 	 * @throws BeansException in case of creation errors
 	 */

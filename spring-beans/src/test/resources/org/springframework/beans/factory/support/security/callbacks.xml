@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
-	default-lazy-init="true">
+	   default-lazy-init="true">
 
 	<bean name="spring-init" class="org.springframework.beans.factory.support.security.support.InitBean"/>
 
 	<bean name="spring-destroy" class="org.springframework.beans.factory.support.security.support.DestroyBean"/>
 
 	<bean name="custom-init" class="org.springframework.beans.factory.support.security.support.CustomCallbackBean"
-			init-method="init"/>
+		  init-method="init"/>
 
 	<bean name="custom-destroy" class="org.springframework.beans.factory.support.security.support.CustomCallbackBean"
-			destroy-method="destroy"/>
+		  destroy-method="destroy"/>
 
 	<bean name="spring-factory" class="org.springframework.beans.factory.support.security.support.CustomFactoryBean"/>
 
-	<bean name="custom-static-factory-method" class="org.springframework.beans.factory.support.security.support.FactoryBean" factory-method="makeStaticInstance"/>
+	<bean name="custom-static-factory-method"
+		  class="org.springframework.beans.factory.support.security.support.FactoryBean"
+		  factory-method="makeStaticInstance"/>
 
 	<bean name="factory-bean" class="org.springframework.beans.factory.support.security.support.FactoryBean"/>
 
@@ -25,7 +27,8 @@
 
 	<bean name="constructor" class="org.springframework.beans.factory.support.security.support.ConstructorBean"/>
 
-	<bean name="working-factory-method" class="org.springframework.beans.factory.support.security.support.FactoryBean" factory-method="protectedStaticInstance"/>
+	<bean name="working-factory-method" class="org.springframework.beans.factory.support.security.support.FactoryBean"
+		  factory-method="protectedStaticInstance"/>
 
 	<bean name="container-execution" class="org.springframework.beans.factory.support.security.support.ConstructorBean">
 		<constructor-arg ref="working-factory-method"/>
@@ -35,7 +38,8 @@
 		<property name="securityProperty" value="value"/>
 	</bean>
 
-	<bean name="working-property-injection" class="org.springframework.beans.factory.support.security.support.PropertyBean">
+	<bean name="working-property-injection"
+		  class="org.springframework.beans.factory.support.security.support.PropertyBean">
 		<property name="property">
 			<array>
 				<ref bean="working-factory-method"/>
@@ -46,36 +50,43 @@
 	<bean name="privileged-static-factory-method" class="java.lang.System" factory-method="getProperties"/>
 
 	<!-- check trusted beans -->
-	<bean name="trusted-spring-callbacks" class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedSpringCallbacksBean">
+	<bean name="trusted-spring-callbacks"
+		  class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedSpringCallbacksBean">
 		<constructor-arg value="user1"/>
 	</bean>
 
-	<bean name="trusted-custom-init-destroy" class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedBean"
-			init-method="init" destroy-method="destroy">
+	<bean name="trusted-custom-init-destroy"
+		  class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedBean"
+		  init-method="init" destroy-method="destroy">
 		<constructor-arg value="user1"/>
 	</bean>
 
-	<bean name="trusted-spring-factory" class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedFactoryBean">
+	<bean name="trusted-spring-factory"
+		  class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedFactoryBean">
 		<constructor-arg value="user1"/>
 	</bean>
 
-	<bean name="trusted-static-factory-method" class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedFactory"
-		factory-method="makeStaticInstance">
-		<constructor-arg value="user1"/>		
+	<bean name="trusted-static-factory-method"
+		  class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedFactory"
+		  factory-method="makeStaticInstance">
+		<constructor-arg value="user1"/>
 	</bean>
 
-	<bean name="trusted-factory-bean" class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedFactory">
+	<bean name="trusted-factory-bean"
+		  class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedFactory">
 		<constructor-arg value="user1"/>
 	</bean>
 
 	<bean name="trusted-factory-method" factory-bean="trusted-factory-bean" factory-method="makeInstance"/>
 
-	<bean name="trusted-property-injection" class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedBean">
+	<bean name="trusted-property-injection"
+		  class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedBean">
 		<constructor-arg value="user1"/>
 		<property name="property" value="value"/>
 	</bean>
 
-	<bean name="trusted-working-property-injection" class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedBean">
+	<bean name="trusted-working-property-injection"
+		  class="org.springframework.beans.factory.support.security.CallbacksSecurityTests$NonPrivilegedBean">
 		<constructor-arg value="user1"/>
 		<property name="property">
 			<map>

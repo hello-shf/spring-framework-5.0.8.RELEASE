@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:util="http://www.springframework.org/schema/util"
-		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
 				http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
 
 	<util:constant id="min" static-field="
@@ -112,14 +112,16 @@
 				<util:constant static-field="java.lang.Thread.State.RUNNABLE"/>
 			</set>
 		</property>
-	  <property name="someMap">
+		<property name="someMap">
 			<map>
 				<entry>
-					<key><value>min</value></key>
+					<key>
+						<value>min</value>
+					</key>
 					<util:constant static-field="org.springframework.tests.sample.beans.CustomEnum.VALUE_1"/>
 				</entry>
 			</map>
-	  </property>
+		</property>
 	</bean>
 
 	<bean id="circularCollectionsBean" class="org.springframework.tests.sample.beans.TestBean">
@@ -159,37 +161,37 @@
 	</bean>
 
 	<util:properties id="myProperties"
-			location="classpath:/org/springframework/beans/factory/xml/util.properties"/>
+					 location="classpath:/org/springframework/beans/factory/xml/util.properties"/>
 
 	<util:properties id="myScopedProperties"
-			location="classpath:/org/springframework/beans/factory/xml/util.properties,classpath:override.properties"
-			ignore-resource-not-found="true" scope="prototype"/>
+					 location="classpath:/org/springframework/beans/factory/xml/util.properties,classpath:override.properties"
+					 ignore-resource-not-found="true" scope="prototype"/>
 
 	<util:properties id="myLocalProperties">
 		<prop key="foo2">bar2</prop>
 	</util:properties>
 
 	<util:properties id="myMergedProperties"
-			location="classpath:/org/springframework/beans/factory/xml/util.properties">
+					 location="classpath:/org/springframework/beans/factory/xml/util.properties">
 		<prop key="foo2">bar2</prop>
 	</util:properties>
 
 	<util:properties id="defaultLocalOverrideProperties"
-			location="classpath:/org/springframework/beans/factory/xml/util.properties">
+					 location="classpath:/org/springframework/beans/factory/xml/util.properties">
 		<prop key="foo">local</prop>
 		<prop key="foo2">local2</prop>
 	</util:properties>
 
 	<util:properties id="trueLocalOverrideProperties"
-			location="classpath:/org/springframework/beans/factory/xml/util.properties"
-			local-override="true">
+					 location="classpath:/org/springframework/beans/factory/xml/util.properties"
+					 local-override="true">
 		<prop key="foo">local</prop>
 		<prop key="foo2">local2</prop>
 	</util:properties>
 
 	<util:properties id="falseLocalOverrideProperties"
-			location="classpath:/org/springframework/beans/factory/xml/util.properties"
-			local-override="false">
+					 location="classpath:/org/springframework/beans/factory/xml/util.properties"
+					 local-override="false">
 		<prop key="foo">local</prop>
 		<prop key="foo2">local2</prop>
 	</util:properties>

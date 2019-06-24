@@ -21,7 +21,7 @@ import org.junit.Test
 
 /**
  * Kotlin tests for {@link BeanUtils}.
- * 
+ *
  * @author Sebastien Deleuze
  */
 @Suppress("unused", "UNUSED_PARAMETER")
@@ -52,7 +52,7 @@ class BeanUtilsKotlinTests {
 	}
 
 	@Test
-		fun `Instantiate immutable class with optional parameter specified with null value`() {
+	fun `Instantiate immutable class with optional parameter specified with null value`() {
 		val constructor = BeanUtils.findPrimaryConstructor(Bar::class.java)!!
 		val bar = BeanUtils.instantiateClass(constructor, "a", null)
 		assertEquals("a", bar.param1)

@@ -38,7 +38,7 @@ import static org.springframework.tests.TestResourceUtils.*;
 public class FieldRetrievingFactoryBeanTests {
 
 	private static final Resource CONTEXT =
-		qualifiedResource(FieldRetrievingFactoryBeanTests.class, "context.xml");
+			qualifiedResource(FieldRetrievingFactoryBeanTests.class, "context.xml");
 
 	@Test
 	public void testStaticField() throws Exception {
@@ -89,8 +89,7 @@ public class FieldRetrievingFactoryBeanTests {
 		fr.setTargetField("TRANSACTION_SERIALIZABLE");
 		try {
 			fr.afterPropertiesSet();
-		}
-		catch (IllegalArgumentException expected) {
+		} catch (IllegalArgumentException expected) {
 		}
 	}
 
@@ -100,8 +99,7 @@ public class FieldRetrievingFactoryBeanTests {
 		fr.setTargetClass(Connection.class);
 		try {
 			fr.afterPropertiesSet();
-		}
-		catch (IllegalArgumentException expected) {
+		} catch (IllegalArgumentException expected) {
 		}
 	}
 
@@ -111,8 +109,7 @@ public class FieldRetrievingFactoryBeanTests {
 		fr.setTargetObject(new PublicFieldHolder());
 		try {
 			fr.afterPropertiesSet();
-		}
-		catch (IllegalArgumentException expected) {
+		} catch (IllegalArgumentException expected) {
 		}
 	}
 

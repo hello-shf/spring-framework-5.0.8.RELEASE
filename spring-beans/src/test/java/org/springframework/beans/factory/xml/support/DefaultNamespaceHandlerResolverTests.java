@@ -54,8 +54,7 @@ public class DefaultNamespaceHandlerResolverTests {
 		try {
 			new DefaultNamespaceHandlerResolver(getClass().getClassLoader(), mappingPath);
 			// pass
-		}
-		catch (Throwable ex) {
+		} catch (Throwable ex) {
 			fail("Non-existent handler classes must be ignored: " + ex);
 		}
 	}
@@ -66,8 +65,7 @@ public class DefaultNamespaceHandlerResolverTests {
 		try {
 			new DefaultNamespaceHandlerResolver(getClass().getClassLoader(), mappingPath);
 			fail("Should not be able to map a class that doesn't implement NamespaceHandler");
-		}
-		catch (Throwable expected) {
+		} catch (Throwable expected) {
 		}
 	}
 

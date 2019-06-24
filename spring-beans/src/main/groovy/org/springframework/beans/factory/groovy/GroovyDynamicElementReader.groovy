@@ -69,16 +69,14 @@ class GroovyDynamicElementReader extends GroovyObjectSupport {
 				this.callAfterInvocation = false
 			}
 			return result
-		}
-
-		else {
+		} else {
 			StreamingMarkupBuilder builder = new StreamingMarkupBuilder();
 			def myNamespace = this.rootNamespace
 			def myNamespaces = this.xmlNamespaces
 
 			def callable = {
 				for (namespace in myNamespaces) {
-					mkp.declareNamespace([(namespace.key):namespace.value])
+					mkp.declareNamespace([(namespace.key): namespace.value])
 				}
 				if (args && (args[-1] instanceof Closure)) {
 					args[-1].resolveStrategy = Closure.DELEGATE_FIRST
@@ -99,8 +97,7 @@ class GroovyDynamicElementReader extends GroovyObjectSupport {
 				BeanDefinitionHolder holder = this.beanDefinition.beanDefinitionHolder;
 				holder = this.delegate.decorateIfRequired(element, holder, null)
 				this.beanDefinition.setBeanDefinitionHolder(holder)
-			}
-			else {
+			} else {
 				def beanDefinition = this.delegate.parseCustomElement(element)
 				if (beanDefinition) {
 					this.beanDefinition.setBeanDefinition(beanDefinition)

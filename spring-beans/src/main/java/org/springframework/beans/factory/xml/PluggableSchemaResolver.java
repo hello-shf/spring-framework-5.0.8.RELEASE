@@ -41,7 +41,7 @@ import org.springframework.util.CollectionUtils;
  * <p>By default, this class will look for mapping files in the classpath using the pattern:
  * {@code META-INF/spring.schemas} allowing for multiple files to exist on the
  * classpath at any one time.
- *
+ * <p>
  * The format of {@code META-INF/spring.schemas} is a properties
  * file where each line should be of the form {@code systemId=schema-location}
  * where {@code schema-location} should also be a schema file in the classpath.
@@ -71,7 +71,9 @@ public class PluggableSchemaResolver implements EntityResolver {
 
 	private final String schemaMappingsLocation;
 
-	/** Stores the mapping of schema URL -> local schema path */
+	/**
+	 * Stores the mapping of schema URL -> local schema path
+	 */
 	@Nullable
 	private volatile Map<String, String> schemaMappings;
 
@@ -79,8 +81,9 @@ public class PluggableSchemaResolver implements EntityResolver {
 	/**
 	 * Loads the schema URL -> schema file location mappings using the default
 	 * mapping file pattern "META-INF/spring.schemas".
+	 *
 	 * @param classLoader the ClassLoader to use for loading
-	 * (can be {@code null}) to use the default ClassLoader)
+	 *                    (can be {@code null}) to use the default ClassLoader)
 	 * @see PropertiesLoaderUtils#loadAllProperties(String, ClassLoader)
 	 */
 	public PluggableSchemaResolver(@Nullable ClassLoader classLoader) {
@@ -91,10 +94,11 @@ public class PluggableSchemaResolver implements EntityResolver {
 	/**
 	 * Loads the schema URL -> schema file location mappings using the given
 	 * mapping file pattern.
-	 * @param classLoader the ClassLoader to use for loading
-	 * (can be {@code null}) to use the default ClassLoader)
+	 *
+	 * @param classLoader            the ClassLoader to use for loading
+	 *                               (can be {@code null}) to use the default ClassLoader)
 	 * @param schemaMappingsLocation the location of the file that defines schema mappings
-	 * (must not be empty)
+	 *                               (must not be empty)
 	 * @see PropertiesLoaderUtils#loadAllProperties(String, ClassLoader)
 	 */
 	public PluggableSchemaResolver(@Nullable ClassLoader classLoader, String schemaMappingsLocation) {
@@ -123,8 +127,7 @@ public class PluggableSchemaResolver implements EntityResolver {
 						logger.debug("Found XML schema [" + systemId + "] in classpath: " + resourceLocation);
 					}
 					return source;
-				}
-				catch (FileNotFoundException ex) {
+				} catch (FileNotFoundException ex) {
 					if (logger.isDebugEnabled()) {
 						logger.debug("Couldn't find XML schema [" + systemId + "]: " + resource, ex);
 					}
@@ -156,8 +159,7 @@ public class PluggableSchemaResolver implements EntityResolver {
 						CollectionUtils.mergePropertiesIntoMap(mappings, mappingsToUse);
 						schemaMappings = mappingsToUse;
 						this.schemaMappings = schemaMappings;
-					}
-					catch (IOException ex) {
+					} catch (IOException ex) {
 						throw new IllegalStateException(
 								"Unable to load schema mappings from location [" + this.schemaMappingsLocation + "]", ex);
 					}

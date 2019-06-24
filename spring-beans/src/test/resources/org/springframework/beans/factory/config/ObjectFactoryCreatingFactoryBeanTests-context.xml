@@ -9,7 +9,8 @@
 		<property name="targetBeanName" value="prototypeTarget"/>
 	</bean>
 
-	<bean id="factoryTestBean" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBeanTests$FactoryTestBean">
+	<bean id="factoryTestBean"
+		  class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBeanTests$FactoryTestBean">
 		<property name="objectFactory" ref="prototypeFactory"/>
 	</bean>
 
@@ -17,7 +18,8 @@
 		<property name="targetBeanName" value="prototypeTarget"/>
 	</bean>
 
-	<bean id="providerTestBean" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBeanTests$ProviderTestBean">
+	<bean id="providerTestBean"
+		  class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBeanTests$ProviderTestBean">
 		<property name="provider" ref="prototypeProvider"/>
 	</bean>
 

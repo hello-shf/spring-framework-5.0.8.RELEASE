@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spring:beans xmlns="http://www.springframework.org/schema/beans"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:spring="http://www.springframework.org/schema/beans"
-		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xmlns:spring="http://www.springframework.org/schema/beans"
+			  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<spring:bean id="testBean1" class="org.springframework.tests.sample.beans.TestBean">
 		<spring:meta key="foo" value="bar"/>
@@ -13,7 +13,7 @@
 	</spring:bean>
 
 	<spring:bean id="testBean3" class="org.springframework.tests.sample.beans.TestBean">
-	  <spring:property name="name" value="Rob">
+		<spring:property name="name" value="Rob">
 			<spring:meta key="surname" value="Harrop"/>
 		</spring:property>
 	</spring:bean>

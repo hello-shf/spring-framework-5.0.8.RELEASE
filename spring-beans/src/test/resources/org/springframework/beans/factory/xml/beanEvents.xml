@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <beans default-lazy-init="true" default-autowire="constructor" default-merge="true"
-		default-init-method="myInit" default-destroy-method="myDestroy">
+	   default-init-method="myInit" default-destroy-method="myDestroy">
 
 	<import resource="beanEventsImported.xml"/>
 

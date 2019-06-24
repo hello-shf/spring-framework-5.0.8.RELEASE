@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
  * @author Juergen Hoeller
  * @since 09.11.2003
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class XmlListableBeanFactoryTests extends AbstractListableBeanFactoryTests {
 
 	private DefaultListableBeanFactory parent;
@@ -77,6 +77,7 @@ public class XmlListableBeanFactoryTests extends AbstractListableBeanFactoryTest
 				}
 				return bean;
 			}
+
 			@Override
 			public Object postProcessAfterInitialization(Object bean, String name) throws BeansException {
 				return bean;

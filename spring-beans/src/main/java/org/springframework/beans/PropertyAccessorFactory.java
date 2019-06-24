@@ -29,6 +29,7 @@ public abstract class PropertyAccessorFactory {
 	/**
 	 * Obtain a BeanWrapper for the given target object,
 	 * accessing properties in JavaBeans style.
+	 *
 	 * @param target the target object to wrap
 	 * @return the property accessor
 	 * @see BeanWrapperImpl
@@ -40,6 +41,7 @@ public abstract class PropertyAccessorFactory {
 	/**
 	 * Obtain a PropertyAccessor for the given target object,
 	 * accessing properties in direct field style.
+	 *
 	 * @param target the target object to wrap
 	 * @return the property accessor
 	 * @see DirectFieldAccessor

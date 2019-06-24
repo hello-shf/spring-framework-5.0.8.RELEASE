@@ -42,5 +42,5 @@ inline fun <reified T : Any> BeanFactory.getBean(name: String): T =
  * @author Sebastien Deleuze
  * @since 5.0
  */
-inline fun <reified T : Any> BeanFactory.getBean(vararg args:Any): T =
+inline fun <reified T : Any> BeanFactory.getBean(vararg args: Any): T =
 		getBean(T::class.java, *args)

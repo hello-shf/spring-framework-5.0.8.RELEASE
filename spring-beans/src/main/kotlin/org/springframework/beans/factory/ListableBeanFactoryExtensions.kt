@@ -24,7 +24,7 @@ package org.springframework.beans.factory
  * @since 5.0
  */
 inline fun <reified T : Any> ListableBeanFactory.getBeanNamesForType(includeNonSingletons: Boolean = true,
-		allowEagerInit: Boolean = true): Array<out String> =
+																	 allowEagerInit: Boolean = true): Array<out String> =
 		getBeanNamesForType(T::class.java, includeNonSingletons, allowEagerInit)
 
 /**
@@ -34,7 +34,7 @@ inline fun <reified T : Any> ListableBeanFactory.getBeanNamesForType(includeNonS
  * @since 5.0
  */
 inline fun <reified T : Any> ListableBeanFactory.getBeansOfType(includeNonSingletons: Boolean = true,
-		allowEagerInit: Boolean = true): Map<String, T> =
+																allowEagerInit: Boolean = true): Map<String, T> =
 		getBeansOfType(T::class.java, includeNonSingletons, allowEagerInit)
 
 /**
@@ -64,6 +64,6 @@ inline fun <reified T : Annotation> ListableBeanFactory.getBeansWithAnnotation()
  * @author Sebastien Deleuze
  * @since 5.0
  */
-inline fun <reified T : Annotation> ListableBeanFactory.findAnnotationOnBean(beanName:String): Annotation? =
+inline fun <reified T : Annotation> ListableBeanFactory.findAnnotationOnBean(beanName: String): Annotation? =
 		findAnnotationOnBean(beanName, T::class.java)
 

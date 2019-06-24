@@ -28,17 +28,18 @@ package org.springframework.beans.factory;
  * {@link BeanFactory BeanFactory javadocs}.
  *
  * @author Juergen Hoeller
- * @since 12.08.2003
  * @see org.springframework.beans.factory.support.RootBeanDefinition#getDestroyMethodName
  * @see org.springframework.context.ConfigurableApplicationContext#close
+ * @since 12.08.2003
  */
 public interface DisposableBean {
 
 	/**
 	 * Invoked by a BeanFactory on destruction of a singleton.
+	 *
 	 * @throws Exception in case of shutdown errors.
-	 * Exceptions will get logged but not rethrown to allow
-	 * other beans to release their resources too.
+	 *                   Exceptions will get logged but not rethrown to allow
+	 *                   other beans to release their resources too.
 	 */
 	void destroy() throws Exception;
 

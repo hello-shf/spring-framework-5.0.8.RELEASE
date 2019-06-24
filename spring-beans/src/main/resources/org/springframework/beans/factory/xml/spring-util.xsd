@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <xsd:schema xmlns="http://www.springframework.org/schema/util"
-		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-		xmlns:beans="http://www.springframework.org/schema/beans"
-		xmlns:tool="http://www.springframework.org/schema/tool"
-		targetNamespace="http://www.springframework.org/schema/util"
-		elementFormDefault="qualified"
-		attributeFormDefault="unqualified">
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:beans="http://www.springframework.org/schema/beans"
+			xmlns:tool="http://www.springframework.org/schema/tool"
+			targetNamespace="http://www.springframework.org/schema/util"
+			elementFormDefault="qualified"
+			attributeFormDefault="unqualified">
 
-	<xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
-	<xsd:import namespace="http://www.springframework.org/schema/tool" schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/beans"
+				schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/tool"
+				schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
 
 	<xsd:element name="constant">
 		<xsd:annotation>
 			<xsd:documentation>
-	Reference a public, static field on a type and expose its value as
-	a bean. For example <code>&lt;util:constant static-field=&quot;java.lang.Integer.MAX_VALUE&quot;/&gt;</code>.
+				Reference a public, static field on a type and expose its value as
+				a bean. For example <code>&lt;util:constant
+				static-field=&quot;java.lang.Integer.MAX_VALUE&quot;/&gt;</code>.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexType>
@@ -27,8 +30,8 @@
 	<xsd:element name="property-path">
 		<xsd:annotation>
 			<xsd:documentation>
-	Reference a property on a bean (or as a nested value) and expose its values as
-	a bean. For example &lt;util:property-path path=&quot;order.customer.name&quot;/&gt;.
+				Reference a property on a bean (or as a nested value) and expose its values as
+				a bean. For example &lt;util:property-path path=&quot;order.customer.name&quot;/&gt;.
 			</xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexType>
@@ -40,7 +43,7 @@
 	<xsd:element name="list">
 		<xsd:annotation>
 			<xsd:documentation source="java:org.springframework.beans.factory.config.ListFactoryBean">
-	Builds a List instance of the specified type, populated with the specified content.
+				Builds a List instance of the specified type, populated with the specified content.
 			</xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
@@ -81,7 +84,7 @@
 	<xsd:element name="set">
 		<xsd:annotation>
 			<xsd:documentation source="java:org.springframework.beans.factory.config.SetFactoryBean">
-	Builds a Set instance of the specified type, populated with the specified content.
+				Builds a Set instance of the specified type, populated with the specified content.
 			</xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
@@ -122,7 +125,7 @@
 	<xsd:element name="map">
 		<xsd:annotation>
 			<xsd:documentation source="java:org.springframework.beans.factory.config.MapFactoryBean">
-	Builds a Map instance of the specified type, populated with the specified content.
+				Builds a Map instance of the specified type, populated with the specified content.
 			</xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>
@@ -163,7 +166,8 @@
 	<xsd:element name="properties">
 		<xsd:annotation>
 			<xsd:documentation source="java:org.springframework.beans.factory.config.PropertiesFactoryBean">
-	Loads a Properties instance from the resource location specified by the '<code>location</code>' attribute.
+				Loads a Properties instance from the resource location specified by the '<code>location</code>'
+				attribute.
 			</xsd:documentation>
 			<xsd:appinfo>
 				<tool:annotation>

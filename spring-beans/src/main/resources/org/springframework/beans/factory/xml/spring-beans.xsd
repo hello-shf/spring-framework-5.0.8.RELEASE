@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <xsd:schema xmlns="http://www.springframework.org/schema/beans"
-		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-		targetNamespace="http://www.springframework.org/schema/beans">
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.springframework.org/schema/beans">
 
 	<xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
 
@@ -658,7 +658,8 @@
 			<xsd:sequence>
 				<xsd:element ref="attribute" minOccurs="0" maxOccurs="unbounded"/>
 			</xsd:sequence>
-			<xsd:attribute name="type" type="xsd:string" default="org.springframework.beans.factory.annotation.Qualifier"/>
+			<xsd:attribute name="type" type="xsd:string"
+						   default="org.springframework.beans.factory.annotation.Qualifier"/>
 			<xsd:attribute name="value" type="xsd:string"/>
 		</xsd:complexType>
 	</xsd:element>

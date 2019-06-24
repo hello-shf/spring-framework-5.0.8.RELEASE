@@ -8,6 +8,7 @@
 		<property name="name" value="Rob Harrop"/>
 	</bean>
 
-	<bean id="sally" class="org.springframework.tests.sample.beans.TestBean" p:name="Sally Greenwood" p:spouse-ref="rob"/>
+	<bean id="sally" class="org.springframework.tests.sample.beans.TestBean" p:name="Sally Greenwood"
+		  p:spouse-ref="rob"/>
 
 </beans>

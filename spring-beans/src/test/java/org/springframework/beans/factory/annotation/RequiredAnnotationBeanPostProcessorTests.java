@@ -46,17 +46,16 @@ public class RequiredAnnotationBeanPostProcessorTests {
 		try {
 			DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 			BeanDefinition beanDef = BeanDefinitionBuilder
-				.genericBeanDefinition(RequiredTestBean.class)
-				.addPropertyValue("name", "Rob Harrop")
-				.addPropertyValue("favouriteColour", "Blue")
-				.addPropertyValue("jobTitle", "Grand Poobah")
-				.getBeanDefinition();
+					.genericBeanDefinition(RequiredTestBean.class)
+					.addPropertyValue("name", "Rob Harrop")
+					.addPropertyValue("favouriteColour", "Blue")
+					.addPropertyValue("jobTitle", "Grand Poobah")
+					.getBeanDefinition();
 			factory.registerBeanDefinition("testBean", beanDef);
 			factory.addBeanPostProcessor(new RequiredAnnotationBeanPostProcessor());
 			factory.preInstantiateSingletons();
 			fail("Should have thrown BeanCreationException");
-		}
-		catch (BeanCreationException ex) {
+		} catch (BeanCreationException ex) {
 			String message = ex.getCause().getMessage();
 			assertTrue(message.contains("Property"));
 			assertTrue(message.contains("age"));
@@ -69,15 +68,14 @@ public class RequiredAnnotationBeanPostProcessorTests {
 		try {
 			DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 			BeanDefinition beanDef = BeanDefinitionBuilder
-				.genericBeanDefinition(RequiredTestBean.class)
-				.addPropertyValue("name", "Rob Harrop")
-				.getBeanDefinition();
+					.genericBeanDefinition(RequiredTestBean.class)
+					.addPropertyValue("name", "Rob Harrop")
+					.getBeanDefinition();
 			factory.registerBeanDefinition("testBean", beanDef);
 			factory.addBeanPostProcessor(new RequiredAnnotationBeanPostProcessor());
 			factory.preInstantiateSingletons();
 			fail("Should have thrown BeanCreationException");
-		}
-		catch (BeanCreationException ex) {
+		} catch (BeanCreationException ex) {
 			String message = ex.getCause().getMessage();
 			assertTrue(message.contains("Properties"));
 			assertTrue(message.contains("age"));
@@ -91,11 +89,11 @@ public class RequiredAnnotationBeanPostProcessorTests {
 	public void testWithAllRequiredPropertiesSpecified() {
 		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 		BeanDefinition beanDef = BeanDefinitionBuilder
-			.genericBeanDefinition(RequiredTestBean.class)
-			.addPropertyValue("age", "24")
-			.addPropertyValue("favouriteColour", "Blue")
-			.addPropertyValue("jobTitle", "Grand Poobah")
-			.getBeanDefinition();
+				.genericBeanDefinition(RequiredTestBean.class)
+				.addPropertyValue("age", "24")
+				.addPropertyValue("favouriteColour", "Blue")
+				.addPropertyValue("jobTitle", "Grand Poobah")
+				.getBeanDefinition();
 		factory.registerBeanDefinition("testBean", beanDef);
 		factory.addBeanPostProcessor(new RequiredAnnotationBeanPostProcessor());
 		factory.preInstantiateSingletons();
@@ -109,16 +107,15 @@ public class RequiredAnnotationBeanPostProcessorTests {
 		try {
 			DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 			BeanDefinition beanDef = BeanDefinitionBuilder
-				.genericBeanDefinition(RequiredTestBean.class)
-				.getBeanDefinition();
+					.genericBeanDefinition(RequiredTestBean.class)
+					.getBeanDefinition();
 			factory.registerBeanDefinition("testBean", beanDef);
 			RequiredAnnotationBeanPostProcessor rabpp = new RequiredAnnotationBeanPostProcessor();
 			rabpp.setRequiredAnnotationType(MyRequired.class);
 			factory.addBeanPostProcessor(rabpp);
 			factory.preInstantiateSingletons();
 			fail("Should have thrown BeanCreationException");
-		}
-		catch (BeanCreationException ex) {
+		} catch (BeanCreationException ex) {
 			String message = ex.getCause().getMessage();
 			assertTrue(message.contains("Property"));
 			assertTrue(message.contains("name"));
@@ -141,8 +138,7 @@ public class RequiredAnnotationBeanPostProcessorTests {
 			factory.addBeanPostProcessor(new RequiredAnnotationBeanPostProcessor());
 			factory.preInstantiateSingletons();
 			fail("Should have thrown BeanCreationException");
-		}
-		catch (BeanCreationException ex) {
+		} catch (BeanCreationException ex) {
 			String message = ex.getCause().getMessage();
 			assertTrue(message.contains("Property"));
 			assertTrue(message.contains("age"));
