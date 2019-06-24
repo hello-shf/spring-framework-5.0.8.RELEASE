@@ -13,8 +13,10 @@
 		]]></xsd:documentation>
 	</xsd:annotation>
 
-	<xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
-	<xsd:import namespace="http://www.springframework.org/schema/tool" schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/beans"
+				schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/tool"
+				schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
 
 	<xsd:element name="annotation-driven">
 		<xsd:annotation>
@@ -286,7 +288,7 @@
 	Reference to an object that provides a method to be invoked.
 				]]></xsd:documentation>
 				<xsd:appinfo>
-					<tool:annotation kind="ref" />
+					<tool:annotation kind="ref"/>
 				</xsd:appinfo>
 			</xsd:annotation>
 		</xsd:attribute>

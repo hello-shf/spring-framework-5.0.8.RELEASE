@@ -45,9 +45,9 @@ public class SimpleReflectiveMBeanInfoAssembler extends AbstractConfigurableMBea
 		return true;
 	}
 
-  /**
-   * Always returns {@code true}.
-   */
+	/**
+	 * Always returns {@code true}.
+	 */
 	@Override
 	protected boolean includeOperation(Method method, String beanKey) {
 		return true;

@@ -45,7 +45,7 @@ import org.springframework.stereotype.Component;
  * <h2>Bootstrapping {@code @Configuration} classes</h2>
  *
  * <h3>Via {@code AnnotationConfigApplicationContext}</h3>
- *
+ * <p>
  * {@code @Configuration} classes are typically bootstrapped using either
  * {@link AnnotationConfigApplicationContext} or its web-capable variant,
  * {@link org.springframework.web.context.support.AnnotationConfigWebApplicationContext
@@ -58,7 +58,7 @@ import org.springframework.stereotype.Component;
  * MyBean myBean = ctx.getBean(MyBean.class);
  * // use myBean ...
  * </pre>
- *
+ * <p>
  * See {@link AnnotationConfigApplicationContext} Javadoc for further details and see
  * {@link org.springframework.web.context.support.AnnotationConfigWebApplicationContext
  * AnnotationConfigWebApplicationContext} for {@code web.xml} configuration instructions.
@@ -74,7 +74,7 @@ import org.springframework.stereotype.Component;
  *    <context:annotation-config/>
  *    <bean class="com.acme.AppConfig"/>
  * </beans>}</pre>
- *
+ * <p>
  * In the example above, {@code <context:annotation-config/>} is required in order to
  * enable {@link ConfigurationClassPostProcessor} and other annotation-related
  * post processors that facilitate handling {@code @Configuration} classes.
@@ -111,13 +111,13 @@ import org.springframework.stereotype.Component;
  * public class AppConfig {
  *     // various &#064;Bean definitions ...
  * }</pre>
- *
+ * <p>
  * See the {@link ComponentScan @ComponentScan} javadoc for details.
  *
  * <h2>Working with externalized values</h2>
  *
  * <h3>Using the {@code Environment} API</h3>
- *
+ * <p>
  * Externalized values may be looked up by injecting the Spring
  * {@link org.springframework.core.env.Environment} into a {@code @Configuration}
  * class as usual (e.g. using the {@code @Autowired} annotation):
@@ -135,7 +135,7 @@ import org.springframework.stereotype.Component;
  *         return myBean;
  *     }
  * }</pre>
- *
+ * <p>
  * Properties resolved through the {@code Environment} reside in one or more "property
  * source" objects, and {@code @Configuration} classes may contribute property sources to
  * the {@code Environment} object using the {@link PropertySource @PropertySource}
@@ -153,12 +153,12 @@ import org.springframework.stereotype.Component;
  *         return new MyBean(env.getProperty("bean.name"));
  *     }
  * }</pre>
- *
+ * <p>
  * See {@link org.springframework.core.env.Environment Environment}
  * and {@link PropertySource @PropertySource} Javadoc for further details.
  *
  * <h3>Using the {@code @Value} annotation</h3>
- *
+ * <p>
  * Externalized values may be 'wired into' {@code @Configuration} classes using
  * the {@link Value @Value} annotation:
  *
@@ -174,7 +174,7 @@ import org.springframework.stereotype.Component;
  *         return new MyBean(beanName);
  *     }
  * }</pre>
- *
+ * <p>
  * This approach is most useful when using Spring's
  * {@link org.springframework.context.support.PropertySourcesPlaceholderConfigurer
  * PropertySourcesPlaceholderConfigurer}, usually enabled via XML with
@@ -219,7 +219,7 @@ import org.springframework.stereotype.Component;
  *         return new MyBean(dataConfig.dataSource());
  *     }
  * }</pre>
- *
+ * <p>
  * Now both {@code AppConfig} and the imported {@code DatabaseConfig} can be bootstrapped
  * by registering only {@code AppConfig} against the Spring context:
  *
@@ -227,7 +227,7 @@ import org.springframework.stereotype.Component;
  * new AnnotationConfigApplicationContext(AppConfig.class);</pre>
  *
  * <h3>With the {@code @Profile} annotation</h3>
- *
+ * <p>
  * {@code @Configuration} classes may be marked with the {@link Profile @Profile} annotation to
  * indicate they should be processed only if a given profile or profiles are <em>active</em>:
  *
@@ -251,7 +251,7 @@ import org.springframework.stereotype.Component;
  *         // instantiate, configure and return production DataSource
  *     }
  * }</pre>
- *
+ * <p>
  * Alternatively, you may also declare profile conditions at the {@code @Bean} method level,
  * e.g. for alternative bean variants within the same configuration class:
  *
@@ -267,12 +267,12 @@ import org.springframework.stereotype.Component;
  *     &#064;Profile("production")
  *     public DataSource productionDatabase() { ... }
  * }</pre>
- *
+ * <p>
  * See the {@link Profile @Profile} and {@link org.springframework.core.env.Environment}
  * javadocs for further details.
  *
  * <h3>With Spring XML using the {@code @ImportResource} annotation</h3>
- *
+ * <p>
  * As mentioned above, {@code @Configuration} classes may be declared as regular Spring
  * {@code <bean>} definitions within Spring XML files. It is also possible to
  * import Spring XML configuration files into {@code @Configuration} classes using
@@ -294,7 +294,7 @@ import org.springframework.stereotype.Component;
  * }</pre>
  *
  * <h3>With nested {@code @Configuration} classes</h3>
- *
+ * <p>
  * {@code @Configuration} classes may be nested within one another as follows:
  *
  * <pre class="code">
@@ -316,7 +316,7 @@ import org.springframework.stereotype.Component;
  *         }
  *     }
  * }</pre>
- *
+ * <p>
  * When bootstrapping such an arrangement, only {@code AppConfig} need be registered
  * against the application context. By virtue of being a nested {@code @Configuration}
  * class, {@code DatabaseConfig} <em>will be registered automatically</em>. This avoids
@@ -336,7 +336,7 @@ import org.springframework.stereotype.Component;
  * individual {@code @Bean} methods as well.
  *
  * <h2>Testing support for {@code @Configuration} classes</h2>
- *
+ * <p>
  * The Spring <em>TestContext framework</em> available in the {@code spring-test} module
  * provides the {@code @ContextConfiguration} annotation, which as of Spring 3.1 can
  * accept an array of {@code @Configuration} {@code Class} objects:
@@ -355,11 +355,11 @@ import org.springframework.stereotype.Component;
  *         // assertions against myBean ...
  *     }
  * }</pre>
- *
+ * <p>
  * See TestContext framework reference documentation for details.
  *
  * <h2>Enabling built-in Spring features using {@code @Enable} annotations</h2>
- *
+ * <p>
  * Spring features such as asynchronous method execution, scheduled task execution,
  * annotation driven transaction management, and even Spring MVC can be enabled and
  * configured from {@code @Configuration}
@@ -386,7 +386,6 @@ import org.springframework.stereotype.Component;
  *
  * @author Rod Johnson
  * @author Chris Beams
- * @since 3.0
  * @see Bean
  * @see Profile
  * @see Import
@@ -398,6 +397,7 @@ import org.springframework.stereotype.Component;
  * @see ConfigurationClassPostProcessor
  * @see org.springframework.core.env.Environment
  * @see org.springframework.test.context.ContextConfiguration
+ * @since 3.0
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -413,6 +413,7 @@ public @interface Configuration {
 	 * component scanning or supplied directly to a {@link AnnotationConfigApplicationContext}.
 	 * If the Configuration class is registered as a traditional XML bean definition,
 	 * the name/id of the bean element will take precedence.
+	 *
 	 * @return the suggested component name, if any (or empty String otherwise)
 	 * @see org.springframework.beans.factory.support.DefaultBeanNameGenerator
 	 */

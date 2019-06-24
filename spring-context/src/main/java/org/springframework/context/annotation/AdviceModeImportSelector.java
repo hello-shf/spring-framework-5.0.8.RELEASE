@@ -29,9 +29,9 @@ import org.springframework.util.Assert;
  * based on an {@link AdviceMode} value from an annotation (such as the {@code @Enable*}
  * annotations).
  *
+ * @param <A> annotation containing {@linkplain #getAdviceModeAttributeName() AdviceMode attribute}
  * @author Chris Beams
  * @since 3.1
- * @param <A> annotation containing {@linkplain #getAdviceModeAttributeName() AdviceMode attribute}
  */
 public abstract class AdviceModeImportSelector<A extends Annotation> implements ImportSelector {
 
@@ -55,9 +55,10 @@ public abstract class AdviceModeImportSelector<A extends Annotation> implements 
 	 * {@link AdviceMode}.
 	 * <p>The {@link #selectImports(AdviceMode)} method is then invoked, allowing the
 	 * concrete implementation to choose imports in a safe and convenient fashion.
+	 *
 	 * @throws IllegalArgumentException if expected annotation {@code A} is not present
-	 * on the importing {@code @Configuration} class or if {@link #selectImports(AdviceMode)}
-	 * returns {@code null}
+	 *                                  on the importing {@code @Configuration} class or if {@link #selectImports(AdviceMode)}
+	 *                                  returns {@code null}
 	 */
 	@Override
 	public final String[] selectImports(AnnotationMetadata importingClassMetadata) {
@@ -67,8 +68,8 @@ public abstract class AdviceModeImportSelector<A extends Annotation> implements 
 		AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(importingClassMetadata, annType);
 		if (attributes == null) {
 			throw new IllegalArgumentException(String.format(
-				"@%s is not present on importing class '%s' as expected",
-				annType.getSimpleName(), importingClassMetadata.getClassName()));
+					"@%s is not present on importing class '%s' as expected",
+					annType.getSimpleName(), importingClassMetadata.getClassName()));
 		}
 
 		AdviceMode adviceMode = attributes.getEnum(this.getAdviceModeAttributeName());
@@ -84,8 +85,9 @@ public abstract class AdviceModeImportSelector<A extends Annotation> implements 
 	 * <p>Returning {@code null} from this method indicates that the {@code AdviceMode} could
 	 * not be handled or was unknown and that an {@code IllegalArgumentException} should
 	 * be thrown.
+	 *
 	 * @param adviceMode the value of the {@linkplain #getAdviceModeAttributeName()
-	 * advice mode attribute} for the annotation specified via generics.
+	 *                   advice mode attribute} for the annotation specified via generics.
 	 * @return array containing classes to import; empty array if none, {@code null} if
 	 * the given {@code AdviceMode} is unknown.
 	 */

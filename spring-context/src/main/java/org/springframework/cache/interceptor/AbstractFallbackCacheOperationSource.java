@@ -165,6 +165,7 @@ public abstract class AbstractFallbackCacheOperationSource implements CacheOpera
 	/**
 	 * Subclasses need to implement this to return the caching attribute
 	 * for the given method, if any.
+	 *
 	 * @param method the method to retrieve the attribute for
 	 * @return all caching attribute associated with this method
 	 * (or {@code null} if none)

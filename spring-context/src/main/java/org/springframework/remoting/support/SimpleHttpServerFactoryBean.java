@@ -48,9 +48,9 @@ import org.springframework.lang.UsesSunHttpServer;
  *
  * @author Juergen Hoeller
  * @author Arjen Poutsma
- * @since 2.5.1
  * @see #setPort
  * @see #setContexts
+ * @since 2.5.1
  */
 @UsesSunHttpServer
 public class SimpleHttpServerFactoryBean implements FactoryBean<HttpServer>, InitializingBean, DisposableBean {
@@ -109,6 +109,7 @@ public class SimpleHttpServerFactoryBean implements FactoryBean<HttpServer>, Ini
 
 	/**
 	 * Set the JDK concurrent executor to use for dispatching incoming requests.
+	 *
 	 * @see com.sun.net.httpserver.HttpServer#setExecutor
 	 */
 	public void setExecutor(Executor executor) {
@@ -118,8 +119,9 @@ public class SimpleHttpServerFactoryBean implements FactoryBean<HttpServer>, Ini
 	/**
 	 * Register {@link com.sun.net.httpserver.HttpHandler HttpHandlers}
 	 * for specific context paths.
+	 *
 	 * @param contexts a Map with context paths as keys and HttpHandler
-	 * objects as values
+	 *                 objects as values
 	 * @see org.springframework.remoting.httpinvoker.SimpleHttpInvokerServiceExporter
 	 * @see org.springframework.remoting.caucho.SimpleHessianServiceExporter
 	 */

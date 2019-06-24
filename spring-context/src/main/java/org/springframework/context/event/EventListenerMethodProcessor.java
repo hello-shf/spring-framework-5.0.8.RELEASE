@@ -87,8 +87,7 @@ public class EventListenerMethodProcessor implements SmartInitializingSingleton,
 				Class<?> type = null;
 				try {
 					type = AutoProxyUtils.determineTargetClass(context.getBeanFactory(), beanName);
-				}
-				catch (Throwable ex) {
+				} catch (Throwable ex) {
 					// An unresolvable bean type, probably from a lazy bean - let's ignore it.
 					if (logger.isDebugEnabled()) {
 						logger.debug("Could not resolve target class for bean with name '" + beanName + "'", ex);
@@ -102,8 +101,7 @@ public class EventListenerMethodProcessor implements SmartInitializingSingleton,
 							if (targetClass != null) {
 								type = targetClass;
 							}
-						}
-						catch (Throwable ex) {
+						} catch (Throwable ex) {
 							// An invalid scoped proxy arrangement - let's ignore it.
 							if (logger.isDebugEnabled()) {
 								logger.debug("Could not resolve target bean for scoped proxy '" + beanName + "'", ex);
@@ -112,8 +110,7 @@ public class EventListenerMethodProcessor implements SmartInitializingSingleton,
 					}
 					try {
 						processBean(factories, beanName, type);
-					}
-					catch (Throwable ex) {
+					} catch (Throwable ex) {
 						throw new BeanInitializationException("Failed to process @EventListener " +
 								"annotation on bean with name '" + beanName + "'", ex);
 					}
@@ -143,8 +140,7 @@ public class EventListenerMethodProcessor implements SmartInitializingSingleton,
 				annotatedMethods = MethodIntrospector.selectMethods(targetType,
 						(MethodIntrospector.MetadataLookup<EventListener>) method ->
 								AnnotatedElementUtils.findMergedAnnotation(method, EventListener.class));
-			}
-			catch (Throwable ex) {
+			} catch (Throwable ex) {
 				// An unresolvable type in a method signature, probably from a lazy bean - let's ignore it.
 				if (logger.isDebugEnabled()) {
 					logger.debug("Could not resolve methods for bean with name '" + beanName + "'", ex);
@@ -155,8 +151,7 @@ public class EventListenerMethodProcessor implements SmartInitializingSingleton,
 				if (logger.isTraceEnabled()) {
 					logger.trace("No @EventListener annotations found on bean class: " + targetType.getName());
 				}
-			}
-			else {
+			} else {
 				// Non-empty set of methods
 				ConfigurableApplicationContext context = getApplicationContext();
 				for (Method method : annotatedMethods.keySet()) {

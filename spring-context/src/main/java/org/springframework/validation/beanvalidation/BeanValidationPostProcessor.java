@@ -58,6 +58,7 @@ public class BeanValidationPostProcessor implements BeanPostProcessor, Initializ
 	 * Set the JSR-303 ValidatorFactory to delegate to for validating beans,
 	 * using its default Validator.
 	 * <p>Default is the default ValidatorFactory's default Validator.
+	 *
 	 * @see javax.validation.ValidatorFactory#getValidator()
 	 */
 	public void setValidatorFactory(ValidatorFactory validatorFactory) {
@@ -102,6 +103,7 @@ public class BeanValidationPostProcessor implements BeanPostProcessor, Initializ
 
 	/**
 	 * Perform validation of the given bean.
+	 *
 	 * @param bean the bean instance to validate
 	 * @see javax.validation.Validator#validate
 	 */
@@ -110,7 +112,7 @@ public class BeanValidationPostProcessor implements BeanPostProcessor, Initializ
 		Set<ConstraintViolation<Object>> result = this.validator.validate(bean);
 		if (!result.isEmpty()) {
 			StringBuilder sb = new StringBuilder("Bean state is invalid: ");
-			for (Iterator<ConstraintViolation<Object>> it = result.iterator(); it.hasNext();) {
+			for (Iterator<ConstraintViolation<Object>> it = result.iterator(); it.hasNext(); ) {
 				ConstraintViolation<Object> violation = it.next();
 				sb.append(violation.getPropertyPath()).append(" - ").append(violation.getMessage());
 				if (it.hasNext()) {

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <xsd:schema xmlns="http://www.springframework.org/schema/jee"
-		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-		xmlns:beans="http://www.springframework.org/schema/beans"
-		xmlns:tool="http://www.springframework.org/schema/tool"
-		targetNamespace="http://www.springframework.org/schema/jee"
-		elementFormDefault="qualified"
-		attributeFormDefault="unqualified">
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:beans="http://www.springframework.org/schema/beans"
+			xmlns:tool="http://www.springframework.org/schema/tool"
+			targetNamespace="http://www.springframework.org/schema/jee"
+			elementFormDefault="qualified"
+			attributeFormDefault="unqualified">
 
-	<xsd:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
-	<xsd:import namespace="http://www.springframework.org/schema/tool" schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/beans"
+				schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+	<xsd:import namespace="http://www.springframework.org/schema/tool"
+				schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
 
 	<xsd:annotation>
 		<xsd:documentation><![CDATA[
@@ -97,7 +99,8 @@
 
 	<xsd:element name="local-slsb" type="ejbType">
 		<xsd:annotation>
-			<xsd:documentation source="java:org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean"><![CDATA[
+			<xsd:documentation source="java:org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
+				<![CDATA[
 	Exposes a reference to a local EJB Stateless SessionBean.
 			]]></xsd:documentation>
 		</xsd:annotation>
@@ -105,7 +108,8 @@
 
 	<xsd:element name="remote-slsb">
 		<xsd:annotation>
-			<xsd:documentation source="java:org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean"><![CDATA[
+			<xsd:documentation
+					source="java:org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean"><![CDATA[
 	Exposes a reference to a remote EJB Stateless SessionBean.
 			]]></xsd:documentation>
 		</xsd:annotation>

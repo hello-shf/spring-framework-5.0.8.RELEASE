@@ -39,7 +39,7 @@ inline fun <reified T : Any> GenericApplicationContext.registerBean(vararg custo
  * @since 5.0
  */
 inline fun <reified T : Any> GenericApplicationContext.registerBean(beanName: String,
-		vararg customizers: BeanDefinitionCustomizer) {
+																	vararg customizers: BeanDefinitionCustomizer) {
 	registerBean(beanName, T::class.java, *customizers)
 }
 
@@ -62,7 +62,7 @@ inline fun <reified T : Any> GenericApplicationContext.registerBean(
  * @since 5.0
  */
 inline fun <reified T : Any> GenericApplicationContext.registerBean(name: String,
-		vararg customizers: BeanDefinitionCustomizer, crossinline function: (ApplicationContext) -> T) {
+																	vararg customizers: BeanDefinitionCustomizer, crossinline function: (ApplicationContext) -> T) {
 	registerBean(name, T::class.java, Supplier { function.invoke(this) }, *customizers)
 }
 

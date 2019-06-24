@@ -96,6 +96,7 @@ public abstract class CacheOperation implements BasicOperation {
 
 	/**
 	 * This implementation compares the {@code toString()} results.
+	 *
 	 * @see #toString()
 	 */
 	@Override
@@ -105,6 +106,7 @@ public abstract class CacheOperation implements BasicOperation {
 
 	/**
 	 * This implementation returns {@code toString()}'s hash code.
+	 *
 	 * @see #toString()
 	 */
 	@Override
@@ -117,6 +119,7 @@ public abstract class CacheOperation implements BasicOperation {
 	 * <p>Returned value is produced by calling {@link Builder#getOperationDescription()}
 	 * during object construction. This method is used in {@link #hashCode} and
 	 * {@link #equals}.
+	 *
 	 * @see Builder#getOperationDescription()
 	 */
 	@Override

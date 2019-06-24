@@ -122,6 +122,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 */
 	@Override
 	protected final void refreshBeanFactory() throws BeansException {
+		//如果已经有容器存在，那么需要将原有的容器销毁和关闭
 		if (hasBeanFactory()) {
 			destroyBeans();
 			closeBeanFactory();
@@ -134,8 +135,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			synchronized (this.beanFactoryMonitor) {
 				this.beanFactory = beanFactory;
 			}
-		}
-		catch (IOException ex) {
+		} catch (IOException ex) {
 			throw new ApplicationContextException("I/O error parsing bean definition source for " + getDisplayName(), ex);
 		}
 	}

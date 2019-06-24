@@ -39,6 +39,11 @@ import org.springframework.lang.Nullable;
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 03.11.2003
+ *
+ * 此接口实现了 ApplicationContext 需要实现的接口，它在ApplicationContext的基础上增加了一系列配置应用上下文的功能。
+ * 提供一系列配置应用程序上下文的工具
+ * 配置应用上下文和控制应用上下文生命周期的方法在此接口中被封装起来，以免客户端程序直接使用。
+ * 目前的方法只能在启动和关闭代码中使用。
  */
 public interface ConfigurableApplicationContext extends ApplicationContext, Lifecycle, Closeable {
 
